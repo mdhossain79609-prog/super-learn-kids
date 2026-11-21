@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUPER LEARN KIDS - Alphabet Test</title>
+<title>SUPER LEARN KIDS - Alphabet</title>
 
 <style>
 *{
@@ -17,25 +17,40 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
+  font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
 body{
-  font-family:"Trebuchet MS",Arial,sans-serif;
-  background:linear-gradient(135deg,#37c5ff,#8b5cf6,#ff91c8);
+  background:linear-gradient(
+    125deg,
+    #19c9ee,
+    #7860ed,
+    #ed65b5,
+    #ff9b52,
+    #48c9a5
+  );
+  background-size:300% 300%;
+  animation:bgMove 14s ease infinite;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 .screen{
   display:none;
   width:100%;
   height:100dvh;
-  padding:10px;
-  overflow:hidden;
+  padding:9px;
   flex-direction:column;
+  overflow:hidden;
 }
 
-.screen.active{
-  display:flex;
-}
+.screen.active{display:flex}
+
+/* TOP BAR */
 
 .topbar{
   display:flex;
@@ -45,57 +60,59 @@ body{
 }
 
 .top-btn{
-  border:0;
-  border-radius:16px;
-  padding:9px 15px;
-  background:linear-gradient(145deg,#fff,#cceaff);
-  color:#1455a0;
-  font-weight:900;
-  font-size:14px;
-  box-shadow:0 5px 0 #78a9d5;
+  border:2px solid #fff;
+  border-radius:15px;
+  padding:9px 13px;
+  background:linear-gradient(145deg,#fff,#d9edff);
+  color:#174f9b;
+  font-size:13px;
+  font-weight:1000;
+  box-shadow:0 4px 0 #456b9c;
 }
+
+/* ALPHABET HOME */
 
 .heading{
   text-align:center;
-  color:white;
-  font-size:clamp(23px,6vw,34px);
+  color:#fff;
+  font-size:clamp(24px,6vw,36px);
   font-weight:1000;
-  text-shadow:2px 4px 0 #3652a8;
-  margin:12px 0 3px;
+  margin:10px 0 3px;
+  text-shadow:2px 3px 0 #4930a5,4px 6px 8px #0006;
 }
 
 .subtitle{
-  color:white;
   text-align:center;
-  font-weight:900;
+  color:#fff;
   font-size:12px;
-  text-shadow:1px 2px 3px #345;
+  font-weight:1000;
+  text-shadow:1px 2px 3px #333;
 }
 
 .mode-buttons{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin:13px 0;
+  margin:12px 0;
   flex-shrink:0;
 }
 
 .mode-btn{
-  border:0;
-  border-radius:17px;
-  padding:12px 5px;
+  border:2px solid #fff;
+  border-radius:16px;
+  padding:12px 4px;
   color:white;
   font-size:clamp(11px,3vw,15px);
   font-weight:1000;
-  box-shadow:0 6px 0 #0003;
+  box-shadow:0 5px 0 #0004;
 }
 
 .learn-btn{
-  background:linear-gradient(145deg,#ffca28,#ff6d00);
+  background:linear-gradient(145deg,#ffcf35,#ff6500);
 }
 
 .listen-btn{
-  background:linear-gradient(145deg,#c05cff,#7138d5);
+  background:linear-gradient(145deg,#d15cff,#7134d9);
 }
 
 .mode-btn.selected{
@@ -113,16 +130,13 @@ body{
 }
 
 .letter-card{
-  border:2px solid #ffffffa8;
+  border:2px solid #ffffffc9;
   border-radius:15px;
   color:white;
   font-size:clamp(25px,7vw,40px);
   font-weight:1000;
-  text-shadow:2px 3px 2px #3338;
-  box-shadow:
-    inset 0 4px 5px #ffffffa8,
-    0 6px 0 #0003,
-    0 9px 12px #0002;
+  text-shadow:2px 3px 0 #3338,4px 5px 7px #0005;
+  box-shadow:inset 0 3px 5px #fff9,0 5px 0 #0003;
   background:linear-gradient(145deg,#ff8baf,#e82e75);
 }
 
@@ -146,93 +160,155 @@ body{
   color:white;
   text-align:center;
   font-size:11px;
-  font-weight:900;
+  font-weight:1000;
   padding:7px 0 2px;
   flex-shrink:0;
 }
 
-/* Lesson screen */
+/* LESSON SCREEN */
 
 .lesson-title{
   text-align:center;
-  color:white;
-  font-size:20px;
+  color:#fff;
+  font-size:clamp(15px,4vw,20px);
   font-weight:1000;
-  margin:10px 0;
-  text-shadow:1px 3px 3px #345;
+  margin:3px 0;
+  text-shadow:2px 3px 0 #4930a5,3px 5px 6px #0006;
+  flex-shrink:0;
 }
 
-.lesson-card{
-  flex:1;
-  min-height:0;
-  border:3px solid white;
-  border-radius:22px;
-  background:linear-gradient(145deg,#fff1ff,#dff6ff);
-  box-shadow:0 8px 0 #5268b5;
+/* BIG A a */
+
+.big-letter{
+  flex-shrink:0;
+  width:100%;
+  min-height:clamp(95px,20vh,160px);
   display:flex;
-  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(20px,7vw,50px);
+  overflow:visible;
+}
+
+.big-letter span{
+  font-size:clamp(95px,27vw,155px);
+  line-height:1;
+  font-weight:1000;
+  color:#fff72b;
+  -webkit-text-stroke:2px #ff9415;
+  text-shadow:
+    1px 1px 0 #ffc000,
+    2px 2px 0 #e68b00,
+    4px 4px 0 #c35c00,
+    6px 7px 0 #8d3800,
+    9px 12px 12px #0008;
+  animation:letterFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes letterFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+/* 3D COLORFUL TEXT */
+
+.lesson-word{
+  flex-shrink:0;
+  text-align:center;
+  font-size:clamp(27px,7.5vw,42px);
+  font-weight:1000;
+  background:linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fff45b 25%,
+    #ffad27 55%,
+    #ff5b29 100%
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-stroke:1px #fff0a0;
+  filter:drop-shadow(2px 3px 0 #a63d08)
+         drop-shadow(4px 6px 0 #73300b)
+         drop-shadow(6px 8px 5px #0006);
+  padding:3px 0 7px;
+  animation:wordFloat 3s ease-in-out infinite;
+}
+
+@keyframes wordFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+
+/* PNG IMAGE AREA */
+
+.lesson-image-box{
+  flex:1;
+  min-height:70px;
+  max-height:230px;
+  width:100%;
+  display:flex;
   align-items:center;
   justify-content:center;
-  gap:9px;
-  padding:10px;
   overflow:hidden;
 }
 
-.image-area{
-  width:100%;
-  flex:1;
-  min-height:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.image-area img{
+.lesson-image-box img{
+  display:block;
   width:100%;
   height:100%;
   object-fit:contain;
-  filter:drop-shadow(0 9px 7px #3335);
+  filter:drop-shadow(0 9px 8px #0005);
 }
 
-.image-placeholder{
-  width:100%;
-  height:100%;
-  border-radius:18px;
-  background:linear-gradient(145deg,#a84aff,#6815ce);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ffe34c;
-  font-size:100px;
-  font-weight:1000;
-  text-shadow:4px 6px 0 #48208a;
+.image-fallback{
+  display:none;
+  font-size:clamp(65px,19vw,115px);
+  filter:drop-shadow(0 8px 6px #0005);
 }
 
-.lesson-word{
-  color:#e84b25;
-  font-size:clamp(22px,6vw,32px);
-  font-weight:1000;
-  text-align:center;
-  text-shadow:1px 2px 0 white;
-}
+/* APPLE - আপেল */
 
 .bangla-word{
-  color:#165dc1;
-  font-size:clamp(17px,4.5vw,23px);
-  font-weight:1000;
+  flex-shrink:0;
   text-align:center;
+  font-size:clamp(22px,6vw,34px);
+  font-weight:1000;
+  background:linear-gradient(
+    180deg,
+    #ffffff,
+    #b9fffb 40%,
+    #45e7ff 75%,
+    #1685e8
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-stroke:.7px white;
+  filter:drop-shadow(2px 3px 0 #1455a0)
+         drop-shadow(4px 6px 0 #103e83)
+         drop-shadow(5px 8px 5px #0006);
+  padding:3px 0 7px;
 }
 
+/* BANGLA RHYME */
+
 .rhyme{
-  color:#49308a;
-  font-size:clamp(15px,4vw,20px);
-  font-weight:900;
-  text-align:center;
-  padding:8px;
-  border-radius:12px;
-  background:#fff;
+  flex-shrink:0;
   width:100%;
+  text-align:center;
+  color:#fff;
+  font-size:clamp(16px,4.5vw,23px);
+  font-weight:1000;
+  text-shadow:
+    1px 2px 0 #a51c96,
+    2px 3px 0 #76258e,
+    4px 5px 0 #4e246e,
+    5px 7px 7px #0007;
+  padding:5px 0;
 }
+
+/* BUTTONS */
 
 .voice-buttons{
   width:100%;
@@ -240,146 +316,114 @@ body{
   grid-template-columns:repeat(3,1fr);
   gap:7px;
   flex-shrink:0;
+  margin-top:4px;
 }
 
 .voice-btn{
-  border:0;
+  border:2px solid #fff;
   border-radius:14px;
-  padding:11px 3px;
+  padding:10px 2px;
   color:white;
-  font-size:clamp(10px,2.8vw,13px);
+  font-size:clamp(10px,2.8vw,14px);
   font-weight:1000;
-  box-shadow:0 5px 0 #0003;
+  text-shadow:1px 2px 2px #0005;
+  box-shadow:0 5px 0 #0004;
 }
 
-.english-btn{background:linear-gradient(145deg,#28a8ff,#075bc9)}
-.bangla-btn{background:linear-gradient(145deg,#42df87,#07964d)}
-.all-btn{background:linear-gradient(145deg,#ffba35,#f15b08)}
+.english-btn{
+  background:linear-gradient(145deg,#28a8ff,#075bc9);
+}
+.bangla-btn{
+  background:linear-gradient(145deg,#42df87,#07964d);
+}
+.all-btn{
+  background:linear-gradient(145deg,#ffba35,#f15b08);
+}
+
+/* HOME + ALL LETTERS */
+
+.extra-buttons{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+  flex-shrink:0;
+}
+
+.extra-btn{
+  border:2px solid white;
+  border-radius:14px;
+  padding:9px 3px;
+  color:#1455a0;
+  background:linear-gradient(145deg,#fff,#d7edff);
+  font-size:clamp(12px,3.3vw,15px);
+  font-weight:1000;
+  box-shadow:0 4px 0 #456b9c;
+}
+
+/* PREVIOUS A-Z NEXT */
 
 .lesson-navigation{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  gap:8px;
-  margin-top:10px;
+  gap:7px;
+  margin-top:8px;
   flex-shrink:0;
 }
 
 .nav-btn{
-  border:0;
-  border-radius:13px;
-  padding:10px 3px;
-  background:linear-gradient(145deg,#fff,#c9e7ff);
+  border:2px solid white;
+  border-radius:14px;
+  padding:9px 2px;
   color:#1455a0;
+  background:linear-gradient(145deg,#fff,#c9e7ff);
+  font-size:clamp(11px,3vw,15px);
   font-weight:1000;
-  box-shadow:0 5px 0 #6597c2;
+  box-shadow:0 4px 0 #6597c2;
 }
 
-@media(max-height:650px){
-  .heading{margin:5px 0 2px}
-  .mode-buttons{margin:7px 0}
-  .letter-grid{gap:5px}
-  .lesson-title{margin:4px 0}
-  .lesson-card{gap:5px;padding:6px}
-  .voice-btn,.nav-btn{padding:8px 2px}
-}
-  
-/* 3D Alphabet Lesson Text */
-
-.lesson-word{
-  font-size:clamp(27px,7vw,38px);
-  font-weight:1000;
-  color:#fff33b;
-  -webkit-text-stroke:1px #e87516;
-  text-shadow:
-    1px 1px 0 #e87516,
-    2px 2px 0 #d85b0b,
-    3px 3px 0 #bd4200,
-    4px 5px 0 #8e3100,
-    6px 8px 10px #0006;
-  letter-spacing:1px;
+button:active{
+  transform:translateY(3px);
 }
 
-.bangla-word{
-  font-size:clamp(20px,5vw,26px);
-  font-weight:1000;
-  color:#fff;
-  text-shadow:
-    1px 2px 0 #1455a0,
-    2px 4px 0 #10417f,
-    4px 6px 8px #0005;
+/* SMALL SCREEN ADJUSTMENT */
+
+@media(max-height:700px){
+  .screen{padding:6px}
+  .lesson-title{margin:1px 0}
+  .big-letter{min-height:75px}
+  .big-letter span{font-size:clamp(75px,22vw,110px)}
+  .lesson-image-box{max-height:145px}
+  .lesson-word{font-size:clamp(24px,6.5vw,34px)}
+  .bangla-word{font-size:22px}
+  .rhyme{font-size:16px;padding:3px}
+  .voice-btn,.extra-btn,.nav-btn{padding:7px 2px}
+  .extra-buttons{margin-top:6px}
+  .lesson-navigation{margin-top:6px}
 }
 
-.rhyme{
-  font-size:clamp(16px,4.5vw,21px);
-  font-weight:1000;
-  color:#7134b8;
-  text-shadow:1px 2px 0 #e4caff;
-  border:2px solid #ffcf55;
-  box-shadow:0 4px 0 #e7ad35;
-}
-/* Clear and Strong 3D Lesson Text */
-
-.lesson-word{
-  color:#ffea00;
-  font-size:clamp(30px,7.5vw,42px);
-  font-weight:1000;
-  -webkit-text-stroke:1.5px #8b3000;
-  text-shadow:
-    1px 1px 0 #a33b00,
-    2px 2px 0 #8b3000,
-    3px 3px 0 #702600,
-    5px 6px 0 #542000,
-    7px 9px 10px #0008;
-}
-
-.bangla-word{
-  color:#123d70;
-  font-size:clamp(21px,5.5vw,28px);
-  font-weight:1000;
-  text-shadow:
-    1px 1px 0 #fff,
-    2px 2px 0 #b5dfff,
-    3px 4px 0 #47749e,
-    4px 6px 8px #0005;
-}
-
-.rhyme{
-  color:#64239b;
-  font-weight:1000;
-  text-shadow:
-    1px 1px 0 #fff,
-    2px 2px 0 #e3c7ff;
-}
-  .lesson-image-box{
-  width:100%;
-  max-width:300px;
-  height:190px;
-  margin:8px auto;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-}
-
-.lesson-image-box img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  filter:drop-shadow(0 8px 8px #0005);
+@media(max-height:570px){
+  .big-letter{min-height:55px}
+  .big-letter span{font-size:65px}
+  .lesson-image-box{max-height:85px}
+  .lesson-word{font-size:22px}
+  .bangla-word{font-size:18px}
+  .rhyme{font-size:13px}
+  .voice-btn,.extra-btn,.nav-btn{padding:6px 2px}
 }
 </style>
 </head>
 
 <body>
 
+<!-- A-Z SCREEN -->
+
 <section id="alphabetScreen" class="screen active">
 
   <div class="topbar">
     <button class="top-btn" onclick="goHome()">⌂ HOME</button>
-    <div>
-      <button class="top-btn">⭐</button>
-      <button class="top-btn">🏆</button>
-    </div>
+    <button class="top-btn">⭐</button>
   </div>
 
   <div class="heading">LEARN ALPHABET</div>
@@ -399,74 +443,135 @@ body{
   <div class="footer">LEARN • PLAY • GROW</div>
 </section>
 
+
+<!-- LESSON SCREEN -->
+
 <section id="lessonScreen" class="screen">
+  <!-- TOP HOME + ALL LETTERS -->
 
   <div class="topbar">
-    <button class="top-btn" onclick="backToLetters()">← ALL LETTERS</button>
     <button class="top-btn" onclick="goHome()">⌂ HOME</button>
+    <button class="top-btn" onclick="backToLetters()">
+      ⭐ ALL LETTERS
+    </button>
+  </div>
+  <div class="lesson-title">
+    LET'S LEARN A NEW LETTER!
   </div>
 
-  <div class="lesson-title">LET'S LEARN A NEW LETTER!</div>
+  <!-- A a -->
 
-  <div class="lesson-card">
-
-    <div class="image-area">
-      <div id="imagePlaceholder" class="image-placeholder">A</div>
-    </div>
-    
-<div class="lesson-image-box">
-  <img
-    id="lessonObjectImage"
-    src="images/A-apple.png"
-    alt="A for Apple"
-  >
-</div>
-    <div id="lessonWord" class="lesson-word">A for Apple</div>
-    <div id="banglaWord" class="bangla-word">এ ফর অ্যাপল</div>
-    <div id="rhyme" class="rhyme">আপেল খেতে ভারি মজা।</div>
-
-    <div class="voice-buttons">
-      <button class="voice-btn english-btn">🔊 ENGLISH</button>
-      <button class="voice-btn bangla-btn">🔊 বাংলা</button>
-      <button class="voice-btn all-btn">▶ LISTEN ALL</button>
-    </div>
+  <div class="big-letter">
+    <span id="capitalLetter">A</span>
+    <span id="smallLetter">a</span>
   </div>
+
+  <!-- A for Apple -->
+
+  <div id="lessonWord" class="lesson-word">
+    A for Apple
+  </div>
+
+  <!-- PNG IMAGE -->
+
+  <div class="lesson-image-box">
+
+    <img
+      id="lessonObjectImage"
+      src="images/A-apple.png"
+      alt="Apple"
+    >
+
+    <div id="imageFallback" class="image-fallback">🍎</div>
+
+  </div>
+
+  <!-- ENGLISH - BANGLA -->
+
+  <div id="banglaWord" class="bangla-word">
+    Apple – আপেল
+  </div>
+
+  <!-- RHYME -->
+
+  <div id="rhyme" class="rhyme">
+    আপেলটি খেতে ভারি মজা।
+  </div>
+
+  <!-- VOICE BUTTONS -->
+
+  <div class="voice-buttons">
+
+    <button class="voice-btn english-btn" onclick="speakEnglish()">
+      🔊 ENGLISH
+    </button>
+
+    <button class="voice-btn bangla-btn" onclick="speakBangla()">
+      🔊 বাংলা
+    </button>
+
+    <button class="voice-btn all-btn" onclick="speakAll()">
+      ▶ LISTEN ALL
+    </button>
+
+  </div>
+
+
+
+  <!-- PREVIOUS + A-Z + NEXT -->
 
   <div class="lesson-navigation">
-    <button class="nav-btn">◀ PREVIOUS</button>
-    <button class="nav-btn" onclick="backToLetters()">A–Z</button>
-    <button class="nav-btn">NEXT ▶</button>
+
+    <button class="nav-btn" onclick="previousLetter()">
+      ◀ PREVIOUS
+    </button>
+
+    <button class="nav-btn" onclick="backToLetters()">
+      A–Z
+    </button>
+
+    <button class="nav-btn" onclick="nextLetter()">
+      NEXT ▶
+    </button>
+
   </div>
+
 </section>
 
+
 <script>
+
+/* A TO Z DATA */
+
 const alphabetData = [
- ["A","Apple","এ ফর অ্যাপল","আপেল খেতে ভারি মজা।"],
- ["B","Ball","বি ফর বল","বল নিয়ে খেলি চল।"],
- ["C","Cat","সি ফর ক্যাট","বিড়ালটি করে মিউ মিউ।"],
- ["D","Dog","ডি ফর ডগ","কুকুরটি দৌড়ায় রোজ।"],
- ["E","Elephant","ই ফর এলিফ্যান্ট","হাতিটি অনেক বড়।"],
- ["F","Fish","এফ ফর ফিশ","মাছটি সাঁতার কাটে।"],
- ["G","Grapes","জি ফর গ্রেপস","আঙুর খেতে মজা।"],
- ["H","House","এইচ ফর হাউস","এটি আমাদের ঘর।"],
- ["I","Ice Cream","আই ফর আইসক্রিম","ঠান্ডা ঠান্ডা মজা।"],
- ["J","Juice","জে ফর জুস","ফলের রসে পুষ্টি।"],
- ["K","Kite","কে ফর কাইট","ঘুড়ি ওড়ে আকাশে।"],
- ["L","Lion","এল ফর লায়ন","সিংহ বনের রাজা।"],
- ["M","Monkey","এম ফর মাঙ্কি","বানরটি লাফায়।"],
- ["N","Nest","এন ফর নেস্ট","পাখির ছোট্ট বাসা।"],
- ["O","Orange","ও ফর অরেঞ্জ","কমলা খেতে মজা।"],
- ["P","Panda","পি ফর পান্ডা","পান্ডা দেখতে মিষ্টি।"],
- ["Q","Queen","কিউ ফর কুইন","রানি থাকেন প্রাসাদে।"],
- ["R","Rabbit","আর ফর র‍্যাবিট","খরগোশ লাফায়।"],
- ["S","Sun","এস ফর সান","সূর্য আলো দেয়।"],
- ["T","Tiger","টি ফর টাইগার","বাঘটি দেখতে সুন্দর।"],
- ["U","Umbrella","ইউ ফর আমব্রেলা","বৃষ্টি থেকে বাঁচায়।"],
- ["V","Van","ভি ফর ভ্যান","ভ্যানে চড়ে যাই।"],
- ["W","Watch","ডাবলিউ ফর ওয়াচ","সময় জানায়।"],
- ["X","Xylophone","এক্স ফর জাইলোফোন","বাজে মিষ্টি সুর।"],
- ["Y","Yo-yo","ওয়াই ফর ইয়ো ইয়ো","খেলতে লাগে ভালো।"],
- ["Z","Zebra","জেড ফর জেব্রা","গায়ে সাদা কালো দাগ।"]
+
+ ["A","Apple","আপেল","আপেলটি খেতে ভারি মজা।","🍎"],
+ ["B","Ball","বল","বল নিয়ে খেলতে মজা।","⚽"],
+ ["C","Cat","বিড়াল","বিড়ালটি করে মিউ মিউ।","🐱"],
+ ["D","Dog","কুকুর","কুকুরটি দৌড়ায় রোজ।","🐶"],
+ ["E","Elephant","হাতি","হাতিটি অনেক বড়।","🐘"],
+ ["F","Fish","মাছ","মাছটি পানিতে সাঁতার কাটে।","🐟"],
+ ["G","Grapes","আঙুর","আঙুর খেতে ভারি মজা।","🍇"],
+ ["H","House","বাড়ি","এটি আমাদের সুন্দর বাড়ি।","🏠"],
+ ["I","Ice Cream","আইসক্রিম","ঠান্ডা ঠান্ডা আইসক্রিম।","🍦"],
+ ["J","Juice","জুস","ফলের জুস খেতে মজা।","🧃"],
+ ["K","Kite","ঘুড়ি","ঘুড়ি ওড়ে আকাশে।","🪁"],
+ ["L","Lion","সিংহ","সিংহ বনের রাজা।","🦁"],
+ ["M","Monkey","বানর","বানরটি লাফায় গাছে।","🐒"],
+ ["N","Nest","বাসা","পাখির ছোট্ট বাসা।","🪺"],
+ ["O","Orange","কমলা","কমলা খেতে মিষ্টি।","🍊"],
+ ["P","Panda","পান্ডা","পান্ডা দেখতে মিষ্টি।","🐼"],
+ ["Q","Queen","রানি","রানি থাকেন প্রাসাদে।","👑"],
+ ["R","Rabbit","খরগোশ","খরগোশ লাফিয়ে চলে।","🐰"],
+ ["S","Sun","সূর্য","সূর্য আমাদের আলো দেয়।","☀️"],
+ ["T","Tiger","বাঘ","বাঘের গায়ে ডোরা দাগ।","🐯"],
+ ["U","Umbrella","ছাতা","ছাতা বৃষ্টিতে কাজে লাগে।","☂️"],
+ ["V","Van","ভ্যান","ভ্যানে চড়ে যাই।","🚐"],
+ ["W","Watch","ঘড়ি","ঘড়ি আমাদের সময় জানায়।","⌚"],
+ ["X","Xylophone","জাইলোফোন","এতে বাজে মিষ্টি সুর।","🎵"],
+ ["Y","Yo-yo","ইয়ো ইয়ো","ইয়ো ইয়ো খেলতে ভালো।","🪀"],
+ ["Z","Zebra","জেব্রা","জেব্রার গায়ে সাদা কালো দাগ।","🦓"]
+
 ];
 
 let selectedMode = "learn";
@@ -474,98 +579,296 @@ let selectedIndex = 0;
 
 const grid = document.getElementById("letterGrid");
 
+
+/* CREATE A-Z GRID */
+
 function createLetters(){
- grid.innerHTML = "";
 
- alphabetData.forEach((item,index)=>{
-  const card = document.createElement("button");
-  card.className = "letter-card";
-  card.textContent = item[0];
+  grid.innerHTML = "";
 
-  card.onclick = ()=>openLetter(index);
+  alphabetData.forEach((item,index)=>{
 
-  grid.appendChild(card);
- });
+    const card = document.createElement("button");
+
+    card.className = "letter-card";
+    card.textContent = item[0];
+
+    card.onclick = ()=>openLetter(index);
+
+    grid.appendChild(card);
+
+  });
+
 }
 
+
+/* MODE SELECT */
+
 function selectMode(mode){
- selectedMode = mode;
 
- document.getElementById("learnMode")
- .classList.toggle("selected",mode==="learn");
+  selectedMode = mode;
 
- document.getElementById("listenMode")
- .classList.toggle("selected",mode==="listen");
+  document.getElementById("learnMode")
+    .classList.toggle("selected",mode==="learn");
+
+  document.getElementById("listenMode")
+    .classList.toggle("selected",mode==="listen");
+
 }
 
 document.getElementById("learnMode").onclick =
- ()=>selectMode("learn");
+  ()=>selectMode("learn");
 
 document.getElementById("listenMode").onclick =
- ()=>selectMode("listen");
+  ()=>selectMode("listen");
+
+
+/* OPEN LETTER */
 
 function openLetter(index){
- selectedIndex = index;
 
- if(selectedMode==="listen"){
-  // এই মোডে একই স্ক্রিনে থাকবে।
-  // MP3 কণ্ঠ পরের ধাপে যুক্ত হবে।
-  return;
- }
+  selectedIndex = index;
 
- const item = alphabetData[index];
+  const item = alphabetData[index];
 
- document.getElementById("imagePlaceholder").textContent = item[0];
- document.getElementById("lessonWord").textContent =
-  item[0]+" for "+item[1];
+  if(selectedMode==="listen"){
 
- document.getElementById("banglaWord").textContent = item[2];
- document.getElementById("rhyme").textContent = item[3];
+    speakText(item[0],"en-US");
+    return;
 
- showScreen("lessonScreen");
+  }
+
+  updateLesson();
+
+  showScreen("lessonScreen");
+
 }
 
-function showScreen(id){
- document.querySelectorAll(".screen").forEach(screen=>{
-  screen.classList.remove("active");
- });
 
- document.getElementById(id).classList.add("active");
+/* UPDATE LESSON CONTENT */
+
+function updateLesson(){
+
+  const item = alphabetData[selectedIndex];
+
+  document.getElementById("capitalLetter").textContent =
+    item[0];
+
+  document.getElementById("smallLetter").textContent =
+    item[0].toLowerCase();
+
+  document.getElementById("lessonWord").textContent =
+    item[0]+" for "+item[1];
+
+  document.getElementById("banglaWord").textContent =
+    item[1]+" – "+item[2];
+
+  document.getElementById("rhyme").textContent =
+    item[3];
+
+  const imageName = item[1]
+    .toLowerCase()
+    .replace(/\s+/g,"-");
+
+  const imageFile =
+    "images/"+item[0]+"-"+imageName+".png";
+
+  const img = document.getElementById("lessonObjectImage");
+  const fallback = document.getElementById("imageFallback");
+
+  fallback.textContent = item[4];
+  fallback.style.display = "none";
+
+  img.style.display = "block";
+  img.src = imageFile;
+
+  img.onerror = function(){
+
+    img.style.display = "none";
+    fallback.style.display = "block";
+
+  };
+
+  img.onload = function(){
+
+    img.style.display = "block";
+    fallback.style.display = "none";
+
+  };
+
+}
+
+
+/* SCREEN CONTROL */
+
+function showScreen(id){
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
 }
 
 function backToLetters(){
- showScreen("alphabetScreen");
+
+  stopVoice();
+  selectMode("learn");
+  showScreen("alphabetScreen");
+
 }
 
 function goHome(){
- window.location.href = "index.html";
+
+  stopVoice();
+  window.location.href = "index.html";
+
 }
 
+
+/* PREVIOUS AND NEXT */
+
 function previousLetter(){
- selectedIndex = (selectedIndex+25)%26;
- selectMode("learn");
- openLetter(selectedIndex);
+
+  stopVoice();
+
+  selectedIndex = (selectedIndex+25)%26;
+
+  selectMode("learn");
+  updateLesson();
+
 }
 
 function nextLetter(){
- selectedIndex = (selectedIndex+1)%26;
- selectMode("learn");
- openLetter(selectedIndex);
+
+  stopVoice();
+
+  selectedIndex = (selectedIndex+1)%26;
+
+  selectMode("learn");
+  updateLesson();
+
 }
 
-const navButtons = document.querySelectorAll(".nav-btn");
 
-navButtons[0].onclick = previousLetter;
-navButtons[2].onclick = nextLetter;
+/* VOICE SYSTEM */
 
-document.querySelectorAll(".voice-btn").forEach(button=>{
- button.onclick = ()=>{
-  // MP3 কণ্ঠ পরের ধাপে যুক্ত হবে।
- };
-});
+function stopVoice(){
+
+  if("speechSynthesis" in window){
+    window.speechSynthesis.cancel();
+  }
+
+}
+
+function speakText(text,language,onEnd){
+
+  if(!("speechSynthesis" in window)){
+
+    alert("আপনার ব্রাউজারে Voice Support পাওয়া যায়নি।");
+    return;
+
+  }
+
+  stopVoice();
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = language;
+
+  /* CHILDLIKE SOUND SETTINGS */
+
+  speech.pitch = 1.3;
+  speech.rate = 0.85;
+  speech.volume = 1;
+
+  const voices = window.speechSynthesis.getVoices();
+
+  let voice = null;
+
+  if(language.startsWith("bn")){
+
+    voice = voices.find(v=>
+      v.lang.toLowerCase().startsWith("bn")
+    );
+
+  }else{
+
+    voice = voices.find(v=>
+      v.lang.toLowerCase().startsWith("en")
+    );
+
+  }
+
+  if(voice){
+    speech.voice = voice;
+  }
+
+  if(onEnd){
+    speech.onend = onEnd;
+  }
+
+  window.speechSynthesis.speak(speech);
+
+}
+
+
+/* ENGLISH VOICE */
+
+function speakEnglish(){
+
+  const item = alphabetData[selectedIndex];
+
+  speakText(
+    item[0]+" for "+item[1],
+    "en-US"
+  );
+
+}
+
+
+/* BANGLA VOICE */
+
+function speakBangla(){
+
+  const item = alphabetData[selectedIndex];
+
+  speakText(
+    item[1]+". "+item[2]+". "+item[3],
+    "bn-BD"
+  );
+
+}
+
+
+/* LISTEN ALL: ENGLISH THEN BANGLA */
+
+function speakAll(){
+
+  const item = alphabetData[selectedIndex];
+
+  speakText(
+    item[0]+" for "+item[1],
+    "en-US",
+    function(){
+
+      speakText(
+        item[1]+". "+item[2]+". "+item[3],
+        "bn-BD"
+      );
+
+    }
+  );
+
+}
+
+
+/* START */
 
 createLetters();
 selectMode("learn");
+
 </script>
 
 </body>
