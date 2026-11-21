@@ -327,6 +327,52 @@ button {
     min-height:70px;
   }
 }
+  
+/* FIRST THREE LEARNING ICONS */
+
+.basic-icon {
+  min-height: 90px;
+  border-radius: 20px;
+  border: 3px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  color: white;
+  box-shadow: 0 4px 0 #124d8b55;
+  text-shadow: 0 3px 3px #0004;
+  transition: .2s;
+}
+
+.basic-icon:active {
+  transform: scale(.95);
+}
+
+.basic-icon .letters {
+  font-size: clamp(27px,8vw,43px);
+  font-weight: 1000;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.basic-icon strong {
+  font-size: clamp(10px,3vw,14px);
+  text-align: center;
+}
+
+.alphabet-icon {
+  background: linear-gradient(145deg,#36caff,#0757e9);
+}
+
+.bangla-icon {
+  background: linear-gradient(145deg,#ffbd42,#e66b08);
+}
+
+.number-icon {
+  background: linear-gradient(145deg,#69ed50,#079b40);
+}
+
 </style>
 </head>
 
@@ -433,6 +479,38 @@ button {
   </h1>
 
   <div class="category-grid">
+    
+<!-- 1. ALPHABET LEARNING -->
+
+<button class="basic-icon alphabet-icon"
+onclick="openSubject('Alphabet Learning')">
+
+  <span class="letters">ABC</span>
+  <strong>Alphabet</strong>
+
+</button>
+
+
+<!-- 2. BANGLA ALPHABET -->
+
+<button class="basic-icon bangla-icon"
+onclick="openSubject('বাংলা বর্ণমালা')">
+
+  <span class="letters">অ আ ক</span>
+  <strong>বাংলা বর্ণমালা</strong>
+
+</button>
+
+
+<!-- 3. NUMBERS -->
+
+<button class="basic-icon number-icon"
+onclick="openSubject('Numbers')">
+
+  <span class="letters">123</span>
+  <strong>Numbers</strong>
+
+</button>
 
     <button class="category c1"
       onclick="openSubject('Science')">
