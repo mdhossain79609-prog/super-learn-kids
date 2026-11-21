@@ -580,8 +580,13 @@ function showMessage(text) {
     box.style.display = "none";
   },2200);
 }
-
 function openSubject(name) {
+
+  if (name === "Alphabet Learning") {
+    window.location.href = "alphabet.html";
+    return;
+  }
+
   showMessage(name + " section coming soon!");
 }
 
