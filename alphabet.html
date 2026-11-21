@@ -1,1 +1,510 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08b9f1">
+<title>Alphabet Learning - SUPER LEARN KIDS</title>
+
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(160deg,#05bafa,#d5f8ff);
+  color:#084b91;
+}
+
+button {
+  border:0;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px;
+}
+
+.home-btn,.back-btn {
+  background:white;
+  color:#07509b;
+  padding:10px 15px;
+  border-radius:25px;
+  font-weight:bold;
+  box-shadow:0 3px 0 #70a8d7;
+}
+
+.heading {
+  text-align:center;
+  font-size:clamp(20px,5vw,27px);
+  font-weight:1000;
+  margin:12px 5px;
+  text-shadow:0 2px white;
+}
+
+.subheading {
+  text-align:center;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+/* LETTER GRID */
+
+#letterScreen {
+  padding:0 11px 15px;
+}
+
+.letter-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  padding:5px 2px 20px;
+}
+
+.letter-card {
+  min-height:83px;
+  border:3px solid white;
+  border-radius:19px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  box-shadow:0 6px 0 #124d8b55,
+             0 10px 15px #07529c22;
+  text-shadow:0 3px 4px #0005;
+  animation:float 3s ease-in-out infinite;
+}
+
+.letter-card:active {
+  transform:scale(.93);
+}
+
+.letter-card strong {
+  font-size:clamp(30px,8vw,43px);
+  line-height:1;
+}
+
+.letter-card small {
+  font-size:11px;
+  font-weight:bold;
+}
+
+@keyframes float {
+  0%,100% {transform:translateY(0)}
+  50% {transform:translateY(-4px)}
+}
+
+/* DIFFERENT COLORS */
+
+.letter-card:nth-child(5n+1) {
+  background:linear-gradient(145deg,#35dfff,#0868ed);
+}
+.letter-card:nth-child(5n+2) {
+  background:linear-gradient(145deg,#ffcb48,#ed6500);
+}
+.letter-card:nth-child(5n+3) {
+  background:linear-gradient(145deg,#e879ff,#8118d8);
+}
+.letter-card:nth-child(5n+4) {
+  background:linear-gradient(145deg,#7af05c,#079c42);
+}
+.letter-card:nth-child(5n+5) {
+  background:linear-gradient(145deg,#ff83b7,#e52e72);
+}
+
+/* LESSON SCREEN */
+
+#lessonScreen {
+  display:none;
+  min-height:calc(100vh - 65px);
+  padding:5px 15px 20px;
+  text-align:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.lesson-card {
+  width:100%;
+  max-width:430px;
+  margin:10px auto;
+  padding:18px 12px;
+  background:linear-gradient(145deg,#ffffff,#dff7ff);
+  border:4px solid white;
+  border-radius:30px;
+  box-shadow:0 8px 0 #459bd0,
+             0 12px 20px #07529c33;
+}
+
+.big-letter {
+  font-size:clamp(65px,18vw,100px);
+  font-weight:1000;
+  line-height:1;
+  color:#0874df;
+  text-shadow:3px 5px 0 #a9dcff;
+}
+
+.word-title {
+  font-size:clamp(24px,7vw,34px);
+  color:#e46a00;
+  margin:8px 0;
+  font-weight:1000;
+}
+
+.object-image {
+  font-size:clamp(100px,30vw,150px);
+  margin:8px 0;
+  filter:drop-shadow(0 10px 7px #0003);
+  animation:float 3s ease-in-out infinite;
+}
+
+.object-name {
+  font-size:23px;
+  font-weight:1000;
+  color:#0874c8;
+}
+
+.bangla-line {
+  margin:12px 5px;
+  font-size:18px;
+  font-weight:bold;
+  line-height:1.6;
+  color:#8b3b9e;
+}
+
+.sound-btn {
+  background:linear-gradient(#fff000,#ffad00);
+  color:#08418d;
+  border:3px solid white;
+  border-radius:35px;
+  padding:13px 22px;
+  font-size:16px;
+  font-weight:1000;
+  box-shadow:0 5px 0 #d87900;
+  margin:7px 4px;
+}
+
+.sound-btn:active {
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #d87900;
+}
+
+.navigation {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:12px 0;
+}
+
+.navigation button {
+  background:#0861bd;
+  color:white;
+  border-radius:25px;
+  padding:12px 19px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.footer {
+  text-align:center;
+  font-size:11px;
+  font-weight:bold;
+  padding:12px;
+}
+
+@media(max-width:360px) {
+  .letter-grid {
+    gap:8px;
+  }
+  .letter-card {
+    min-height:73px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <button class="home-btn" onclick="goHome()">🏠 HOME</button>
+  <strong>⭐ 0</strong>
+  <strong>🏆</strong>
+</header>
+
+<!-- A TO Z SCREEN -->
+
+<section id="letterScreen">
+
+  <h1 class="heading">🌈 LEARN ALPHABET 🌈</h1>
+
+  <p class="subheading">
+    Choose a letter and start learning!
+  </p>
+
+  <div class="letter-grid" id="letterGrid"></div>
+
+  <div class="footer">
+    LEARN • LISTEN • SPEAK • GROW
+  </div>
+
+</section>
+
+<!-- INDIVIDUAL LETTER SCREEN -->
+
+<section id="lessonScreen">
+
+  <button class="back-btn" onclick="showLetters()">
+    ← ALL LETTERS
+  </button>
+
+  <div class="lesson-card">
+
+    <div class="big-letter" id="bigLetter">A a</div>
+
+    <div class="word-title" id="wordTitle">
+      A for Apple
+    </div>
+
+    <div class="object-image" id="objectImage">
+      🍎
+    </div>
+
+    <div class="object-name" id="objectName">
+      Apple
+    </div>
+
+    <div class="bangla-line" id="banglaLine">
+      এ ফর অ্যাপল, অ্যাপেল খেতে ভারি মজা।
+    </div>
+
+    <button class="sound-btn" onclick="playEnglish()">
+      🔊 English Voice
+    </button>
+
+    <button class="sound-btn" onclick="playBangla()">
+      🔊 বাংলা কণ্ঠ
+    </button>
+
+    <button class="sound-btn" onclick="playBoth()">
+      ▶ LISTEN ALL
+    </button>
+
+  </div>
+
+  <div class="navigation">
+    <button onclick="previousLetter()">◀ PREVIOUS</button>
+    <button onclick="nextLetter()">NEXT ▶</button>
+  </div>
+
+  <div class="footer">
+    SUPER LEARN KIDS
+  </div>
+
+</section>
+
+<script>
+
+/* ALPHABET DATA */
+
+const alphabet = [
+ ["A","Apple","🍎","এ ফর অ্যাপল, অ্যাপেল খেতে ভারি মজা।"],
+ ["B","Ball","⚽","বি ফর বল, বল নিয়ে খেলি চল।"],
+ ["C","Cat","🐱","সি ফর ক্যাট, বিড়ালটি করে মিউ মিউ।"],
+ ["D","Dog","🐶","ডি ফর ডগ, কুকুরটি দৌড়ায় রোজ।"],
+ ["E","Elephant","🐘","ই ফর এলিফ্যান্ট, হাতিটি অনেক বড়।"],
+ ["F","Fish","🐟","এফ ফর ফিশ, মাছটি সাঁতার কাটে।"],
+ ["G","Grapes","🍇","জি ফর গ্রেপস, আঙুর খেতে মজা।"],
+ ["H","House","🏠","এইচ ফর হাউস, এটি আমাদের ঘর।"],
+ ["I","Ice Cream","🍦","আই ফর আইসক্রিম, ঠান্ডা ঠান্ডা মজা।"],
+ ["J","Juice","🧃","জে ফর জুস, ফলের রসে পুষ্টি।"],
+ ["K","Kite","🪁","কে ফর কাইট, ঘুড়ি ওড়ে আকাশে।"],
+ ["L","Lion","🦁","এল ফর লায়ন, সিংহ বনের রাজা।"],
+ ["M","Monkey","🐵","এম ফর মাঙ্কি, বানরটি লাফায়।"],
+ ["N","Nest","🪺","এন ফর নেস্ট, পাখির ছোট্ট বাসা।"],
+ ["O","Orange","🍊","ও ফর অরেঞ্জ, কমলা খেতে মজা।"],
+ ["P","Panda","🐼","পি ফর পান্ডা, পান্ডা দেখতে মিষ্টি।"],
+ ["Q","Queen","👸","কিউ ফর কুইন, রানি থাকেন প্রাসাদে।"],
+ ["R","Rabbit","🐰","আর ফর র‍্যাবিট, খরগোশ লাফায়।"],
+ ["S","Sun","☀️","এস ফর সান, সূর্য আলো দেয়।"],
+ ["T","Tiger","🐯","টি ফর টাইগার, বাঘটি দেখতে সুন্দর।"],
+ ["U","Umbrella","☂️","ইউ ফর আমব্রেলা, বৃষ্টি থেকে বাঁচায়।"],
+ ["V","Van","🚐","ভি ফর ভ্যান, ভ্যানে চড়ে যাই।"],
+ ["W","Watch","⌚","ডাবলিউ ফর ওয়াচ, সময় জানায়।"],
+ ["X","Xylophone","🎵","এক্স ফর জাইলোফোন, বাজে মিষ্টি সুর।"],
+ ["Y","Yo-yo","🪀","ওয়াই ফর ইয়ো ইয়ো, খেলতে লাগে ভালো।"],
+ ["Z","Zebra","🦓","জেড ফর জেব্রা, গায়ে সাদা কালো দাগ।"]
+];
+
+let currentIndex = 0;
+
+/* CREATE 26 LETTER BUTTONS */
+
+const grid = document.getElementById("letterGrid");
+
+alphabet.forEach((item,index) => {
+
+  const button = document.createElement("button");
+
+  button.className = "letter-card";
+
+  button.innerHTML = `
+    <strong>${item[0]}</strong>
+    <small>${item[1]}</small>
+  `;
+
+  button.onclick = () => openLetter(index);
+
+  grid.appendChild(button);
+
+});
+
+/* OPEN LETTER */
+
+function openLetter(index) {
+
+  currentIndex = index;
+
+  const item = alphabet[index];
+
+  document.getElementById("letterScreen").style.display = "none";
+
+  const lesson = document.getElementById("lessonScreen");
+
+  lesson.style.display = "flex";
+
+  document.getElementById("bigLetter").textContent =
+    item[0] + " " + item[0].toLowerCase();
+
+  document.getElementById("wordTitle").textContent =
+    item[0] + " for " + item[1];
+
+  document.getElementById("objectImage").textContent =
+    item[2];
+
+  document.getElementById("objectName").textContent =
+    item[1];
+
+  document.getElementById("banglaLine").textContent =
+    item[3];
+
+  stopVoice();
+}
+
+/* SCREEN NAVIGATION */
+
+function showLetters() {
+  stopVoice();
+  document.getElementById("lessonScreen").style.display = "none";
+  document.getElementById("letterScreen").style.display = "block";
+}
+
+function goHome() {
+  stopVoice();
+  window.location.href = "index.html";
+}
+
+function nextLetter() {
+  if(currentIndex < 25) {
+    openLetter(currentIndex + 1);
+  } else {
+    showLetters();
+  }
+}
+
+function previousLetter() {
+  if(currentIndex > 0) {
+    openLetter(currentIndex - 1);
+  } else {
+    showLetters();
+  }
+}
+
+/* VOICE SYSTEM */
+
+function stopVoice() {
+  if("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
+}
+
+function speak(text,language,onFinished) {
+
+  if(!("speechSynthesis" in window)) {
+    alert("Voice is not supported on this device.");
+    return;
+  }
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = language;
+  speech.rate = 0.78;
+  speech.pitch = 1.08;
+
+  const voices = window.speechSynthesis.getVoices();
+
+  const voice = voices.find(v =>
+    v.lang.toLowerCase().startsWith(language.toLowerCase())
+  );
+
+  if(voice) {
+    speech.voice = voice;
+  }
+
+  if(onFinished) {
+    speech.onend = onFinished;
+  }
+
+  window.speechSynthesis.speak(speech);
+}
+
+function playEnglish() {
+  stopVoice();
+
+  const item = alphabet[currentIndex];
+
+  speak(
+    item[0] + " for " + item[1],
+    "en-US"
+  );
+}
+
+function playBangla() {
+  stopVoice();
+
+  const item = alphabet[currentIndex];
+
+  speak(
+    item[3],
+    "bn-BD"
+  );
+}
+
+function playBoth() {
+  stopVoice();
+
+  const item = alphabet[currentIndex];
+
+  speak(
+    item[0] + " for " + item[1],
+    "en-US",
+    function() {
+      speak(item[3],"bn-BD");
+    }
+  );
+}
+
+</script>
+
+</body>
+</html>
