@@ -203,6 +203,7 @@ let activeCategory = "All";
 let usedWordsByCategory = {};
 
 async function loadWords() {
+ const response = await fetch("./words.json");
   try {
     const response = await fetch("./words.json");
 
