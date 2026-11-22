@@ -198,85 +198,74 @@ h2{text-align:center;font-size:21px;margin:13px 0;color:#5630a7}
 // ===================================
 
 const words = [
-{
- word:"Elephant",bn:"হাতি",hi:"हाथी",ar:"فيل",
- es:"Elefante",fr:"Éléphant",ur:"ہاتھی",
- zh:"大象",ja:"象",de:"Elefant",pic:"🐘",category:"Animals"
-},
-{
- word:"Cat",bn:"বিড়াল",hi:"बिल्ली",ar:"قطة",
- es:"Gato",fr:"Chat",ur:"بلی",zh:"猫",ja:"猫",
- de:"Katze",pic:"🐱",category:"Animals"
-},
-{
- word:"Dog",bn:"কুকুর",hi:"कुत्ता",ar:"كلب",
- es:"Perro",fr:"Chien",ur:"کتا",zh:"狗",ja:"犬",
- de:"Hund",pic:"🐶",category:"Animals"
-},
-{
- word:"Lion",bn:"সিংহ",hi:"शेर",ar:"أسد",
- es:"León",fr:"Lion",ur:"شیر",zh:"狮子",
- ja:"ライオン",de:"Löwe",pic:"🦁",category:"Animals"
-},
-{
- word:"Apple",bn:"আপেল",hi:"सेब",ar:"تفاحة",
- es:"Manzana",fr:"Pomme",ur:"سیب",zh:"苹果",
- ja:"りんご",de:"Apfel",pic:"🍎",category:"Fruits"
-},
-{
- word:"Banana",bn:"কলা",hi:"केला",ar:"موز",
- es:"Plátano",fr:"Banane",ur:"کیلا",zh:"香蕉",
- ja:"バナナ",de:"Banane",pic:"🍌",category:"Fruits"
-},
-{
- word:"Mango",bn:"আম",hi:"आम",ar:"مانجو",
- es:"Mango",fr:"Mangue",ur:"آم",zh:"芒果",
- ja:"マンゴー",de:"Mango",pic:"🥭",category:"Fruits"
-},
-{
- word:"Book",bn:"বই",hi:"किताब",ar:"كتاب",
- es:"Libro",fr:"Livre",ur:"کتاب",zh:"书",
- ja:"本",de:"Buch",pic:"📚",category:"School"
-},
-{
- word:"Sun",bn:"সূর্য",hi:"सूरज",ar:"شمس",
- es:"Sol",fr:"Soleil",ur:"سورج",zh:"太阳",
- ja:"太陽",de:"Sonne",pic:"☀️",category:"Nature"
-},
-{
- word:"Water",bn:"পানি",hi:"पानी",ar:"ماء",
- es:"Agua",fr:"Eau",ur:"پانی",zh:"水",
- ja:"水",de:"Wasser",pic:"💧",category:"Nature"
-},
-{
- word:"Car",bn:"গাড়ি",hi:"कार",ar:"سيارة",
- es:"Coche",fr:"Voiture",ur:"گاڑی",zh:"汽车",
- ja:"車",de:"Auto",pic:"🚗",category:"Vehicles"
-},
-{
- word:"Bird",bn:"পাখি",hi:"पक्षी",ar:"طائر",
- es:"Pájaro",fr:"Oiseau",ur:"پرندہ",zh:"鸟",
- ja:"鳥",de:"Vogel",pic:"🐦",category:"Birds"
-},
-{
- word:"Fish",bn:"মাছ",hi:"मछली",ar:"سمكة",
- es:"Pez",fr:"Poisson",ur:"مچھلی",zh:"鱼",
- ja:"魚",de:"Fisch",pic:"🐟",category:"Animals"
-},
-{
- word:"Flower",bn:"ফুল",hi:"फूल",ar:"زهرة",
- es:"Flor",fr:"Fleur",ur:"پھول",zh:"花",
- ja:"花",de:"Blume",pic:"🌸",category:"Nature"
-},
-{
- word:"House",bn:"বাড়ি",hi:"घर",ar:"بيت",
- es:"Casa",fr:"Maison",ur:"گھر",zh:"房子",
- ja:"家",de:"Haus",pic:"🏠",category:"Home"
-},
-{
- word:"Ball",bn:"বল",hi:"गेंद",ar:"كرة",
- es:"Pelota",fr:"Ballon",ur:"گیند",zh:"球",
- ja:"ボール",de:"Ball",pic:"⚽",category:"Toys"
+let words = [];
+let activeCategory = "All";
+
+let usedWordsByCategory = {};
+
+async function loadWords() {
+  try {
+    const response = await fetch("./words.json");
+
+    if (!response.ok) {
+      throw new Error("Words file not found");
+    }
+
+    words = await response.json();
+
+    if (!Array.isArray(words) || words.length === 0) {
+      throw new Error("Word database is empty");
+    }
+
+    console.log("Total words loaded:", words.length);
+
+    startFirstGame();
+
+  } catch (error) {
+    console.error(error);
+    alert("শব্দের ফাইল লোড হয়নি। words.json পরীক্ষা করুন।");
+  }
+}
+
+function getNextWord(category = activeCategory) {
+
+  let available = words.filter(item => {
+    const categoryMatch =
+      category === "All" || item.category === category;
+
+    const used = usedWordsByCategory[category] || [];
+
+    return categoryMatch && !used.includes(item.id);
+  });
+
+  if (available.length === 0) {
+
+    const categoryWords = words.filter(item =>
+      category === "All" || item.category === category
+    );
+
+    if (categoryWords.length === 0) return null;
+
+    usedWordsByCategory[category] = [];
+
+    available = categoryWords;
+  }
+
+  const selected =
+    available[Math.floor(Math.random() * available.length)];
+
+  if (!usedWordsByCategory[category]) {
+    usedWordsByCategory[category] = [];
+  }
+
+  usedWordsByCategory[category].push(selected.id);
+
+  return selected;
+}
+
+function startFirstGame() {
+  // এখানে আপনার আগের গেম শুরুর ফাংশনটি কল হবে।
+  // যেমন: nextQuestion();
 }
 ];
 
