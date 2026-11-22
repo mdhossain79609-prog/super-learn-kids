@@ -1,1 +1,1062 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Picture Vocabulary - Kids</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Trebuchet MS",Arial,sans-serif;
+  background:linear-gradient(180deg,#00b9ed,#65e6ee,#d8ffff);
+  min-height:100vh;
+  color:#064b86;
+}
+
+button{
+  font-family:inherit;
+  cursor:pointer;
+  border:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 15px;
+}
+
+.circle-btn{
+  width:57px;
+  height:57px;
+  border-radius:50%;
+  background:linear-gradient(#fff,#d9edff);
+  box-shadow:0 5px 0 #1687bd;
+  font-size:29px;
+}
+
+.star-count{
+  background:linear-gradient(135deg,#0879e9,#004da8);
+  color:white;
+  border-radius:35px;
+  padding:12px 23px;
+  font-size:22px;
+  font-weight:bold;
+  box-shadow:0 5px 0 #0755a5;
+}
+
+.heading{
+  text-align:center;
+  margin:15px 8px 20px;
+}
+
+.heading h1{
+  font-size:clamp(27px,7vw,43px);
+  color:#0758a7;
+  text-shadow:2px 3px 0 white;
+  font-weight:900;
+}
+
+.heading p{
+  color:#07558c;
+  font-size:15px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:0 12px 35px;
+}
+
+.back-home{
+  background:white;
+  border-radius:35px;
+  padding:13px 22px;
+  font-size:17px;
+  font-weight:bold;
+  color:#07548c;
+  box-shadow:0 4px 0 #a5dafa;
+  margin:5px 0 18px;
+}
+
+.section-title{
+  text-align:center;
+  font-size:22px;
+  color:#07558f;
+  margin:15px 0;
+  font-weight:900;
+}
+
+.search-box{
+  width:100%;
+  padding:14px 18px;
+  border-radius:25px;
+  border:3px solid white;
+  outline:none;
+  font-size:16px;
+  margin-bottom:18px;
+  box-shadow:0 4px 8px #008db555;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+
+.category{
+  min-height:125px;
+  border:5px solid white;
+  border-radius:27px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:7px;
+  color:white;
+  text-shadow:1px 2px 3px #555;
+  box-shadow:0 7px 0 #147eac;
+  transition:transform .15s;
+}
+
+.category:active{
+  transform:scale(.94);
+}
+
+.category .emoji{
+  font-size:42px;
+  filter:drop-shadow(2px 4px 2px #5557);
+}
+
+.category span:last-child{
+  font-size:14px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.c1{background:linear-gradient(140deg,#ffb000,#ff7100)}
+.c2{background:linear-gradient(140deg,#a3ed00,#00a93c)}
+.c3{background:linear-gradient(140deg,#d96aff,#8025e8)}
+.c4{background:linear-gradient(140deg,#ff75b5,#ed1682)}
+.c5{background:linear-gradient(140deg,#00d5a5,#008e78)}
+.c6{background:linear-gradient(140deg,#ff974b,#ef3900)}
+.c7{background:linear-gradient(140deg,#20d4fa,#0069cb)}
+.c8{background:linear-gradient(140deg,#d6e900,#64a900)}
+.c9{background:linear-gradient(140deg,#ff89d7,#b52ac5)}
+.c10{background:linear-gradient(140deg,#ffc94a,#d48a00)}
+
+.lesson{
+  display:none;
+  background:linear-gradient(145deg,#fff,#f1fbff);
+  border:7px solid #ffcf32;
+  border-radius:32px;
+  padding:15px;
+  margin-top:20px;
+  box-shadow:0 8px 0 #d39a14;
+}
+
+.lesson-top{
+  text-align:center;
+  font-size:19px;
+  font-weight:bold;
+  margin:5px 0 12px;
+  color:#0870ad;
+}
+
+.lesson-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  align-items:center;
+}
+
+.picture{
+  min-height:220px;
+  background:linear-gradient(145deg,#d7f3ff,#9ddcff);
+  border:5px solid white;
+  border-radius:25px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:clamp(85px,22vw,145px);
+  box-shadow:0 4px 12px #1687bd44;
+}
+
+.word-area{
+  text-align:center;
+}
+
+.english-word{
+  font-size:clamp(30px,8vw,49px);
+  color:#f02d20;
+  font-weight:900;
+  text-shadow:2px 3px 0 #ffc4a8;
+  overflow-wrap:anywhere;
+}
+
+.pronunciation{
+  color:#0870aa;
+  font-size:14px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.sound-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:13px;
+}
+
+.sound-btn{
+  padding:13px 5px;
+  border-radius:19px;
+  color:white;
+  font-size:13px;
+  font-weight:bold;
+  box-shadow:0 4px 0 #075b9a;
+  background:linear-gradient(135deg,#12c6ff,#0066d8);
+}
+
+.sound-btn.bn{
+  background:linear-gradient(135deg,#48dc65,#009d42);
+  box-shadow:0 4px 0 #087239;
+}
+
+.meaning{
+  background:linear-gradient(120deg,#fff1a0,#ffcf37);
+  border-radius:22px;
+  padding:14px 8px;
+  margin-top:14px;
+  color:#171717;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.meaning b{
+  color:#0759ce;
+}
+
+.navigation{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:18px;
+}
+
+.nav-btn{
+  background:linear-gradient(135deg,#39d954,#008b39);
+  color:white;
+  border-radius:20px;
+  padding:13px 20px;
+  font-size:17px;
+  font-weight:bold;
+  box-shadow:0 5px 0 #076a34;
+}
+
+.nav-btn.next{
+  background:linear-gradient(135deg,#14c8ff,#0062d4);
+  box-shadow:0 5px 0 #0755a5;
+}
+
+.reward{
+  text-align:center;
+  margin-top:15px;
+  color:#e49b00;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.progress-area{
+  margin-top:20px;
+  background:#e8d7ff;
+  padding:15px;
+  border-radius:22px;
+  color:#5422a5;
+  font-weight:bold;
+}
+
+.progress-track{
+  height:16px;
+  background:#b8a0df;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:9px;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#00dd67,#a2ed00);
+  border-radius:20px;
+  transition:width .3s;
+}
+
+.game-area{
+  display:none;
+  background:linear-gradient(135deg,#fff,#e6f7ff);
+  border:5px solid white;
+  border-radius:28px;
+  padding:18px;
+  margin-top:20px;
+  text-align:center;
+  box-shadow:0 6px 0 #1686bd;
+}
+
+.game-picture{
+  font-size:100px;
+  margin:15px;
+}
+
+.game-question{
+  font-size:23px;
+  font-weight:bold;
+  color:#0759a9;
+}
+
+.answer-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.answer-btn{
+  background:linear-gradient(135deg,#a15bff,#6417cf);
+  color:white;
+  border-radius:20px;
+  padding:16px 5px;
+  font-size:19px;
+  font-weight:bold;
+  box-shadow:0 5px 0 #43108d;
+}
+
+.game-message{
+  min-height:30px;
+  margin-top:15px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.play-game{
+  width:100%;
+  background:linear-gradient(135deg,#ffad16,#ff5600);
+  color:white;
+  border:4px solid white;
+  border-radius:30px;
+  padding:17px;
+  font-size:21px;
+  font-weight:900;
+  box-shadow:0 6px 0 #c54a00;
+  margin-top:20px;
+}
+
+.footer{
+  text-align:center;
+  padding:24px 5px;
+  color:#07558f;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.hide{
+  display:none!important;
+}
+
+@media(max-width:420px){
+  .category-grid{
+    gap:10px;
+  }
+
+  .category{
+    min-height:112px;
+    border-radius:23px;
+    border-width:4px;
+  }
+
+  .category .emoji{
+    font-size:36px;
+  }
+
+  .category span:last-child{
+    font-size:12px;
+  }
+
+  .picture{
+    min-height:175px;
+    font-size:85px;
+  }
+
+  .lesson{
+    padding:10px;
+    border-width:5px;
+  }
+
+  .meaning{
+    font-size:19px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+
+  <button class="circle-btn" onclick="goHome()">🏠</button>
+
+  <div class="star-count">
+    ⭐ <span id="stars">0</span>
+  </div>
+
+  <button class="circle-btn" onclick="showSettings()">⚙️</button>
+
+</div>
+
+<div class="heading">
+  <h1>📚 Picture Vocabulary 🌟</h1>
+  <p>SEE • LISTEN • LEARN • PLAY</p>
+</div>
+
+<div class="container">
+
+<button class="back-home" onclick="goHome()">
+  ← BACK TO HOME
+</button>
+
+<div id="categoryScreen">
+
+  <h2 class="section-title">
+    🌈 CHOOSE YOUR WORLD
+  </h2>
+
+  <input
+    type="search"
+    class="search-box"
+    id="search"
+    placeholder="🔍 Search a word or category..."
+    oninput="searchItems()"
+  >
+
+  <div class="category-grid" id="categoryGrid"></div>
+
+</div>
+
+<div class="lesson" id="lesson">
+
+  <div class="lesson-top" id="categoryName">
+    🍎 FRUITS
+  </div>
+
+  <div class="lesson-card">
+
+    <div class="picture" id="picture">
+      🍎
+    </div>
+
+    <div class="word-area">
+
+      <div class="english-word" id="englishWord">
+        Apple
+      </div>
+
+      <div class="pronunciation" id="pronunciation">
+        Pronunciation: অ্যাপল
+      </div>
+
+      <div class="sound-buttons">
+
+        <button class="sound-btn" onclick="speakEnglish()">
+          🔊 English
+        </button>
+
+        <button class="sound-btn bn" onclick="speakBangla()">
+          🔊 বাংলা
+        </button>
+
+      </div>
+
+      <div class="meaning">
+        <b>অর্থ:</b>
+        <span id="banglaMeaning">আপেল</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="navigation">
+
+    <button class="nav-btn" onclick="previousWord()">
+      ◀ Back
+    </button>
+
+    <button class="nav-btn next" onclick="nextWord()">
+      Next ▶
+    </button>
+
+  </div>
+
+  <div class="reward">
+    ⭐ LEARN AND COLLECT STARS!
+  </div>
+
+  <div class="progress-area">
+    Your Progress:
+    <span id="progressText">0 / 10</span>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="game-area" id="gameArea">
+
+  <h2>🎮 PICTURE QUIZ</h2>
+
+  <div class="game-question">
+    Which word matches this picture?
+  </div>
+
+  <div class="game-picture" id="gamePicture">🍎</div>
+
+  <div class="answer-grid" id="answerGrid"></div>
+
+  <div class="game-message" id="gameMessage"></div>
+
+  <button class="play-game" onclick="newQuestion()">
+    🔄 NEXT QUESTION
+  </button>
+
+  <button class="nav-btn" style="margin-top:18px"
+    onclick="closeGame()">
+    ← Back to Learning
+  </button>
+
+</div>
+
+<button class="play-game" id="playGame" onclick="startGame()">
+  🎮 PLAY PICTURE GAME
+</button>
+
+<div class="footer">
+  🌟 LEARN • EXPLORE • DISCOVER • CREATE 🌟
+</div>
+
+</div>
+
+<script>
+
+// ==================================
+// PICTURE VOCABULARY DATABASE
+// ==================================
+
+const vocabulary = {
+
+"Vehicles":{
+ icon:"🚗",color:"c1",
+ words:[
+ ["🚗","Car","গাড়ি","কার"],
+ ["🚌","Bus","বাস","বাস"],
+ ["🚂","Train","ট্রেন","ট্রেইন"],
+ ["✈️","Airplane","বিমান","এয়ারপ্লেন"],
+ ["🚁","Helicopter","হেলিকপ্টার","হেলিকপ্টার"],
+ ["🚲","Bicycle","সাইকেল","বাইসাইকেল"],
+ ["🏍️","Motorcycle","মোটরসাইকেল","মোটরসাইকেল"],
+ ["🚢","Ship","জাহাজ","শিপ"],
+ ["🚑","Ambulance","অ্যাম্বুলেন্স","অ্যাম্বুলেন্স"],
+ ["🚜","Tractor","ট্রাক্টর","ট্রাক্টর"]
+ ]
+},
+
+"Animals":{
+ icon:"🦁",color:"c2",
+ words:[
+ ["🦁","Lion","সিংহ","লায়ন"],
+ ["🐘","Elephant","হাতি","এলিফ্যান্ট"],
+ ["🐒","Monkey","বানর","মাঙ্কি"],
+ ["🐯","Tiger","বাঘ","টাইগার"],
+ ["🐻","Bear","ভালুক","বেয়ার"],
+ ["🐰","Rabbit","খরগোশ","র‍্যাবিট"],
+ ["🐶","Dog","কুকুর","ডগ"],
+ ["🐱","Cat","বিড়াল","ক্যাট"],
+ ["🐴","Horse","ঘোড়া","হর্স"],
+ ["🦒","Giraffe","জিরাফ","জিরাফ"]
+ ]
+},
+
+"Fruits":{
+ icon:"🍎",color:"c3",
+ words:[
+ ["🍎","Apple","আপেল","অ্যাপল"],
+ ["🍌","Banana","কলা","বানানা"],
+ ["🍊","Orange","কমলা","অরেঞ্জ"],
+ ["🥭","Mango","আম","ম্যাঙ্গো"],
+ ["🍇","Grapes","আঙুর","গ্রেপস"],
+ ["🍉","Watermelon","তরমুজ","ওয়াটারমেলন"],
+ ["🍍","Pineapple","আনারস","পাইনঅ্যাপল"],
+ ["🍓","Strawberry","স্ট্রবেরি","স্ট্রবেরি"],
+ ["🍐","Pear","নাশপাতি","পেয়ার"],
+ ["🥥","Coconut","নারিকেল","কোকোনাট"]
+ ]
+},
+
+"Nature":{
+ icon:"🌳",color:"c4",
+ words:[
+ ["🌳","Tree","গাছ","ট্রি"],
+ ["🌸","Flower","ফুল","ফ্লাওয়ার"],
+ ["🌞","Sun","সূর্য","সান"],
+ ["🌙","Moon","চাঁদ","মুন"],
+ ["⭐","Star","তারা","স্টার"],
+ ["☁️","Cloud","মেঘ","ক্লাউড"],
+ ["🌧️","Rain","বৃষ্টি","রেইন"],
+ ["🌈","Rainbow","রংধনু","রেইনবো"],
+ ["⛰️","Mountain","পাহাড়","মাউন্টেন"],
+ ["🌊","Sea","সমুদ্র","সি"]
+ ]
+},
+
+"Sports":{
+ icon:"⚽",color:"c5",
+ words:[
+ ["⚽","Football","ফুটবল","ফুটবল"],
+ ["🏏","Cricket","ক্রিকেট","ক্রিকেট"],
+ ["🏀","Basketball","বাস্কেটবল","বাস্কেটবল"],
+ ["🎾","Tennis","টেনিস","টেনিস"],
+ ["🏸","Badminton","ব্যাডমিন্টন","ব্যাডমিন্টন"],
+ ["🏐","Volleyball","ভলিবল","ভলিবল"],
+ ["🏓","Table Tennis","টেবিল টেনিস","টেবিল টেনিস"],
+ ["🥊","Boxing","বক্সিং","বক্সিং"],
+ ["🏊","Swimming","সাঁতার","সুইমিং"],
+ ["🚴","Cycling","সাইকেল চালানো","সাইক্লিং"]
+ ]
+},
+
+"Home":{
+ icon:"🏠",color:"c6",
+ words:[
+ ["🏠","House","বাড়ি","হাউস"],
+ ["🚪","Door","দরজা","ডোর"],
+ ["🪟","Window","জানালা","উইন্ডো"],
+ ["🛏️","Bed","বিছানা","বেড"],
+ ["🪑","Chair","চেয়ার","চেয়ার"],
+ ["🛋️","Sofa","সোফা","সোফা"],
+ ["🧊","Refrigerator","ফ্রিজ","রেফ্রিজারেটর"],
+ ["🪞","Mirror","আয়না","মিরর"],
+ ["💡","Lamp","বাতি","ল্যাম্প"],
+ ["🕰️","Clock","ঘড়ি","ক্লক"]
+ ]
+},
+
+"Food":{
+ icon:"🍕",color:"c7",
+ words:[
+ ["🍕","Pizza","পিজ্জা","পিজ্জা"],
+ ["🍔","Burger","বার্গার","বার্গার"],
+ ["🍞","Bread","রুটি","ব্রেড"],
+ ["🍚","Rice","ভাত","রাইস"],
+ ["🥚","Egg","ডিম","এগ"],
+ ["🥛","Milk","দুধ","মিল্ক"],
+ ["🧀","Cheese","পনির","চিজ"],
+ ["🍰","Cake","কেক","কেক"],
+ ["🍦","Ice Cream","আইসক্রিম","আইসক্রিম"],
+ ["🍯","Honey","মধু","হানি"]
+ ]
+},
+
+"Colors":{
+ icon:"🎨",color:"c8",
+ words:[
+ ["🔴","Red","লাল","রেড"],
+ ["🔵","Blue","নীল","ব্লু"],
+ ["🟢","Green","সবুজ","গ্রিন"],
+ ["🟡","Yellow","হলুদ","ইয়েলো"],
+ ["🟠","Orange","কমলা","অরেঞ্জ"],
+ ["🟣","Purple","বেগুনি","পার্পল"],
+ ["⚫","Black","কালো","ব্ল্যাক"],
+ ["⚪","White","সাদা","হোয়াইট"],
+ ["🩷","Pink","গোলাপি","পিঙ্ক"],
+ ["🟤","Brown","বাদামি","ব্রাউন"]
+ ]
+},
+
+"Numbers":{
+ icon:"🔢",color:"c9",
+ words:[
+ ["1️⃣","One","এক","ওয়ান"],
+ ["2️⃣","Two","দুই","টু"],
+ ["3️⃣","Three","তিন","থ্রি"],
+ ["4️⃣","Four","চার","ফোর"],
+ ["5️⃣","Five","পাঁচ","ফাইভ"],
+ ["6️⃣","Six","ছয়","সিক্স"],
+ ["7️⃣","Seven","সাত","সেভেন"],
+ ["8️⃣","Eight","আট","এইট"],
+ ["9️⃣","Nine","নয়","নাইন"],
+ ["🔟","Ten","দশ","টেন"]
+ ]
+},
+
+"Shapes":{
+ icon:"🔷",color:"c10",
+ words:[
+ ["⚪","Circle","বৃত্ত","সার্কেল"],
+ ["🟥","Square","বর্গক্ষেত্র","স্কোয়ার"],
+ ["🔺","Triangle","ত্রিভুজ","ট্রায়াঙ্গেল"],
+ ["▭","Rectangle","আয়তক্ষেত্র","রেকট্যাঙ্গেল"],
+ ["⭐","Star Shape","তারার আকৃতি","স্টার শেপ"],
+ ["❤️","Heart","হৃদয় আকৃতি","হার্ট"],
+ ["⬭","Oval","ডিম্বাকৃতি","ওভাল"],
+ ["💎","Diamond","হীরার আকৃতি","ডায়মন্ড"],
+ ["🌙","Crescent","অর্ধচন্দ্র","ক্রিসেন্ট"],
+ ["🔶","Rhombus","রম্বস","রম্বস"]
+ ]
+}
+
+};
+
+// ==================================
+// APP STATE
+// ==================================
+
+let currentCategory="";
+let currentIndex=0;
+let currentWords=[];
+let stars=0;
+let learned={};
+let gameAnswer=null;
+
+const $=id=>document.getElementById(id);
+
+// ==================================
+// CATEGORY DISPLAY
+// ==================================
+
+function renderCategories(){
+
+ const grid=$("categoryGrid");
+ grid.innerHTML="";
+
+ Object.keys(vocabulary).forEach((name,i)=>{
+
+   const data=vocabulary[name];
+
+   const btn=document.createElement("button");
+
+   btn.className="category "+data.color;
+
+   btn.innerHTML=`
+     <span class="emoji">${data.icon}</span>
+     <span>${name}</span>
+     <span>${data.words.length} Words</span>
+   `;
+
+   btn.onclick=()=>openCategory(name);
+
+   grid.appendChild(btn);
+
+ });
+
+}
+
+function searchItems(){
+
+ const value=$("search").value.toLowerCase();
+
+ document.querySelectorAll(".category").forEach((btn,i)=>{
+
+   const name=Object.keys(vocabulary)[i];
+
+   const matches=name.toLowerCase().includes(value) ||
+     vocabulary[name].words.some(w=>
+       w[1].toLowerCase().includes(value) ||
+       w[2].includes(value)
+     );
+
+   btn.style.display=matches?"flex":"none";
+
+ });
+
+}
+
+// ==================================
+// OPEN CATEGORY
+// ==================================
+
+function openCategory(name){
+
+ currentCategory=name;
+ currentWords=vocabulary[name].words;
+ currentIndex=0;
+
+ $("categoryScreen").classList.add("hide");
+ $("lesson").style.display="block";
+ $("playGame").style.display="block";
+ $("gameArea").style.display="none";
+
+ showWord();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+// ==================================
+// SHOW WORD
+// ==================================
+
+function showWord(){
+
+ const word=currentWords[currentIndex];
+
+ $("categoryName").innerText=
+   vocabulary[currentCategory].icon+" "+currentCategory;
+
+ $("picture").innerText=word[0];
+ $("englishWord").innerText=word[1];
+ $("banglaMeaning").innerText=word[2];
+
+ $("pronunciation").innerText=
+   "বাংলা উচ্চারণ: "+word[3];
+
+ $("progressText").innerText=
+   (currentIndex+1)+" / "+currentWords.length;
+
+ $("progressFill").style.width=
+   ((currentIndex+1)/currentWords.length*100)+"%";
+
+}
+
+// ==================================
+// NEXT / BACK
+// ==================================
+
+function nextWord(){
+
+ if(currentIndex<currentWords.length-1){
+   currentIndex++;
+ }else{
+   currentIndex=0;
+ }
+
+ showWord();
+}
+
+function previousWord(){
+
+ if(currentIndex>0){
+   currentIndex--;
+ }else{
+   currentIndex=currentWords.length-1;
+ }
+
+ showWord();
+}
+
+// ==================================
+// SPEECH SYSTEM
+// ==================================
+
+function speak(text,lang){
+
+ if(!("speechSynthesis" in window)){
+   alert("Your browser does not support voice.");
+   return;
+ }
+
+ window.speechSynthesis.cancel();
+
+ const speech=new SpeechSynthesisUtterance(text);
+
+ speech.lang=lang;
+ speech.rate=0.8;
+ speech.pitch=1.15;
+ speech.volume=1;
+
+ window.speechSynthesis.speak(speech);
+
+}
+
+function speakEnglish(){
+
+ const word=currentWords[currentIndex];
+
+ speak(word[1],"en-US");
+
+}
+
+function speakBangla(){
+
+ const word=currentWords[currentIndex];
+
+ speak(word[2],"bn-BD");
+
+}
+
+// ==================================
+// STAR REWARD
+// ==================================
+
+function addStar(){
+
+ stars+=1;
+
+ $("stars").innerText=stars;
+
+}
+
+// ==================================
+// GAME SYSTEM
+// ==================================
+
+function startGame(){
+
+ $("lesson").style.display="none";
+ $("playGame").style.display="none";
+ $("gameArea").style.display="block";
+
+ newQuestion();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function closeGame(){
+
+ $("gameArea").style.display="none";
+ $("lesson").style.display="block";
+ $("playGame").style.display="block";
+
+}
+
+function newQuestion(){
+
+ const allWords=[];
+
+ Object.keys(vocabulary).forEach(category=>{
+   vocabulary[category].words.forEach(word=>{
+     allWords.push(word);
+   });
+ });
+
+ gameAnswer=allWords[
+   Math.floor(Math.random()*allWords.length)
+ ];
+
+ $("gamePicture").innerText=gameAnswer[0];
+
+ $("gameMessage").innerText="";
+
+ let options=[gameAnswer];
+
+ while(options.length<4){
+
+   const random=allWords[
+     Math.floor(Math.random()*allWords.length)
+   ];
+
+   if(!options.includes(random)){
+     options.push(random);
+   }
+
+ }
+
+ options.sort(()=>Math.random()-.5);
+
+ const grid=$("answerGrid");
+
+ grid.innerHTML="";
+
+ options.forEach(option=>{
+
+   const btn=document.createElement("button");
+
+   btn.className="answer-btn";
+   btn.innerText=option[1];
+
+   btn.onclick=()=>checkAnswer(option,btn);
+
+   grid.appendChild(btn);
+
+ });
+
+}
+
+function checkAnswer(option,button){
+
+ if(!gameAnswer)return;
+
+ const buttons=document.querySelectorAll(".answer-btn");
+
+ buttons.forEach(btn=>btn.disabled=true);
+
+ if(option===gameAnswer){
+
+   $("gameMessage").innerText="🎉 CORRECT! WELL DONE! +5 ⭐";
+
+   stars+=5;
+   $("stars").innerText=stars;
+
+   button.style.background=
+     "linear-gradient(135deg,#00e66b,#00943c)";
+
+ }else{
+
+   $("gameMessage").innerText=
+     "❌ TRY AGAIN! Correct: "+gameAnswer[1];
+
+   button.style.background="#ed3838";
+
+ }
+
+ gameAnswer=null;
+
+}
+
+// ==================================
+// HOME & SETTINGS
+// ==================================
+
+function goHome(){
+
+ if(window.history.length>1){
+   window.history.back();
+ }else{
+   window.location.href="index.html";
+ }
+
+}
+
+function showSettings(){
+
+ alert(
+  "PICTURE VOCABULARY SETTINGS\n\n"+
+  "English Voice: en-US\n"+
+  "Bangla Voice: bn-BD\n"+
+  "Learning Mode: ON\n"+
+  "Game Mode: ON"
+ );
+
+}
+
+// ==================================
+// INITIALIZE
+// ==================================
+
+renderCategories();
+
+</script>
+
+</body>
+</html>
