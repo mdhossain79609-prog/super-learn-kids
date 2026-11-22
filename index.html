@@ -449,17 +449,20 @@ button {
       <button class="settings"
         onclick="showMessage('Settings coming soon!')">⚙️</button>
 
-      <select class="language">
-        <option>🌐 English</option>
-        <option>🌐 বাংলা</option>
-        <option>🌐 Hindi</option>
-        <option>🌐 Spanish</option>
-        <option>🌐 Arabic</option>
-      </select>
+      <select class="language" id="globalLanguage"
+onchange="saveGlobalLanguage(this.value)">
+  <option value="en">🌐 English</option>
+  <option value="bn">🌐 বাংলা</option>
+  <option value="hi">🌐 Hindi</option>
+  <option value="es">🌐 Spanish</option>
+  <option value="ar">🌐 Arabic</option>
+</select>
     </div>
 
     <div class="topgroup">
-      <div class="score">⭐ 0</div>
+      <div class="score">
+  ⭐ <span id="globalStars">0</span>
+</div>
       <div class="trophy">🏆</div>
     </div>
 
@@ -857,9 +860,39 @@ function openSubject(name) {
     return;
   }
 
+  if (name === "Picture Vocabulary") {
+    window.location.href = "picture-vocabulary.html";
+    return;
+  }
+
   showMessage(name + " section coming soon!");
 }
+// SHARED APP SYSTEM
 
+function saveGlobalLanguage(language) {
+  localStorage.setItem("slk_language", language);
+}
+
+function loadGlobalData() {
+
+  const savedStars =
+    localStorage.getItem("slk_stars") || "0";
+
+  document.querySelectorAll("#globalStars").forEach(el => {
+    el.textContent = savedStars;
+  });
+
+  const language =
+    localStorage.getItem("slk_language") || "en";
+
+  const selector = document.getElementById("globalLanguage");
+
+  if (selector) {
+    selector.value = language;
+  }
+}
+
+loadGlobalData();
 
 </script>
 
