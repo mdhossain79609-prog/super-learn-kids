@@ -1,1 +1,543 @@
 
+[
+  {
+    "id": 1,
+    "word": "Elephant",
+    "category": "Animals",
+    "image": "🐘",
+    "meanings": {
+      "bn": "হাতি",
+      "en": "Elephant",
+      "hi": "हाथी",
+      "ar": "فيل",
+      "es": "Elefante",
+      "fr": "Éléphant",
+      "ur": "ہاتھی",
+      "zh": "大象",
+      "ja": "象",
+      "de": "Elefant"
+    }
+  },
+  {
+    "id": 2,
+    "word": "Tiger",
+    "category": "Animals",
+    "image": "🐅",
+    "meanings": {
+      "bn": "বাঘ",
+      "en": "Tiger",
+      "hi": "बाघ",
+      "ar": "نمر",
+      "es": "Tigre",
+      "fr": "Tigre",
+      "ur": "شیر",
+      "zh": "老虎",
+      "ja": "トラ",
+      "de": "Tiger"
+    }
+  },
+  {
+    "id": 3,
+    "word": "Rabbit",
+    "category": "Animals",
+    "image": "🐇",
+    "meanings": {
+      "bn": "খরগোশ",
+      "en": "Rabbit",
+      "hi": "खरगोश",
+      "ar": "أرنب",
+      "es": "Conejo",
+      "fr": "Lapin",
+      "ur": "خرگوش",
+      "zh": "兔子",
+      "ja": "ウサギ",
+      "de": "Kaninchen"
+    }
+  },
+  {
+    "id": 4,
+    "word": "Apple",
+    "category": "Fruits",
+    "image": "🍎",
+    "meanings": {
+      "bn": "আপেল",
+      "en": "Apple",
+      "hi": "सेब",
+      "ar": "تفاح",
+      "es": "Manzana",
+      "fr": "Pomme",
+      "ur": "سیب",
+      "zh": "苹果",
+      "ja": "りんご",
+      "de": "Apfel"
+    }
+  },
+  {
+    "id": 5,
+    "word": "Mango",
+    "category": "Fruits",
+    "image": "🥭",
+    "meanings": {
+      "bn": "আম",
+      "en": "Mango",
+      "hi": "आम",
+      "ar": "مانجو",
+      "es": "Mango",
+      "fr": "Mangue",
+      "ur": "آم",
+      "zh": "芒果",
+      "ja": "マンゴー",
+      "de": "Mango"
+    }
+  },
+  {
+    "id": 6,
+    "word": "Banana",
+    "category": "Fruits",
+    "image": "🍌",
+    "meanings": {
+      "bn": "কলা",
+      "en": "Banana",
+      "hi": "केला",
+      "ar": "موز",
+      "es": "Plátano",
+      "fr": "Banane",
+      "ur": "کیلا",
+      "zh": "香蕉",
+      "ja": "バナナ",
+      "de": "Banane"
+    }
+  },
+  {
+    "id": 7,
+    "word": "Eagle",
+    "category": "Birds",
+    "image": "🦅",
+    "meanings": {
+      "bn": "ঈগল",
+      "en": "Eagle",
+      "hi": "चील",
+      "ar": "نسر",
+      "es": "Águila",
+      "fr": "Aigle",
+      "ur": "عقاب",
+      "zh": "鹰",
+      "ja": "ワシ",
+      "de": "Adler"
+    }
+  },
+  {
+    "id": 8,
+    "word": "Parrot",
+    "category": "Birds",
+    "image": "🦜",
+    "meanings": {
+      "bn": "টিয়া",
+      "en": "Parrot",
+      "hi": "तोता",
+      "ar": "ببغاء",
+      "es": "Loro",
+      "fr": "Perroquet",
+      "ur": "طوطا",
+      "zh": "鹦鹉",
+      "ja": "オウム",
+      "de": "Papagei"
+    }
+  },
+  {
+    "id": 9,
+    "word": "Pigeon",
+    "category": "Birds",
+    "image": "🕊️",
+    "meanings": {
+      "bn": "কবুতর",
+      "en": "Pigeon",
+      "hi": "कबूतर",
+      "ar": "حمامة",
+      "es": "Paloma",
+      "fr": "Pigeon",
+      "ur": "کبوتر",
+      "zh": "鸽子",
+      "ja": "ハト",
+      "de": "Taube"
+    }
+  },
+  {
+    "id": 10,
+    "word": "Car",
+    "category": "Vehicles",
+    "image": "🚗",
+    "meanings": {
+      "bn": "গাড়ি",
+      "en": "Car",
+      "hi": "कार",
+      "ar": "سيارة",
+      "es": "Coche",
+      "fr": "Voiture",
+      "ur": "گاڑی",
+      "zh": "汽车",
+      "ja": "車",
+      "de": "Auto"
+    }
+  },
+  {
+    "id": 11,
+    "word": "Bicycle",
+    "category": "Vehicles",
+    "image": "🚲",
+    "meanings": {
+      "bn": "সাইকেল",
+      "en": "Bicycle",
+      "hi": "साइकिल",
+      "ar": "دراجة",
+      "es": "Bicicleta",
+      "fr": "Vélo",
+      "ur": "سائیکل",
+      "zh": "自行车",
+      "ja": "自転車",
+      "de": "Fahrrad"
+    }
+  },
+  {
+    "id": 12,
+    "word": "Bus",
+    "category": "Vehicles",
+    "image": "🚌",
+    "meanings": {
+      "bn": "বাস",
+      "en": "Bus",
+      "hi": "बस",
+      "ar": "حافلة",
+      "es": "Autobús",
+      "fr": "Bus",
+      "ur": "بس",
+      "zh": "公共汽车",
+      "ja": "バス",
+      "de": "Bus"
+    }
+  },
+  {
+    "id": 13,
+    "word": "Bread",
+    "category": "Food",
+    "image": "🍞",
+    "meanings": {
+      "bn": "রুটি",
+      "en": "Bread",
+      "hi": "रोटी",
+      "ar": "خبز",
+      "es": "Pan",
+      "fr": "Pain",
+      "ur": "روٹی",
+      "zh": "面包",
+      "ja": "パン",
+      "de": "Brot"
+    }
+  },
+  {
+    "id": 14,
+    "word": "Rice",
+    "category": "Food",
+    "image": "🍚",
+    "meanings": {
+      "bn": "ভাত",
+      "en": "Rice",
+      "hi": "चावल",
+      "ar": "أرز",
+      "es": "Arroz",
+      "fr": "Riz",
+      "ur": "چاول",
+      "zh": "米饭",
+      "ja": "ご飯",
+      "de": "Reis"
+    }
+  },
+  {
+    "id": 15,
+    "word": "Egg",
+    "category": "Food",
+    "image": "🥚",
+    "meanings": {
+      "bn": "ডিম",
+      "en": "Egg",
+      "hi": "अंडा",
+      "ar": "بيضة",
+      "es": "Huevo",
+      "fr": "Œuf",
+      "ur": "انڈا",
+      "zh": "鸡蛋",
+      "ja": "卵",
+      "de": "Ei"
+    }
+  },
+  {
+    "id": 16,
+    "word": "Sun",
+    "category": "Nature",
+    "image": "☀️",
+    "meanings": {
+      "bn": "সূর্য",
+      "en": "Sun",
+      "hi": "सूरज",
+      "ar": "شمس",
+      "es": "Sol",
+      "fr": "Soleil",
+      "ur": "سورج",
+      "zh": "太阳",
+      "ja": "太陽",
+      "de": "Sonne"
+    }
+  },
+  {
+    "id": 17,
+    "word": "Moon",
+    "category": "Nature",
+    "image": "🌙",
+    "meanings": {
+      "bn": "চাঁদ",
+      "en": "Moon",
+      "hi": "चाँद",
+      "ar": "قمر",
+      "es": "Luna",
+      "fr": "Lune",
+      "ur": "چاند",
+      "zh": "月亮",
+      "ja": "月",
+      "de": "Mond"
+    }
+  },
+  {
+    "id": 18,
+    "word": "Star",
+    "category": "Nature",
+    "image": "⭐",
+    "meanings": {
+      "bn": "তারা",
+      "en": "Star",
+      "hi": "तारा",
+      "ar": "نجمة",
+      "es": "Estrella",
+      "fr": "Étoile",
+      "ur": "ستارہ",
+      "zh": "星星",
+      "ja": "星",
+      "de": "Stern"
+    }
+  },
+  {
+    "id": 19,
+    "word": "Hand",
+    "category": "Body Parts",
+    "image": "✋",
+    "meanings": {
+      "bn": "হাত",
+      "en": "Hand",
+      "hi": "हाथ",
+      "ar": "يد",
+      "es": "Mano",
+      "fr": "Main",
+      "ur": "ہاتھ",
+      "zh": "手",
+      "ja": "手",
+      "de": "Hand"
+    }
+  },
+  {
+    "id": 20,
+    "word": "Eye",
+    "category": "Body Parts",
+    "image": "👁️",
+    "meanings": {
+      "bn": "চোখ",
+      "en": "Eye",
+      "hi": "आँख",
+      "ar": "عين",
+      "es": "Ojo",
+      "fr": "Œil",
+      "ur": "آنکھ",
+      "zh": "眼睛",
+      "ja": "目",
+      "de": "Auge"
+    }
+  },
+  {
+    "id": 21,
+    "word": "Nose",
+    "category": "Body Parts",
+    "image": "👃",
+    "meanings": {
+      "bn": "নাক",
+      "en": "Nose",
+      "hi": "नाक",
+      "ar": "أنف",
+      "es": "Nariz",
+      "fr": "Nez",
+      "ur": "ناک",
+      "zh": "鼻子",
+      "ja": "鼻",
+      "de": "Nase"
+    }
+  },
+  {
+    "id": 22,
+    "word": "Door",
+    "category": "Home",
+    "image": "🚪",
+    "meanings": {
+      "bn": "দরজা",
+      "en": "Door",
+      "hi": "दरवाज़ा",
+      "ar": "باب",
+      "es": "Puerta",
+      "fr": "Porte",
+      "ur": "دروازہ",
+      "zh": "门",
+      "ja": "ドア",
+      "de": "Tür"
+    }
+  },
+  {
+    "id": 23,
+    "word": "Chair",
+    "category": "Home",
+    "image": "🪑",
+    "meanings": {
+      "bn": "চেয়ার",
+      "en": "Chair",
+      "hi": "कुर्सी",
+      "ar": "كرسي",
+      "es": "Silla",
+      "fr": "Chaise",
+      "ur": "کرسی",
+      "zh": "椅子",
+      "ja": "椅子",
+      "de": "Stuhl"
+    }
+  },
+  {
+    "id": 24,
+    "word": "Table",
+    "category": "Home",
+    "image": "🪵",
+    "meanings": {
+      "bn": "টেবিল",
+      "en": "Table",
+      "hi": "मेज़",
+      "ar": "طاولة",
+      "es": "Mesa",
+      "fr": "Table",
+      "ur": "میز",
+      "zh": "桌子",
+      "ja": "テーブル",
+      "de": "Tisch"
+    }
+  },
+  {
+    "id": 25,
+    "word": "Book",
+    "category": "School",
+    "image": "📘",
+    "meanings": {
+      "bn": "বই",
+      "en": "Book",
+      "hi": "किताब",
+      "ar": "كتاب",
+      "es": "Libro",
+      "fr": "Livre",
+      "ur": "کتاب",
+      "zh": "书",
+      "ja": "本",
+      "de": "Buch"
+    }
+  },
+  {
+    "id": 26,
+    "word": "Pencil",
+    "category": "School",
+    "image": "✏️",
+    "meanings": {
+      "bn": "পেন্সিল",
+      "en": "Pencil",
+      "hi": "पेंसिल",
+      "ar": "قلم رصاص",
+      "es": "Lápiz",
+      "fr": "Crayon",
+      "ur": "پنسل",
+      "zh": "铅笔",
+      "ja": "鉛筆",
+      "de": "Bleistift"
+    }
+  },
+  {
+    "id": 27,
+    "word": "Bag",
+    "category": "School",
+    "image": "🎒",
+    "meanings": {
+      "bn": "ব্যাগ",
+      "en": "Bag",
+      "hi": "बैग",
+      "ar": "حقيبة",
+      "es": "Bolsa",
+      "fr": "Sac",
+      "ur": "بیگ",
+      "zh": "书包",
+      "ja": "かばん",
+      "de": "Tasche"
+    }
+  },
+  {
+    "id": 28,
+    "word": "Ball",
+    "category": "Toys",
+    "image": "⚽",
+    "meanings": {
+      "bn": "বল",
+      "en": "Ball",
+      "hi": "गेंद",
+      "ar": "كرة",
+      "es": "Pelota",
+      "fr": "Ballon",
+      "ur": "گیند",
+      "zh": "球",
+      "ja": "ボール",
+      "de": "Ball"
+    }
+  },
+  {
+    "id": 29,
+    "word": "Doll",
+    "category": "Toys",
+    "image": "🪆",
+    "meanings": {
+      "bn": "পুতুল",
+      "en": "Doll",
+      "hi": "गुड़िया",
+      "ar": "دمية",
+      "es": "Muñeca",
+      "fr": "Poupée",
+      "ur": "گڑیا",
+      "zh": "洋娃娃",
+      "ja": "人形",
+      "de": "Puppe"
+    }
+  },
+  {
+    "id": 30,
+    "word": "Kite",
+    "category": "Toys",
+    "image": "🪁",
+    "meanings": {
+      "bn": "ঘুড়ি",
+      "en": "Kite",
+      "hi": "पतंग",
+      "ar": "طائرة ورقية",
+      "es": "Cometa",
+      "fr": "Cerf-volant",
+      "ur": "پتنگ",
+      "zh": "风筝",
+      "ja": "凧",
+      "de": "Drachen"
+    }
+  }
+]
