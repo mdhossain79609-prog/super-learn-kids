@@ -194,10 +194,9 @@ h2{text-align:center;font-size:21px;margin:13px 0;color:#5630a7}
 <script>
 
 // ===================================
-// 1. WORD DATABASE
+// 1. WORD DATABASE - FIXED
 // ===================================
 
-const words = [
 let words = [];
 let activeCategory = "All";
 
@@ -208,22 +207,28 @@ async function loadWords() {
     const response = await fetch("./words.json");
 
     if (!response.ok) {
-      throw new Error("Words file not found");
+      throw new Error("words.json file not found");
     }
 
-    words = await response.json();
+    const data = await response.json();
 
-    if (!Array.isArray(words) || words.length === 0) {
+    if (!Array.isArray(data) || data.length === 0) {
       throw new Error("Word database is empty");
     }
 
+    words = data;
+
     console.log("Total words loaded:", words.length);
 
-    startFirstGame();
+    document.getElementById("modeTitle").textContent =
+      "✅ শব্দের ডেটা লোড হয়েছে!";
 
   } catch (error) {
-    console.error(error);
-    alert("শব্দের ফাইল লোড হয়নি। words.json পরীক্ষা করুন।");
+    console.error("Word loading error:", error);
+
+    alert(
+      "শব্দের ফাইল লোড হয়নি। words.json ফাইলটি পরীক্ষা করুন।"
+    );
   }
 }
 
@@ -262,12 +267,6 @@ function getNextWord(category = activeCategory) {
 
   return selected;
 }
-
-function startFirstGame() {
-  // এখানে আপনার আগের গেম শুরুর ফাংশনটি কল হবে।
-  // যেমন: nextQuestion();
-}
-];
 
 const langs=[
  ["বাংলা","bn"],["English","word"],["हिन्दी","hi"],
@@ -675,7 +674,7 @@ function openCategory(cat){
 // ===================================
 // 8. HOME INITIALIZATION
 // ===================================
-
+loadWords();
 </script>
 </body>
 </html>
