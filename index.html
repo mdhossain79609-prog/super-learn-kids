@@ -372,7 +372,68 @@ button {
 .number-icon {
   background: linear-gradient(145deg,#69ed50,#079b40);
 }
+/* 40 Learning Buttons */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  align-content: start;
+  overflow-y: auto;
+  padding: 6px 4px 14px;
+}
 
+.learn-btn {
+  min-width: 0;
+  min-height: 92px;
+  border: 3px solid white;
+  border-radius: 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  box-shadow: 0 4px 0 #124d8b55;
+  text-shadow: 0 2px 3px #0005;
+  cursor: pointer;
+  transition: transform .2s;
+  padding: 7px 3px;
+}
+
+.learn-btn:active {
+  transform: scale(.94);
+}
+
+.learn-btn .learn-icon {
+  font-size: clamp(27px, 7vw, 39px);
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.learn-btn strong {
+  font-size: clamp(9px, 2.8vw, 12px);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Different colorful backgrounds */
+.learn-btn:nth-child(10n+1) { background: linear-gradient(145deg,#ffbd45,#ed7515); }
+.learn-btn:nth-child(10n+2) { background: linear-gradient(145deg,#40caff,#1763df); }
+.learn-btn:nth-child(10n+3) { background: linear-gradient(145deg,#a77aff,#7040c9); }
+.learn-btn:nth-child(10n+4) { background: linear-gradient(145deg,#ff7eaa,#df347c); }
+.learn-btn:nth-child(10n+5) { background: linear-gradient(145deg,#54d99a,#15965e); }
+.learn-btn:nth-child(10n+6) { background: linear-gradient(145deg,#ff9b56,#e34c35); }
+.learn-btn:nth-child(10n+7) { background: linear-gradient(145deg,#61c9e9,#247bbd); }
+.learn-btn:nth-child(10n+8) { background: linear-gradient(145deg,#b4d94c,#5b9e28); }
+.learn-btn:nth-child(10n+9) { background: linear-gradient(145deg,#e88be9,#a13cae); }
+.learn-btn:nth-child(10n+10) { background: linear-gradient(145deg,#f2c85b,#c58b17); }
+
+.learn-btn.game-btn {
+  border: 3px solid #fff6a8;
+  box-shadow: 0 4px 0 #8b5b1c66, 0 0 8px #ffdb59aa;
+}
 </style>
 </head>
 
