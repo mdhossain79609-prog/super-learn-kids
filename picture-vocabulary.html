@@ -734,7 +734,7 @@ const vocabulary = {
 let currentCategory="";
 let currentIndex=0;
 let currentWords=[];
-let stars=0;
+let stars = Number(localStorage.getItem("slk_stars") || 0);
 let learned={};
 let gameAnswer=null;
 
@@ -908,12 +908,10 @@ function speakBangla(){
 // STAR REWARD
 // ==================================
 
-function addStar(){
-
- stars+=1;
-
- $("stars").innerText=stars;
-
+function addStar() {
+  stars += 1;
+  localStorage.setItem("slk_stars", stars);
+  $("stars").innerText = stars;
 }
 
 // ==================================
@@ -1005,8 +1003,9 @@ function checkAnswer(option,button){
 
    $("gameMessage").innerText="🎉 CORRECT! WELL DONE! +5 ⭐";
 
-   stars+=5;
-   $("stars").innerText=stars;
+   stars += 5;
+localStorage.setItem("slk_stars", stars);
+$("stars").innerText = stars;
 
    button.style.background=
      "linear-gradient(135deg,#00e66b,#00943c)";
