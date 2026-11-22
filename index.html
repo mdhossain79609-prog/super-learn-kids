@@ -911,7 +911,10 @@ function openSubject(name) {
     "Fun Games": "fun-games.html"
 
   };
-
+if (name === "Find the Meaning") {
+  window.location.href = "find-meaning/find-meaning.html";
+  return;
+}
   const page = pages[name];
 
   if (page) {
