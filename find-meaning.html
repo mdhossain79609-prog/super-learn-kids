@@ -1,1 +1,1284 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find The Meaning - Kids</title>
+
+<style>
+
+/* =====================================
+   1. BASIC DESIGN
+===================================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(145deg,#e5f6ff,#f4eaff,#fff1e5);
+  color:#26334d;
+  min-height:100vh;
+}
+
+button{
+  font-family:inherit;
+  cursor:pointer;
+  border:none;
+}
+
+.app{
+  max-width:600px;
+  margin:auto;
+  min-height:100vh;
+  padding:12px;
+}
+
+/* =====================================
+   2. HEADER AND STAR
+===================================== */
+
+.header{
+  background:linear-gradient(120deg,#6435d5,#a43be2);
+  color:white;
+  padding:18px;
+  border-radius:23px;
+  box-shadow:0 7px 0 #4523a3;
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:900;
+}
+
+.stars{
+  background:#ffcf42;
+  color:#684100;
+  padding:9px 14px;
+  border-radius:20px;
+  font-weight:bold;
+}
+
+.header h1{
+  text-align:center;
+  font-size:30px;
+  margin-top:20px;
+}
+
+.header p{
+  text-align:center;
+  margin-top:7px;
+  font-size:13px;
+}
+
+/* =====================================
+   3. PROGRESS BAR
+===================================== */
+
+.progress-box{
+  background:white;
+  padding:14px;
+  border-radius:17px;
+  margin-top:18px;
+  box-shadow:0 4px 12px #00000012;
+}
+
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+  font-size:13px;
+  margin-bottom:9px;
+}
+
+.progress-track{
+  height:12px;
+  background:#e8e4f5;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#22d3a6,#36a9ff);
+  border-radius:20px;
+}
+
+/* =====================================
+   4. MAIN SECTION
+===================================== */
+
+.section-title{
+  font-size:20px;
+  font-weight:900;
+  margin:23px 4px 13px;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.category{
+  padding:17px 8px;
+  border-radius:20px;
+  color:#26334d;
+  text-align:center;
+  background:white;
+  box-shadow:0 5px 0 #d9d6e8;
+  border:2px solid white;
+  transition:.2s;
+}
+
+.category:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 #d9d6e8;
+}
+
+.category .emoji{
+  font-size:43px;
+  display:block;
+  margin-bottom:9px;
+}
+
+.category strong{
+  font-size:14px;
+  display:block;
+}
+
+.category small{
+  display:block;
+  margin-top:5px;
+  color:#777;
+}
+
+/* =====================================
+   5. GAME MODE SECTION
+===================================== */
+
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.game-card{
+  min-height:125px;
+  border-radius:20px;
+  padding:15px 10px;
+  text-align:center;
+  color:white;
+  box-shadow:0 5px 0 #00000020;
+  transition:.2s;
+}
+
+.game-card:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 #00000020;
+}
+
+.game-card .emoji{
+  font-size:39px;
+  display:block;
+  margin-bottom:7px;
+}
+
+.game-card strong{
+  font-size:14px;
+}
+
+.game-card small{
+  display:block;
+  margin-top:5px;
+  opacity:.9;
+}
+
+.g1{background:linear-gradient(135deg,#ff7c55,#ffad43);}
+.g2{background:linear-gradient(135deg,#358ce8,#55c4ff);}
+.g3{background:linear-gradient(135deg,#9a53db,#d36ee8);}
+.g4{background:linear-gradient(135deg,#18ae91,#4bd6a5);}
+.g5{background:linear-gradient(135deg,#ed5c91,#ff8cb0);}
+.g6{background:linear-gradient(135deg,#e6a321,#f9cf51);}
+
+/* =====================================
+   6. LEARNING AREA
+===================================== */
+
+#learningArea{
+  display:none;
+  background:white;
+  border-radius:23px;
+  padding:16px;
+  margin-top:20px;
+  box-shadow:0 5px 20px #00000015;
+}
+
+.game-heading{
+  text-align:center;
+  font-size:21px;
+  color:#6838c9;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.question{
+  background:linear-gradient(135deg,#f0e8ff,#e3f5ff);
+  padding:16px;
+  border-radius:19px;
+  text-align:center;
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.picture{
+  font-size:105px;
+  text-align:center;
+  padding:15px;
+  cursor:pointer;
+  filter:drop-shadow(0 8px 5px #00000020);
+}
+
+.word{
+  text-align:center;
+  font-size:30px;
+  font-weight:900;
+  color:#6034c9;
+  margin:10px 0;
+  cursor:pointer;
+}
+
+.meaning-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin-top:15px;
+}
+
+.answer{
+  background:#f0eaff;
+  border:2px solid #e0d3ff;
+  border-radius:15px;
+  padding:15px 5px;
+  font-size:16px;
+  font-weight:bold;
+  color:#5630a7;
+  min-height:55px;
+}
+
+.answer:active{
+  transform:scale(.97);
+}
+
+.answer.correct{
+  background:#c8f8d7;
+  border-color:#39c77a;
+}
+
+.answer.wrong{
+  background:#ffe0e0;
+  border-color:#ed6666;
+}
+
+.feedback{
+  text-align:center;
+  font-size:17px;
+  font-weight:bold;
+  margin-top:15px;
+  min-height:25px;
+}
+
+.next-btn{
+  display:block;
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  color:white;
+  font-weight:bold;
+  font-size:17px;
+  background:linear-gradient(120deg,#6339d5,#a13fe1);
+  margin-top:15px;
+}
+
+/* =====================================
+   7. TEN LANGUAGE MEANINGS
+===================================== */
+
+.language-box{
+  margin-top:20px;
+  background:#f6f2ff;
+  border-radius:18px;
+  padding:13px;
+}
+
+.language-title{
+  font-weight:900;
+  font-size:17px;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+.language-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+  margin-top:6px;
+  background:white;
+  border-radius:11px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.language-row strong{
+  color:#6336c4;
+}
+
+/* =====================================
+   8. LOTTERY SECTION
+===================================== */
+
+.lottery{
+  background:linear-gradient(135deg,#fff0bd,#ffe0f0);
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  margin-top:20px;
+}
+
+.lottery-wheel{
+  font-size:85px;
+  cursor:pointer;
+  display:block;
+  margin:12px auto;
+  transition:transform 1s;
+}
+
+.spin{
+  transform:rotate(1080deg);
+}
+
+/* =====================================
+   9. REWARD AND LEVEL
+===================================== */
+
+.reward{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:15px;
+}
+
+.reward-card{
+  background:white;
+  border-radius:15px;
+  text-align:center;
+  padding:14px 5px;
+  box-shadow:0 3px 8px #00000010;
+}
+
+.reward-card span{
+  font-size:30px;
+  display:block;
+}
+
+.reward-card strong{
+  font-size:13px;
+}
+
+/* =====================================
+   10. NAVIGATION
+===================================== */
+
+.back-btn{
+  background:#e9e0ff;
+  color:#6135bf;
+  padding:11px 18px;
+  border-radius:13px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.footer{
+  text-align:center;
+  color:#888;
+  font-size:12px;
+  padding:25px 5px;
+}
+
+@media(max-width:360px){
+  .header h1{font-size:25px;}
+  .picture{font-size:85px;}
+  .answer{font-size:14px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =====================================
+     11. HEADER
+===================================== -->
+
+<header class="header" id="mainHeader">
+  <div class="header-top">
+    <div class="logo">🌈 SUPER LEARN KIDS</div>
+    <div class="stars">⭐ <span id="starCount">0</span></div>
+  </div>
+
+  <h1>FIND THE MEANING</h1>
+  <p>Learn • Play • Think • Win</p>
+</header>
+
+<!-- =====================================
+     12. PROGRESS
+===================================== -->
+
+<div class="progress-box">
+  <div class="progress-info">
+    <span>🏆 Your Progress</span>
+    <span id="progressText">0% Completed</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<!-- =====================================
+     13. WORD CATEGORIES
+===================================== -->
+
+<div id="homeArea">
+
+  <div class="section-title">📚 Explore Categories</div>
+
+  <div class="category-grid">
+
+    <button class="category" onclick="startCategory('Animals')">
+      <span class="emoji">🦁</span>
+      <strong>Animals & Birds</strong>
+      <small>100+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Fruits')">
+      <span class="emoji">🍎</span>
+      <strong>Fruits & Vegetables</strong>
+      <small>80+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Nature')">
+      <span class="emoji">🌳</span>
+      <strong>Nature & Environment</strong>
+      <small>100+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Body')">
+      <span class="emoji">🧠</span>
+      <strong>Body Parts</strong>
+      <small>60+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Food')">
+      <span class="emoji">🍕</span>
+      <strong>Food & Drinks</strong>
+      <small>80+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('School')">
+      <span class="emoji">🎒</span>
+      <strong>School & Education</strong>
+      <small>80+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Science')">
+      <span class="emoji">🔬</span>
+      <strong>Science & Technology</strong>
+      <small>100+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Space')">
+      <span class="emoji">🚀</span>
+      <strong>Space & Universe</strong>
+      <small>50+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Actions')">
+      <span class="emoji">🏃</span>
+      <strong>Action Words</strong>
+      <small>100+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Daily')">
+      <span class="emoji">🏡</span>
+      <strong>Daily Life</strong>
+      <small>80+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Feelings')">
+      <span class="emoji">😊</span>
+      <strong>Feelings & Emotions</strong>
+      <small>60+ Words</small>
+    </button>
+
+    <button class="category" onclick="startCategory('Advanced')">
+      <span class="emoji">🎓</span>
+      <strong>Advanced Vocabulary</strong>
+      <small>100+ Words</small>
+    </button>
+
+  </div>
+
+<!-- =====================================
+     14. GAME MODES
+===================================== -->
+
+  <div class="section-title">🎮 Play & Challenge</div>
+
+  <div class="game-grid">
+
+    <button class="game-card g1" onclick="startGame('picture')">
+      <span class="emoji">🖼️</span>
+      <strong>Picture to Meaning</strong>
+      <small>Find the correct meaning</small>
+    </button>
+
+    <button class="game-card g2" onclick="startGame('word')">
+      <span class="emoji">🔤</span>
+      <strong>Word to Picture</strong>
+      <small>Find the correct picture</small>
+    </button>
+
+    <button class="game-card g3" onclick="startGame('match')">
+      <span class="emoji">🧩</span>
+      <strong>Match the Pairs</strong>
+      <small>Match words and pictures</small>
+    </button>
+
+    <button class="game-card g4" onclick="startGame('brain')">
+      <span class="emoji">🧠</span>
+      <strong>Brain Challenge</strong>
+      <small>Test your intelligence</small>
+    </button>
+
+    <button class="game-card g5" onclick="startGame('treasure')">
+      <span class="emoji">💎</span>
+      <strong>Treasure Hunt</strong>
+      <small>Find hidden rewards</small>
+    </button>
+
+    <button class="game-card g6" onclick="startGame('lottery')">
+      <span class="emoji">🎡</span>
+      <strong>Lucky Lottery</strong>
+      <small>Spin and win stars</small>
+    </button>
+
+  </div>
+
+<!-- =====================================
+     15. REWARDS
+===================================== -->
+
+  <div class="section-title">🏅 Your Rewards</div>
+
+  <div class="reward">
+    <div class="reward-card">
+      <span>⭐</span>
+      <strong id="rewardStars">0 Stars</strong>
+    </div>
+    <div class="reward-card">
+      <span>🎯</span>
+      <strong id="rewardCorrect">0 Correct</strong>
+    </div>
+    <div class="reward-card">
+      <span>🏆</span>
+      <strong id="rewardLevel">Level 1</strong>
+    </div>
+  </div>
+
+</div>
+
+<!-- =====================================
+     16. LEARNING / GAME SCREEN
+===================================== -->
+
+<div id="learningArea">
+
+  <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+  <div class="game-heading" id="gameTitle">Picture to Meaning</div>
+
+  <div class="question" id="questionText">
+    What is this?
+  </div>
+
+  <div class="picture" id="questionPicture"
+       onclick="speakCurrent()">🐘</div>
+
+  <div class="word" id="questionWord"
+       onclick="speakCurrent()">ELEPHANT</div>
+
+  <div class="meaning-list" id="answerArea"></div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <button class="next-btn" id="nextButton"
+          onclick="nextQuestion()" style="display:none">
+    Next Question ➜
+  </button>
+
+  <!-- =====================================
+       17. TEN LANGUAGE MEANINGS
+  ===================================== -->
+
+  <div class="language-box">
+    <div class="language-title">🌍 Meaning in 10 Languages</div>
+    <div id="languageList"></div>
+  </div>
+
+</div>
+
+<!-- =====================================
+     18. LOTTERY AREA
+===================================== -->
+
+<div id="lotteryArea" style="display:none">
+
+  <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+  <div class="lottery">
+    <h2>🎡 LUCKY LOTTERY</h2>
+    <div class="lottery-wheel" id="lotteryWheel">🎡</div>
+    <h3 id="lotteryResult">Try your luck!</h3>
+    <button class="next-btn" onclick="spinLottery()">
+      SPIN NOW
+    </button>
+  </div>
+
+</div>
+
+<div class="footer">
+  SUPER LEARN KIDS • LEARN EVERY DAY • GROW EVERY DAY
+</div>
+
+</div>
+
+<script>
+
+/* =====================================
+   19. WORD DATABASE
+   এই অংশে পরে ১০০০+ শব্দ যোগ হবে
+===================================== */
+
+const words = [
+
+{
+ word:"ELEPHANT",
+ picture:"🐘",
+ category:"Animals",
+ meanings:{
+  bn:"হাতি",
+  en:"Elephant",
+  hi:"हाथी",
+  ar:"فيل",
+  es:"Elefante",
+  fr:"Éléphant",
+  ur:"ہاتھی",
+  zh:"大象",
+  ja:"象",
+  de:"Elefant"
+ }
+},
+
+{
+ word:"APPLE",
+ picture:"🍎",
+ category:"Fruits",
+ meanings:{
+  bn:"আপেল",
+  en:"Apple",
+  hi:"सेब",
+  ar:"تفاحة",
+  es:"Manzana",
+  fr:"Pomme",
+  ur:"سیب",
+  zh:"苹果",
+  ja:"りんご",
+  de:"Apfel"
+ }
+},
+
+{
+ word:"LION",
+ picture:"🦁",
+ category:"Animals",
+ meanings:{
+  bn:"সিংহ",
+  en:"Lion",
+  hi:"शेर",
+  ar:"أسد",
+  es:"León",
+  fr:"Lion",
+  ur:"شیر",
+  zh:"狮子",
+  ja:"ライオン",
+  de:"Löwe"
+ }
+},
+
+{
+ word:"BANANA",
+ picture:"🍌",
+ category:"Fruits",
+ meanings:{
+  bn:"কলা",
+  en:"Banana",
+  hi:"केला",
+  ar:"موز",
+  es:"Plátano",
+  fr:"Banane",
+  ur:"کیلا",
+  zh:"香蕉",
+  ja:"バナナ",
+  de:"Banane"
+ }
+},
+
+{
+ word:"SUN",
+ picture:"☀️",
+ category:"Nature",
+ meanings:{
+  bn:"সূর্য",
+  en:"Sun",
+  hi:"सूरज",
+  ar:"شمس",
+  es:"Sol",
+  fr:"Soleil",
+  ur:"سورج",
+  zh:"太阳",
+  ja:"太陽",
+  de:"Sonne"
+ }
+},
+
+{
+ word:"BOOK",
+ picture:"📚",
+ category:"School",
+ meanings:{
+  bn:"বই",
+  en:"Book",
+  hi:"किताब",
+  ar:"كتاب",
+  es:"Libro",
+  fr:"Livre",
+  ur:"کتاب",
+  zh:"书",
+  ja:"本",
+  de:"Buch"
+ }
+},
+
+{
+ word:"ROCKET",
+ picture:"🚀",
+ category:"Space",
+ meanings:{
+  bn:"রকেট",
+  en:"Rocket",
+  hi:"रॉकेट",
+  ar:"صاروخ",
+  es:"Cohete",
+  fr:"Fusée",
+  ur:"راکٹ",
+  zh:"火箭",
+  ja:"ロケット",
+  de:"Rakete"
+ }
+},
+
+{
+ word:"HAPPY",
+ picture:"😊",
+ category:"Feelings",
+ meanings:{
+  bn:"খুশি",
+  en:"Happy",
+  hi:"खुश",
+  ar:"سعيد",
+  es:"Feliz",
+  fr:"Heureux",
+  ur:"خوش",
+  zh:"快乐",
+  ja:"幸せ",
+  de:"Glücklich"
+ }
+},
+
+{
+ word:"WATER",
+ picture:"💧",
+ category:"Nature",
+ meanings:{
+  bn:"পানি",
+  en:"Water",
+  hi:"पानी",
+  ar:"ماء",
+  es:"Agua",
+  fr:"Eau",
+  ur:"پانی",
+  zh:"水",
+  ja:"水",
+  de:"Wasser"
+ }
+},
+
+{
+ word:"FISH",
+ picture:"🐟",
+ category:"Animals",
+ meanings:{
+  bn:"মাছ",
+  en:"Fish",
+  hi:"मछली",
+  ar:"سمكة",
+  es:"Pez",
+  fr:"Poisson",
+  ur:"مچھلی",
+  zh:"鱼",
+  ja:"魚",
+  de:"Fisch"
+ }
+}
+
+/* এখানে নতুন শব্দ যোগ করা হবে */
+
+];
+
+
+/* =====================================
+   20. LANGUAGE SETTINGS
+===================================== */
+
+const languageNames = {
+ bn:"🇧🇩 বাংলা",
+ en:"🇬🇧 English",
+ hi:"🇮🇳 हिन्दी",
+ ar:"🇸🇦 العربية",
+ es:"🇪🇸 Español",
+ fr:"🇫🇷 Français",
+ ur:"🇵🇰 اردو",
+ zh:"🇨🇳 中文",
+ ja:"🇯🇵 日本語",
+ de:"🇩🇪 Deutsch"
+};
+
+const speechLanguages = {
+ bn:"bn-BD",
+ en:"en-US",
+ hi:"hi-IN",
+ ar:"ar-SA",
+ es:"es-ES",
+ fr:"fr-FR",
+ ur:"ur-PK",
+ zh:"zh-CN",
+ ja:"ja-JP",
+ de:"de-DE"
+};
+
+
+/* =====================================
+   21. SAVED DATA
+===================================== */
+
+let stars = Number(localStorage.getItem("slk_stars") || 0);
+let correctAnswers = Number(localStorage.getItem("fm_correct") || 0);
+let completed = Number(localStorage.getItem("fm_completed") || 0);
+
+let currentWord = null;
+let currentMode = "picture";
+let currentCategory = "All";
+let usedWords = [];
+let answered = false;
+
+const $ = id => document.getElementById(id);
+
+
+/* =====================================
+   22. UPDATE SCORE
+===================================== */
+
+function updateScore(){
+
+ $("starCount").textContent=stars;
+ $("rewardStars").textContent=stars+" Stars";
+ $("rewardCorrect").textContent=correctAnswers+" Correct";
+
+ let level=Math.floor(correctAnswers/10)+1;
+
+ $("rewardLevel").textContent="Level "+level;
+
+ let percent=Math.min(100,completed);
+
+ $("progressFill").style.width=percent+"%";
+ $("progressText").textContent=percent+"% Completed";
+}
+
+updateScore();
+
+
+/* =====================================
+   23. VOICE SYSTEM
+   যে লেখা বা ছবিতে টাচ করবে,
+   সেটি উচ্চারণ করবে
+===================================== */
+
+function speak(text,lang="en"){
+
+ if(!("speechSynthesis" in window)) return;
+
+ speechSynthesis.cancel();
+
+ let utterance=new SpeechSynthesisUtterance(text);
+
+ utterance.lang=speechLanguages[lang] || "en-US";
+ utterance.rate=0.82;
+ utterance.pitch=1.15;
+
+ speechSynthesis.speak(utterance);
+}
+
+function speakCurrent(){
+
+ if(!currentWord) return;
+
+ speak(currentWord.word,"en");
+}
+
+
+/* =====================================
+   24. CATEGORY SYSTEM
+===================================== */
+
+function startCategory(category){
+
+ currentCategory=category;
+ startGame("picture");
+}
+
+
+/* =====================================
+   25. START GAME
+===================================== */
+
+function startGame(mode){
+
+ currentMode=mode;
+ usedWords=[];
+
+ $("homeArea").style.display="none";
+ $("lotteryArea").style.display="none";
+ $("learningArea").style.display="block";
+
+ let titles={
+  picture:"🖼️ Picture to Meaning",
+  word:"🔤 Word to Picture",
+  match:"🧩 Match the Pairs",
+  brain:"🧠 Brain Challenge",
+  treasure:"💎 Treasure Hunt"
+ };
+
+ $("gameTitle").textContent=titles[mode] || "Vocabulary Game";
+
+ nextQuestion();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* =====================================
+   26. RANDOM QUESTION
+===================================== */
+
+function getAvailableWords(){
+
+ let list=words.filter(w=>
+  currentCategory==="All" || w.category===currentCategory
+ );
+
+ if(!list.length) list=words;
+
+ return list;
+}
+
+function nextQuestion(){
+
+ answered=false;
+
+ $("feedback").textContent="";
+ $("nextButton").style.display="none";
+
+ let available=getAvailableWords();
+
+ if(usedWords.length>=available.length){
+  usedWords=[];
+ }
+
+ let remaining=available.filter(w=>!usedWords.includes(w.word));
+
+ currentWord=remaining[Math.floor(Math.random()*remaining.length)];
+
+ usedWords.push(currentWord.word);
+
+ showQuestion();
+}
+
+
+/* =====================================
+   27. SHOW QUESTION
+===================================== */
+
+function showQuestion(){
+
+ $("questionPicture").textContent=currentWord.picture;
+ $("questionWord").textContent=currentWord.word;
+
+ $("questionPicture").style.display="block";
+ $("questionWord").style.display="block";
+
+ let question="Which is the correct meaning?";
+
+ if(currentMode==="picture"){
+  question="এই ছবিটির সঠিক অর্থ কোনটি?";
+  $("questionWord").style.display="none";
+ }
+
+ if(currentMode==="word"){
+  question="Find the correct picture!";
+  $("questionPicture").style.display="none";
+ }
+
+ if(currentMode==="brain"){
+  question="Think carefully! Find the correct meaning.";
+ }
+
+ if(currentMode==="treasure"){
+  question="Find the hidden meaning and win treasure!";
+ }
+
+ if(currentMode==="match"){
+  question="Match this picture with its meaning!";
+ }
+
+ $("questionText").textContent=question;
+
+ makeAnswers();
+ showLanguages();
+}
+
+
+/* =====================================
+   28. ANSWER SYSTEM
+===================================== */
+
+function makeAnswers(){
+
+ let available=getAvailableWords();
+
+ let wrong=available
+  .filter(w=>w.word!==currentWord.word);
+
+ wrong.sort(()=>Math.random()-.5);
+
+ let options=[
+  currentWord,
+  ...wrong.slice(0,3)
+ ];
+
+ options.sort(()=>Math.random()-.5);
+
+ let html="";
+
+ options.forEach(item=>{
+
+  let value=currentMode==="word"
+    ? item.picture
+    : item.meanings.bn;
+
+  html+=`
+   <button class="answer"
+   onclick="checkAnswer(this,'${item.word}')">
+   ${value}
+   </button>
+  `;
+ });
+
+ $("answerArea").innerHTML=html;
+}
+
+
+/* =====================================
+   29. CHECK ANSWER
+===================================== */
+
+function checkAnswer(button,answer){
+
+ if(answered) return;
+
+ answered=true;
+
+ let correct=answer===currentWord.word;
+
+ if(correct){
+
+  stars+=5;
+  correctAnswers++;
+  completed=Math.min(100,completed+1);
+
+  localStorage.setItem("slk_stars",stars);
+  localStorage.setItem("fm_correct",correctAnswers);
+  localStorage.setItem("fm_completed",completed);
+
+  button.classList.add("correct");
+
+  $("feedback").textContent="🎉 Excellent! +5 Stars ⭐";
+
+  speak("Excellent! Well done!","en");
+
+ }else{
+
+  button.classList.add("wrong");
+
+  $("feedback").textContent=
+   "😊 Try again! Correct answer: "+currentWord.meanings.bn;
+
+  speak("Try again. You can do it!","en");
+ }
+
+ updateScore();
+
+ $("nextButton").style.display="block";
+}
+
+
+/* =====================================
+   30. TEN LANGUAGE DISPLAY
+===================================== */
+
+function showLanguages(){
+
+ let html="";
+
+ for(let key in languageNames){
+
+  html+=`
+   <div class="language-row"
+   onclick="speak('${escapeText(currentWord.meanings[key])}','${key}')">
+
+    <span>${languageNames[key]}</span>
+    <strong>${currentWord.meanings[key]}</strong>
+
+   </div>
+  `;
+ }
+
+ $("languageList").innerHTML=html;
+}
+
+function escapeText(text){
+ return String(text).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
+
+/* =====================================
+   31. LOTTERY SYSTEM
+===================================== */
+
+function spinLottery(){
+
+ let wheel=$("lotteryWheel");
+
+ wheel.classList.remove("spin");
+
+ void wheel.offsetWidth;
+
+ wheel.classList.add("spin");
+
+ $("lotteryResult").textContent="Good luck! 🍀";
+
+ setTimeout(()=>{
+
+  let prizes=[5,10,15,20,25,30];
+
+  let prize=prizes[Math.floor(Math.random()*prizes.length)];
+
+  stars+=prize;
+
+  localStorage.setItem("slk_stars",stars);
+
+  $("lotteryResult").textContent=
+   "🎉 You won "+prize+" Stars!";
+
+  updateScore();
+
+ },1100);
+}
+
+
+/* =====================================
+   32. HOME NAVIGATION
+===================================== */
+
+function goHome(){
+
+ $("learningArea").style.display="none";
+ $("lotteryArea").style.display="none";
+ $("homeArea").style.display="block";
+
+ currentWord=null;
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* =====================================
+   33. LOTTERY NAVIGATION
+===================================== */
+
+function openLottery(){
+
+ $("homeArea").style.display="none";
+ $("learningArea").style.display="none";
+ $("lotteryArea").style.display="block";
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* =====================================
+   34. INITIAL SETTINGS
+===================================== */
+
+// সব শব্দের জন্য টাচ করে উচ্চারণ শোনা যাবে
+// সব গেমের স্টার একই localStorage-এ থাকবে
+// নতুন বিভাগ ও শব্দ পরে যোগ করা হবে
+
+</script>
+
+</body>
+</html>
