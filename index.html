@@ -848,25 +848,80 @@ function showMessage(text) {
   },2200);
 }
 
+
 function openSubject(name) {
 
-  if (name === "Arabic Alphabet") {
-    window.location.href = "arabic.html";
-    return;
+  const pages = {
+
+    // 1-10: Basic Learning
+    "Arabic Alphabet": "arabic.html",
+    "ABC Mix": "alphabet.html",
+    "Picture Vocabulary": "picture-vocabulary.html",
+    "Find the Meaning": "find-meaning.html",
+    "Drawing & Coloring": "drawing-coloring.html",
+    "Name & Picture Match": "name-picture-match.html",
+    "Numbers": "numbers.html",
+    "Counting": "counting.html",
+    "12 Months": "12-months.html",
+    "7 Days": "7-days.html",
+
+    // 11-20: Learning Categories
+    "Rhymes": "rhymes.html",
+    "Seasons": "seasons.html",
+    "Animals": "animals.html",
+    "Birds": "birds.html",
+    "Fruits": "fruits.html",
+    "Vegetables & Greens": "vegetables.html",
+    "Trees": "trees.html",
+    "Flowers": "flowers.html",
+    "Medicinal Plants": "medicinal-plants.html",
+    "Crops": "crops.html",
+
+    // 21-30: More Learning
+    "Vehicles": "vehicles.html",
+    "Body Parts": "body-parts.html",
+    "Colors & Shapes": "colors-shapes.html",
+    "Time Learning": "time-learning.html",
+    "World Around Us": "world-around-us.html",
+    "Insects": "insects.html",
+    "Sea Animals": "sea-animals.html",
+    "Weather": "weather.html",
+    "Food & Drinks": "food-drinks.html",
+    "Family & People": "family-people.html",
+
+    // 31-40: Play & Learn Games
+    "Alphabet Race": "alphabet-race.html",
+    "Number Hunt": "number-hunt.html",
+    "Memory Cards": "memory-cards.html",
+    "Picture Puzzle": "picture-puzzle.html",
+    "Shadow Matching": "shadow-matching.html",
+    "Word Builder Challenge": "word-builder.html",
+    "Odd One Out": "odd-one-out.html",
+    "Listen & Choose": "listen-choose.html",
+    "Quick Quiz": "quick-quiz.html",
+    "Sorting Game": "sorting-game.html",
+
+    // 41-48: Additional Learning
+    "Alphabet Learning": "alphabet.html",
+    "বাংলা বর্ণমালা": "bangla-alphabet.html",
+    "Science": "science.html",
+    "Technology": "technology.html",
+    "Mathematics": "mathematics.html",
+    "English": "english.html",
+    "Fun Games": "fun-games.html"
+
+  };
+
+  const page = pages[name];
+
+  if (page) {
+    window.location.href = page;
+  } else {
+    showMessage(name + " section coming soon!");
   }
 
-  if (name === "ABC Mix") {
-    window.location.href = "alphabet.html";
-    return;
-  }
-
-  if (name === "Picture Vocabulary") {
-    window.location.href = "picture-vocabulary.html";
-    return;
-  }
-
-  showMessage(name + " section coming soon!");
 }
+
 // SHARED APP SYSTEM
 
 function saveGlobalLanguage(language) {
