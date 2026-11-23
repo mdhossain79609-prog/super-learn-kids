@@ -196,8 +196,7 @@ h2{text-align:center;font-size:21px;margin:13px 0;color:#5630a7}
 // ===================================
 // 1. WORD DATABASE
 // ===================================
-
-const words = [
+const words = ([
  
 [
   {
@@ -851,7 +850,7 @@ const words = [
 {"id":127,"word":"Toy Robot","category":"Toys","image":"🤖","meanings":{"bn":"খেলনা রোবট","en":"Toy Robot","hi":"खिलौना रोबोट","ar":"روبوت لعبة","es":"Robot de juguete","fr":"Robot jouet","ur":"کھلونا روبوٹ","zh":"玩具机器人","ja":"おもちゃのロボット","de":"Spielzeugroboter"}},
 {"id":128,"word":"Building Blocks","category":"Toys","image":"🧱","meanings":{"bn":"গড়ার ব্লক","en":"Building Blocks","hi":"निर्माण ब्लॉक","ar":"مكعبات البناء","es":"Bloques de construcción","fr":"Blocs de construction","ur":"تعمیراتی بلاکس","zh":"积木","ja":"積み木","de":"Bausteine"}},
 {"id":129,"word":"Toy Drum","category":"Toys","image":"🥁","meanings":{"bn":"খেলনা ঢোল","en":"Toy Drum","hi":"खिलौना ढोल","ar":"طبل لعبة","es":"Tambor de juguete","fr":"Tambour jouet","ur":"کھلونا ڈھول","zh":"玩具鼓","ja":"おもちゃの太鼓","de":"Spielzeugtrommel"}},
-{"id":130,"word":"Jump Rope","category":"Toys","image":"🪢","meanings":{"bn":"লাফানোর দড়ি","en":"Jump Rope","hi":"कूदने की रस्सी","ar":"حبل القفز","es":"Cuerda para saltar","fr":"Corde à sauter","ur":"کودنے کی رسی","zh":"跳绳","ja":"縄跳び","de":"Springseil"}}
+{"id":130,"word":"Jump Rope","category":"Toys","image":"🪢","meanings":{"bn":"লাফানোর দড়ি","en":"Jump Rope","hi":"कूदने की रस्सी","ar":"حبل القفز","es":"Cuerda para saltar","fr":"Corde à sauter","ur":"کودنے کی رسی","zh":"跳绳","ja":"縄跳び","de":"Springseil"}},
 {
  word:"Elephant",bn:"হাতি",hi:"हाथी",ar:"فيل",
  es:"Elefante",fr:"Éléphant",ur:"ہاتھی",
@@ -932,7 +931,12 @@ const words = [
  es:"Pelota",fr:"Ballon",ur:"گیند",zh:"球",
  ja:"ボール",de:"Ball",pic:"⚽",category:"Toys"
 }
-];
+]).flat().map(w => ({
+ ...w,
+ pic: w.pic || w.image,
+ bn: w.bn || w.meanings?.bn,
+ ...w.meanings
+}));
 
 const langs=[
  ["বাংলা","bn"],["English","word"],["हिन्दी","hi"],
