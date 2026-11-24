@@ -6,194 +6,247 @@
 <meta name="theme-color" content="#7138d9">
 <title>SUPER LEARN KIDS – Drawing & Picture</title>
 <style>
-:root{--purple:#7138d9;--ink:#28324b;--muted:#778198;--paper:#fff;--bg:#eef8ff}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%;font-family:Arial,system-ui,sans-serif;color:var(--ink);background:linear-gradient(145deg,#dff7ff,#fff1f7 55%,#f1edff)}
-button,input{font:inherit}button{border:0;cursor:pointer;touch-action:manipulation}
-.app{max-width:1100px;margin:auto;padding:12px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;background:#fff;border-radius:19px;box-shadow:0 5px 18px #28324b13;position:sticky;top:5px;z-index:30}
-.brand{display:flex;align-items:center;gap:9px;font-size:clamp(16px,4vw,22px);font-weight:900;color:#7138d9}
-.logo{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#ffce4b,#ff77a6);font-size:25px}
-.topbtn{padding:9px 12px;border-radius:12px;background:#f0eaff;color:#6032c3;font-weight:800}
-.hero{text-align:center;padding:22px 8px 17px}.hero h1{font-size:clamp(27px,6vw,42px);color:#6938ca}.hero p{color:#748097;font-weight:700;margin-top:6px}
-.stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}.stat{background:white;padding:7px 12px;border-radius:22px;font-size:13px;font-weight:800;box-shadow:0 3px 9px #0000000c}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:24px}
-.card{min-height:145px;border-radius:20px;padding:14px 12px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:7px;border:2px solid #ffffffb8;box-shadow:0 6px 15px #33405a18;transition:transform .12s,filter .12s}
-.card:active{transform:scale(.97);filter:brightness(.97)}.card .emoji{font-size:34px}.card strong{font-size:15px;line-height:1.2;color:#27314b}.card small{font-size:12px;line-height:1.35;color:#3f4960}
-.card:nth-child(1){background:linear-gradient(145deg,#ffe28a,#ffb84e)}
-.card:nth-child(2){background:linear-gradient(145deg,#ffb9d0,#ff83ad)}
-.card:nth-child(3){background:linear-gradient(145deg,#b8f0d5,#62d6aa)}
-.card:nth-child(4){background:linear-gradient(145deg,#bdeaff,#68c9f2)}
-.card:nth-child(5){background:linear-gradient(145deg,#d8c7ff,#aa91f3)}
-.card:nth-child(6){background:linear-gradient(145deg,#ffe1b7,#ffb77c)}
-.card:nth-child(7){background:linear-gradient(145deg,#c8f4a9,#8bdc78)}
-.card:nth-child(8){background:linear-gradient(145deg,#ffd0e7,#f49ac7)}
-.card:nth-child(9){background:linear-gradient(145deg,#b9e9ff,#80c5f7)}
-.card:nth-child(10){background:linear-gradient(145deg,#fff0a8,#f6d45d)}
-.card:nth-child(11){background:linear-gradient(145deg,#d8d0ff,#b7a6ff)}
-.card:nth-child(12){background:linear-gradient(145deg,#aaf0e9,#5dd7c7)}
-.screen{display:none;background:#fff;border-radius:22px;padding:14px;margin:10px 0 24px;min-height:68vh;box-shadow:0 7px 22px #28324b13}
-.screen.active{display:block}.head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.head h2{font-size:clamp(19px,4vw,26px);color:#6536c6}.back{background:#eee9ff;color:#6335c2;padding:9px 13px;border-radius:12px;font-weight:900;white-space:nowrap}
-.sub{font-size:13px;color:#778198;line-height:1.5;margin:0 0 12px}
-.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
-.tool{background:#f0edff;color:#5535a5;padding:9px 12px;border-radius:11px;font-weight:800;font-size:13px}
-.tool.active{background:#7138d9;color:white}.primary{background:linear-gradient(135deg,#7138d9,#a44fe0);color:#fff;padding:10px 15px;border-radius:12px;font-weight:900}
-.soft{background:#eaf7ff;color:#27668c;padding:10px 13px;border-radius:12px;font-weight:800}
-.panel{background:#fbfcff;border:2px dashed #d9d5ed;border-radius:16px;padding:8px;overflow:hidden}
-canvas{display:block;width:100%;height:auto;background:#fff;border-radius:10px;touch-action:none}
-.palette{display:flex;gap:9px;flex-wrap:wrap;align-items:center;padding:9px 2px}
-.swatch{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #bfc6d5;flex:0 0 auto}
-.swatch.sel{box-shadow:0 0 0 3px #7138d9}
-.range{width:105px;vertical-align:middle;accent-color:#7138d9}
-.notice{background:#fff8dc;border:1px solid #ffe49b;color:#755a17;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.45;margin:10px 0}
-.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0}
-.choice{background:#f5f1ff;border:2px solid #e6ddff;border-radius:15px;padding:12px;text-align:center;font-weight:800;color:#51408c}
-.choice .big{display:block;font-size:36px;margin-bottom:5px}
-.svgwrap svg{width:100%;height:auto;display:block;max-height:460px}
-.lessonbox{background:#f7f4ff;border-radius:15px;padding:14px;line-height:1.7;margin-top:12px}
-.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.artitem{border:1px solid #e6e7ef;border-radius:13px;padding:7px;background:#fafafa}.artitem img{width:100%;border-radius:8px;display:block}.artitem button{margin-top:7px;width:100%}
-.puzzlegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;max-width:480px;margin:10px auto}.slot{height:115px;border:2px dashed #bdb4df;border-radius:12px;background:#faf9ff;display:grid;place-items:center;font-size:42px}
-.pieces{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.piece{background:#f1edff;padding:10px;border-radius:12px;font-size:35px}
-.stickers{display:flex;gap:7px;flex-wrap:wrap}.sticker{font-size:30px;background:#f1edff;padding:7px;border-radius:10px}
-.dotpalette{display:flex;gap:8px;flex-wrap:wrap}.paintdrag{display:flex;align-items:center;gap:6px;background:#f5f4fb;border-radius:25px;padding:5px 9px;font-size:12px;font-weight:800;touch-action:none}
-.dotart{width:100%;max-width:680px;display:block;margin:10px auto;border:2px dashed #d9d4eb;border-radius:14px;background:#fff;touch-action:pan-y}
-.dotpart{stroke:#3d4559;stroke-width:2.3;stroke-dasharray:3 5;cursor:pointer}
-footer{text-align:center;color:#8991a5;font-size:12px;padding:14px}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.choices,.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.screen{padding:20px}}
-@media(max-width:360px){.app{padding:8px}.card{min-height:136px;padding:11px 9px}.topbar{padding:8px}}
+:root{--purple:#7138d9;--deep:#4d20a7;--pink:#ff5ca8;--blue:#28b8ef;--yellow:#ffd34e;--green:#35c98a;--ink:#27314b;--muted:#71809b;--paper:#fff;--bg:#f3efff}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(145deg,#e9f7ff,#f8efff 55%,#fff5e7)}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0}
+.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(100deg,#7138d9,#9a4ee8);color:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 14px #4d20a733}
+.brand{font-weight:900;font-size:18px;letter-spacing:.3px}.brand span{color:#ffe16a}
+.top-actions{display:flex;gap:7px}.top-actions button{background:#ffffff25;color:white;border:1px solid #ffffff55;border-radius:12px;padding:9px 11px;font-weight:700}
+main{max-width:1050px;margin:auto;padding:16px}
+.hero{background:linear-gradient(130deg,#fff,#f2eaff);border:2px solid #fff;border-radius:24px;padding:22px 18px;text-align:center;box-shadow:0 8px 25px #5930a51a;margin-bottom:17px}
+.hero .emoji{font-size:44px}.hero h1{margin:5px 0;color:#5927b7;font-size:clamp(24px,5vw,34px)}.hero p{margin:7px 0 0;color:#65718a}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.activity{min-height:122px;border-radius:19px;padding:14px 9px;background:white;box-shadow:0 5px 14px #44307817;border:2px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--ink);transition:.15s}
+.activity:active{transform:scale(.97)}.activity .ico{font-size:35px}.activity b{font-size:14px;text-align:center}.activity small{color:var(--muted);font-size:11px;text-align:center}
+.a1{background:#fff0f5}.a2{background:#fff8dd}.a3{background:#eaf8ff}.a4{background:#f0edff}.a5{background:#eafff4}.a6{background:#fff0e5}.a7{background:#fcecff}.a8{background:#e9f8ff}.a9{background:#f1ffeb}.a10{background:#fff7df}.a11{background:#edf1ff}.a12{background:#ffeef0}
+.screen{display:none}.screen.active{display:block}
+.panel{background:#fff;border-radius:22px;padding:15px;box-shadow:0 7px 20px #47308016;border:1px solid #eee8ff}
+.screen-head{display:flex;align-items:center;gap:9px;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap}
+.screen-head h2{margin:0;color:#5927b7;font-size:21px}
+.back{background:#eee7ff;color:#5422ad;border-radius:12px;padding:10px 13px;font-weight:800}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+.tools button,.tools select,.tools input{border-radius:11px;padding:9px 11px;background:#f0eaff;color:#4e269a;font-weight:700;border:1px solid #ded2ff}
+.tools button.primary{background:var(--purple);color:#fff}
+.tools button.good{background:#dcfff0;color:#08784c}
+.tools button.warn{background:#fff0dc;color:#9b5100}
+.canvas-wrap{width:100%;background:#fff;border:2px dashed #cbb9f4;border-radius:17px;overflow:hidden;touch-action:none}
+canvas{display:block;width:100%;height:auto;touch-action:none;background:#fff}
+.palette{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.swatch{width:30px;height:30px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #bbb;cursor:pointer}
+.swatch.selected{box-shadow:0 0 0 3px #5b2ab8}
+.info{background:#f5f0ff;border-radius:13px;padding:10px 12px;color:#56309b;font-size:13px;margin:9px 0}
+.cards2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mini{border:2px solid #eee5ff;background:#fff;border-radius:15px;padding:12px;text-align:center;font-weight:700;color:#4d2697}
+.big-emoji{font-size:76px;text-align:center;padding:12px}
+.lesson-steps{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px}
+.lesson-steps span{background:#f0eaff;padding:8px 11px;border-radius:12px;font-size:13px}
+.dot-board{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;padding:16px;background:#f8f5ff;border-radius:15px}
+.dot{width:36px;height:36px;border-radius:50%;background:#fff;border:3px solid #8a55db;color:#5a2db1;font-weight:900}
+.sticker{font-size:34px;padding:6px;background:#fff;border:1px solid #eee;border-radius:12px}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gallery-item{background:#faf8ff;border:1px solid #e8defe;border-radius:14px;padding:8px}.gallery-item img{width:100%;border-radius:9px}.gallery-item button{margin-top:6px;background:#ffe8ed;color:#a32648;border-radius:9px;padding:7px}
+.paper{background:repeating-linear-gradient(to bottom,#fff 0,#fff 31px,#b9d9ff 32px);border:1px solid #d9e6ff;border-radius:12px;padding:12px}
+.paper textarea{width:100%;height:230px;resize:vertical;border:0;outline:0;background:transparent;line-height:32px;font-size:18px;color:#293b66}
+.footer{text-align:center;color:#7d8298;padding:20px 5px;font-size:12px}
+.hidden{display:none!important}
+@media(max-width:600px){main{padding:11px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.activity{min-height:112px}.hero{padding:17px 12px}.topbar{padding:10px}.brand{font-size:16px}.screen-head h2{font-size:18px}.panel{padding:11px}}
 </style>
 </head>
 <body>
-<div class="app">
-<header class="topbar"><div class="brand"><div class="logo">🎨</div>SUPER LEARN KIDS</div><div><button class="topbtn" onclick="home()">🏠 Home</button> <button class="topbtn" onclick="help()">❔</button></div></header>
+<header class="topbar">
+  <div class="brand">🌟 SUPER LEARN <span>KIDS</span></div>
+  <div class="top-actions"><button onclick="showHome()">🏠 Home</button><button onclick="showHelp()">❔ Help</button></div>
+</header>
+<main>
 <section id="home">
-<div class="hero"><h1>Drawing & Picture</h1><p>DRAW • COLOUR • CREATE • DISCOVER</p><div class="stats"><span class="stat">⭐ Stars: <b id="stars">0</b></span><span class="stat">🖼️ My Art: <b id="artCount">0</b></span><span class="stat">🎯 12 Activities</span></div></div>
-<div class="grid">
-<button class="card" onclick="open('free')"><span class="emoji">✏️</span><strong>1. Free Drawing</strong><small>Draw anything on a blank canvas.</small></button>
-<button class="card" onclick="open('color')"><span class="emoji">🖍️</span><strong>2. Coloring Book</strong><small>Colour fun pictures with your favourite colours.</small></button>
-<button class="card" onclick="open('learn')"><span class="emoji">🧑‍🎨</span><strong>3. Learn to Draw</strong><small>Follow simple steps to draw pictures.</small></button>
-<button class="card" onclick="open('trace')"><span class="emoji">🔤</span><strong>4. Trace & Practice</strong><small>Practise letters, numbers and shapes.</small></button>
-<button class="card" onclick="open('connect')"><span class="emoji">🔵</span><strong>5. Connect the Dots</strong><small>Connect dots to reveal a picture.</small></button>
-<button class="card" onclick="open('puzzle')"><span class="emoji">🧩</span><strong>6. Picture Puzzle</strong><small>Arrange picture pieces in the right order.</small></button>
-<button class="card" onclick="open('sticker')"><span class="emoji">🌳</span><strong>7. Sticker & Picture Maker</strong><small>Make a scene with fun stickers.</small></button>
-<button class="card" onclick="open('difference')"><span class="emoji">🔎</span><strong>8. Find the Difference</strong><small>Look carefully and find what changed.</small></button>
-<button class="card" onclick="open('shape')"><span class="emoji">🔺</span><strong>9. Shape Art</strong><small>Create art with colourful shapes.</small></button>
-<button class="card" onclick="open('gallery')"><span class="emoji">🖼️</span><strong>10. My Art Gallery</strong><small>See and manage your saved artwork.</small></button>
-<button class="card" onclick="open('writing')"><span class="emoji">📄</span><strong>11. My Writing Paper</strong><small>A white paper for writing anything freely.</small></button>
-<button class="card" onclick="open('dotcolor')"><span class="emoji">🎨</span><strong>12. Dot Color Studio</strong><small>Drag a colour and drop it on picture parts.</small></button>
-</div></section>
+  <div class="hero"><div class="emoji">🎨🖍️🖼️</div><h1>Drawing & Picture World</h1><p>Draw, color, learn and create your own beautiful art!</p></div>
+  <div class="grid">
+    <button class="activity a1" onclick="openActivity('free')"><span class="ico">✏️</span><b>1. Free Drawing</b><small>Draw anything you like</small></button>
+    <button class="activity a2" onclick="openActivity('color')"><span class="ico">🖍️</span><b>2. Coloring Book</b><small>Fill pictures with colors</small></button>
+    <button class="activity a3" onclick="openActivity('learn')"><span class="ico">🐱</span><b>3. Learn to Draw</b><small>Easy drawing lessons</small></button>
+    <button class="activity a4" onclick="openActivity('trace')"><span class="ico">✍️</span><b>4. Trace & Practice</b><small>Follow dotted lines</small></button>
+    <button class="activity a5" onclick="openActivity('connect')"><span class="ico">🔵</span><b>5. Connect the Dots</b><small>Join dots in order</small></button>
+    <button class="activity a6" onclick="openActivity('puzzle')"><span class="ico">🧩</span><b>6. Picture Puzzle</b><small>Arrange the picture</small></button>
+    <button class="activity a7" onclick="openActivity('sticker')"><span class="ico">🌈</span><b>7. Sticker & Picture Maker</b><small>Make a fun picture</small></button>
+    <button class="activity a8" onclick="openActivity('difference')"><span class="ico">🔍</span><b>8. Find the Difference</b><small>Look carefully</small></button>
+    <button class="activity a9" onclick="openActivity('shape')"><span class="ico">🔺</span><b>9. Shape Art</b><small>Create with shapes</small></button>
+    <button class="activity a10" onclick="openActivity('gallery')"><span class="ico">🖼️</span><b>10. My Art Gallery</b><small>See your saved artwork</small></button>
+    <button class="activity a11" onclick="openActivity('writing')"><span class="ico">📒</span><b>11. My Writing Paper</b><small>Write and practice</small></button>
+    <button class="activity a12" onclick="openActivity('dotcolor')"><span class="ico">🔴</span><b>12. Dot Color Studio</b><small>Color numbered dots</small></button>
+  </div>
+</section>
 
-<section id="free" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>✏️ Free Drawing</h2></div><p class="sub">Draw freely with your finger. Pick a colour and brush size.</p><div class="toolbar"><button class="tool active" onclick="mode='pen';activeTool(this)">✏️ Pencil</button><button class="tool" onclick="mode='eraser';activeTool(this)">🧽 Eraser</button><label class="tool">Brush <input class="range" id="brush" type="range" min="2" max="45" value="7"></label><button class="tool" onclick="undo('freeCanvas')">↶ Undo</button><button class="tool" onclick="redo('freeCanvas')">↷ Redo</button><button class="tool" onclick="clearC('freeCanvas')">Clear</button><button class="primary" onclick="saveC('freeCanvas','Free Drawing')">⭐ Save</button></div><div id="freePal" class="palette"></div><div class="panel"><canvas id="freeCanvas" width="900" height="560"></canvas></div></section>
+<section id="free" class="screen"><div class="screen-head"><h2>✏️ Free Drawing</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><label>Brush <input id="freeSize" type="range" min="2" max="35" value="7"></label><button onclick="clearCanvas('freeCanvas')">🧽 Clear</button><button class="good" onclick="saveCanvas('freeCanvas')">💾 Save Art</button><button onclick="downloadCanvas('freeCanvas')">⬇️ Download</button></div>
+<div class="palette" id="freePal"></div><div class="canvas-wrap"><canvas id="freeCanvas" width="900" height="600"></canvas></div><div class="info">Touch and move your finger on the white paper to draw.</div></div></section>
 
-<section id="color" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🖍️ Coloring Book</h2></div><p class="sub">Choose from many pictures. Tap each enclosed part to colour it.</p><div class="choices" id="colorChoices"></div><div class="toolbar"><button class="tool" onclick="resetColoring()">Reset picture</button><button class="primary" onclick="saveColoring()">⭐ Save coloured picture</button></div><div id="colorPal" class="palette"></div><div class="panel svgwrap" id="colorSvg"></div></section>
+<section id="color" class="screen"><div class="screen-head"><h2>🖍️ Coloring Book</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="changeColorPage(-1)">◀ Previous</button><b id="colorName">Flower</b><button onclick="changeColorPage(1)">Next ▶</button><button onclick="clearCanvas('colorCanvas')">Reset</button><button class="good" onclick="saveCanvas('colorCanvas')">💾 Save</button></div>
+<div class="palette" id="colorPal"></div><div class="canvas-wrap"><canvas id="colorCanvas" width="900" height="600"></canvas></div><div class="info">Choose a color and tap inside a shape to color it. If a tap does not fill, draw inside the shape with your finger.</div></div></section>
 
-<section id="learn" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🧑‍🎨 Learn to Draw</h2></div><p class="sub">Pick a lesson. Follow the steps, practise on the canvas and earn a star.</p><div class="choices" id="lessonChoices"></div><div id="lessonInfo" class="lessonbox">Choose a drawing lesson to begin.</div><div class="toolbar"><button class="tool" onclick="clearC('learnCanvas')">Clear practice</button><button class="primary" onclick="saveC('learnCanvas','Drawing Lesson Practice')">⭐ Save practice</button></div><div class="panel"><canvas id="learnCanvas" width="900" height="520"></canvas></div></section>
+<section id="learn" class="screen"><div class="screen-head"><h2>🐱 Learn to Draw</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="lessonChange(-1)">◀ Previous</button><b id="lessonTitle">Draw a Cat</b><button onclick="lessonChange(1)">Next ▶</button><button onclick="showLessonGuide()">Show Steps</button></div>
+<div class="big-emoji" id="lessonEmoji">🐱</div><div class="info" id="lessonText">Start with a big circle for the face.</div><div class="lesson-steps" id="lessonSteps"></div>
+<div class="canvas-wrap"><canvas id="learnCanvas" width="900" height="500"></canvas></div><div class="tools"><button onclick="clearCanvas('learnCanvas')">Clear Practice</button><button class="good" onclick="saveCanvas('learnCanvas')">💾 Save Practice</button></div></div></section>
 
-<section id="trace" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🔤 Trace & Practice</h2></div><p class="sub">Choose a guide and trace the dotted shape with your finger.</p><div class="toolbar" id="traceBtns"></div><div class="toolbar"><button class="tool" onclick="clearC('traceCanvas');drawGuide(currentGuide)">Clear tracing</button><button class="primary" onclick="saveC('traceCanvas','Tracing Practice')">⭐ Save</button></div><div class="panel"><canvas id="traceCanvas" width="900" height="560"></canvas></div></section>
+<section id="trace" class="screen"><div class="screen-head"><h2>✍️ Trace & Practice</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="traceChange(-1)">◀ Previous</button><b id="traceTitle">Letter A</b><button onclick="traceChange(1)">Next ▶</button><button onclick="clearCanvas('traceCanvas')">Clear</button></div>
+<div class="info">Trace the light dotted letter or shape with your finger.</div><div class="palette" id="tracePal"></div><div class="canvas-wrap"><canvas id="traceCanvas" width="900" height="520"></canvas></div></div></section>
 
-<section id="connect" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🔵 Connect the Dots</h2></div><p class="sub">Tap the dots in number order. Complete the outline to reveal the picture.</p><div class="toolbar" id="connectBtns"></div><div class="panel"><canvas id="connectCanvas" width="900" height="560"></canvas></div><div class="notice" id="connectMsg">Tap dot number 1.</div></section>
+<section id="connect" class="screen"><div class="screen-head"><h2>🔵 Connect the Dots</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="connectChange(-1)">◀ Previous</button><b id="connectTitle">Make a Star</b><button onclick="connectChange(1)">Next ▶</button><button onclick="resetConnect()">Reset</button></div>
+<div class="info">Tap the numbered dots in order. Join them all to reveal the picture.</div><div class="dot-board" id="dotBoard"></div><div class="canvas-wrap"><canvas id="connectCanvas" width="900" height="500"></canvas></div><div class="info" id="connectStatus">Tap dot number 1 to begin.</div></div></section>
 
-<section id="puzzle" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🧩 Picture Puzzle</h2></div><p class="sub">Select a piece, then select the matching empty place. Try different pictures and levels.</p><div class="toolbar" id="puzzleLevels"></div><div class="puzzlegrid" id="puzzleBoard"></div><div class="pieces" id="puzzlePieces"></div><div class="notice" id="puzzleMsg">Match all four picture pieces.</div></section>
+<section id="puzzle" class="screen"><div class="screen-head"><h2>🧩 Picture Puzzle</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="newPuzzle()">🔀 New Puzzle</button><button onclick="showPuzzleHint()">💡 Hint</button><b id="puzzleStatus">Put the pieces in order!</b></div>
+<div class="info">Tap two tiles to swap them. Arrange the numbers from 1 to 8, with the empty space at the end.</div><div class="cards2" id="puzzleBoard"></div></div></section>
 
-<section id="sticker" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🌳 Sticker & Picture Maker</h2></div><p class="sub">Tap stickers to add them to your scene. Drag added stickers to move them.</p><div class="stickers" id="stickerTray"></div><div class="toolbar"><button class="tool" onclick="undo('stickerCanvas')">↶ Undo</button><button class="tool" onclick="clearC('stickerCanvas')">Clear scene</button><button class="primary" onclick="saveC('stickerCanvas','Sticker Picture')">⭐ Save scene</button></div><div class="panel"><canvas id="stickerCanvas" width="900" height="560"></canvas></div></section>
+<section id="sticker" class="screen"><div class="screen-head"><h2>🌈 Sticker & Picture Maker</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="info">Choose a sticker, then tap the picture area to place it. Drag stickers to move them.</div><div class="tools" id="stickerTray"></div><div class="tools"><button onclick="clearCanvas('stickerCanvas')">Clear Picture</button><button class="good" onclick="saveCanvas('stickerCanvas')">💾 Save</button><button onclick="downloadCanvas('stickerCanvas')">⬇️ Download</button></div><div class="canvas-wrap"><canvas id="stickerCanvas" width="900" height="600"></canvas></div></div></section>
 
-<section id="difference" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🔎 Find the Difference</h2></div><p class="sub">Compare the two scenes and tap the changed objects in Picture B.</p><div class="toolbar" id="diffLevels"></div><div class="choices"><div class="choice"><span class="big" id="diffA">🏡🌳☀️🪟</span>Picture A</div><div class="choice" onclick="tapDifference()"><span class="big" id="diffB">🏡🌲🌙🚪</span>Picture B<br><small>Tap here to find a difference</small></div></div><div class="notice" id="diffMsg">Find 3 differences.</div><button class="tool" onclick="startDiff(diffLevel)">Restart level</button></section>
+<section id="difference" class="screen"><div class="screen-head"><h2>🔍 Find the Difference</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="startDiff()">🔄 New Round</button><b id="diffScore">Found 0 / 5</b></div><div class="info">Look at the picture and tap the five different places.</div><div class="canvas-wrap"><canvas id="diffCanvas" width="900" height="520"></canvas></div><div class="info" id="diffMessage">Can you find all five differences?</div></div></section>
 
-<section id="shape" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🔺 Shape Art</h2></div><p class="sub">Choose a shape and colour, then tap anywhere on the paper to stamp it.</p><div class="toolbar"><button class="tool" onclick="shapeType='circle'">● Circle</button><button class="tool" onclick="shapeType='square'">■ Square</button><button class="tool" onclick="shapeType='triangle'">▲ Triangle</button><button class="tool" onclick="shapeType='star'">★ Star</button><button class="tool" onclick="shapeType='heart'">♥ Heart</button><button class="tool" onclick="shapeType='line'">━ Line</button><button class="tool" onclick="clearC('shapeCanvas')">Clear</button><button class="primary" onclick="saveC('shapeCanvas','Shape Art')">⭐ Save</button></div><div class="palette" id="shapePal"></div><div class="panel"><canvas id="shapeCanvas" width="900" height="560"></canvas></div></section>
+<section id="shape" class="screen"><div class="screen-head"><h2>🔺 Shape Art</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="setShape('circle')">⭕ Circle</button><button onclick="setShape('rect')">🟦 Rectangle</button><button onclick="setShape('triangle')">🔺 Triangle</button><button onclick="setShape('star')">⭐ Star</button><button onclick="setShape('heart')">❤️ Heart</button><label>Size <input id="shapeSize" type="range" min="25" max="160" value="80"></label></div>
+<div class="palette" id="shapePal"></div><div class="tools"><button onclick="clearCanvas('shapeCanvas')">Clear</button><button class="good" onclick="saveCanvas('shapeCanvas')">💾 Save</button><button onclick="downloadCanvas('shapeCanvas')">⬇️ Download</button></div><div class="canvas-wrap"><canvas id="shapeCanvas" width="900" height="600"></canvas></div><div class="info">Choose a shape and color, then tap the paper to stamp it.</div></div></section>
 
-<section id="gallery" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🖼️ My Art Gallery</h2></div><p class="sub">Your saved drawings and colouring pictures are stored on this device.</p><div id="galleryList" class="gallery"></div><div id="galleryEmpty" class="notice">Your gallery is empty. Create an artwork and save it!</div></section>
+<section id="gallery" class="screen"><div class="screen-head"><h2>🖼️ My Art Gallery</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="refreshGallery()">🔄 Refresh</button><button class="warn" onclick="clearGallery()">Delete All Art</button></div><div id="galleryGrid" class="gallery-grid"></div><div class="info" id="galleryInfo">Your saved pictures will appear here on this device.</div></div></section>
 
-<section id="writing" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>📄 My Writing Paper</h2></div><p class="sub">Use this clean white page to write letters, words, notes or draw anything.</p><div class="toolbar"><button class="tool active" onclick="writingMode='pen';activeTool(this)">✍️ Pen</button><button class="tool" onclick="writingMode='eraser';activeTool(this)">🧽 Eraser</button><label class="tool">Pen size <input class="range" id="writeSize" type="range" min="2" max="40" value="6"></label><button class="tool" onclick="undo('writingCanvas')">↶ Undo</button><button class="tool" onclick="redo('writingCanvas')">↷ Redo</button><button class="tool" onclick="clearC('writingCanvas')">Clear paper</button><button class="primary" onclick="saveC('writingCanvas','My Writing Paper')">⭐ Save paper</button></div><div class="palette" id="writingPal"></div><div class="panel"><canvas id="writingCanvas" width="900" height="650"></canvas></div></section>
+<section id="writing" class="screen"><div class="screen-head"><h2>📒 My Writing Paper</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><label>Text color <input id="writingColor" type="color" value="#293b66"></label><button onclick="clearWriting()">Clear</button><button class="good" onclick="saveWriting()">💾 Save Note</button></div>
+<div class="paper"><textarea id="writingText" placeholder="Write your letters, words or a little story here..."></textarea></div><div class="info">Your writing stays on this device. Practice neat letters and words!</div></div></section>
 
-<section id="dotcolor" class="screen"><div class="head"><button class="back" onclick="home()">← Back</button><h2>🎨 Dot Color Studio</h2></div><p class="sub">Choose a picture. Drag a colour onto a dotted section, or tap a colour then tap a section.</p><div class="choices" id="dotChoices"></div><div class="notice">Every picture has 10–20 separate colour areas. You can colour the sections in any order.</div><div class="dotpalette" id="dotPal"></div><div class="toolbar"><button class="tool" onclick="resetDot()">Reset picture</button><button class="primary" onclick="saveDot()">⭐ Save picture</button></div><svg id="dotSvg" class="dotart" viewBox="0 0 600 390" aria-label="Dotted colouring picture"></svg><div class="notice" id="dotMsg">Choose a picture to begin.</div></section>
-<footer>SUPER LEARN KIDS • Learn • Draw • Colour • Create</footer>
-</div>
+<section id="dotcolor" class="screen"><div class="screen-head"><h2>🔴 Dot Color Studio</h2><button class="back" onclick="showHome()">← Back</button></div><div class="panel">
+<div class="tools"><button onclick="dotPictureChange(-1)">◀ Previous</button><b id="dotPictureName">Dot Flower</b><button onclick="dotPictureChange(1)">Next ▶</button><button onclick="resetDotPicture()">Reset</button><button class="good" onclick="saveCanvas('dotCanvas')">💾 Save</button></div>
+<div class="palette" id="dotPal"></div><div class="canvas-wrap"><canvas id="dotCanvas" width="900" height="560"></canvas></div><div class="info">Tap a dot to color it. Try to complete the whole picture!</div></div></section>
+<div class="footer">🌟 Learn • Draw • Color • Create 🌟<br>SUPER LEARN KIDS</div>
+</main>
 <script>
+'use strict';
 const $=id=>document.getElementById(id);
-const ids=['free','color','learn','trace','connect','puzzle','sticker','difference','shape','gallery','writing','dotcolor'];
-let stars=+(localStorage.getItem('slk_stars')||0),selected='#ff4d6d',mode='pen',writingMode='pen',shapeType='circle',currentGuide='A',dotSelected='#ff4d6d',dotPicture='car',dotDone=0,connectPoints=[],connectIndex=0,puzzleLevel=4,puzzleSelected=null,diffLevel=0,diffFound=0;
-const colors=['#222222','#ffffff','#ff4d6d','#ff914d','#ffd43b','#68d96b','#27b9e8','#4777ff','#9b5de5','#f15bb5','#9b6b43','#aeb6c2','#00b894','#ff6b00','#7c4dff'];
-function stats(){ $('stars').textContent=stars;$('artCount').textContent=JSON.parse(localStorage.getItem('slk_art')||'[]').length}
-function star(){stars++;localStorage.setItem('slk_stars',stars);stats()}
-function home(){ids.forEach(x=>$(x).classList.remove('active'));$('home').style.display='block';window.scrollTo(0,0);stats()}
-function open(id){$('home').style.display='none';ids.forEach(x=>$(x).classList.toggle('active',x===id));window.scrollTo(0,0);if(id==='free'){initCanvas('freeCanvas');palette('freePal')}if(id==='color')initColorBook();if(id==='learn')initLessons();if(id==='trace')initTrace();if(id==='connect')initConnect();if(id==='puzzle')newPuzzle();if(id==='sticker')initSticker();if(id==='difference')startDiff(0);if(id==='shape'){initCanvas('shapeCanvas');palette('shapePal')}if(id==='gallery')gallery();if(id==='writing'){initCanvas('writingCanvas');palette('writingPal')}if(id==='dotcolor'){initDotChoices();initDotPalette();loadDotPicture(dotPicture)}}
-function help(){alert('Choose any of the 12 activities. Use Back to return to the menu. Save your artwork to keep it in My Art Gallery.')}
-function palette(id,cb){$(id).innerHTML='';colors.forEach((c,i)=>{let b=document.createElement('button');b.className='swatch'+(c===selected?' sel':'');b.style.background=c;b.title=c;b.onclick=()=>{selected=c;$(id).querySelectorAll('.swatch').forEach(s=>s.classList.remove('sel'));b.classList.add('sel');if(cb)cb(c)};$(id).append(b)})}
-let states={};
-function initCanvas(id){let c=$(id);if(!c||c.dataset.ready)return;c.dataset.ready='1';let x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);states[id]={undo:[],redo:[]};let drawing=false,last=null;
-function point(e){let r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}}
-c.addEventListener('pointerdown',e=>{e.preventDefault();c.setPointerCapture(e.pointerId);snapshot(id);let p=point(e);if(id==='shapeCanvas'){stamp(x,p.x,p.y);return}drawing=true;last=p;x.beginPath();x.arc(p.x,p.y,2,0,7);x.fillStyle=strokeFor(id);x.fill()});
-c.addEventListener('pointermove',e=>{if(!drawing)return;e.preventDefault();let p=point(e);x.beginPath();x.moveTo(last.x,last.y);x.lineTo(p.x,p.y);x.lineWidth=widthFor(id);x.lineCap='round';x.lineJoin='round';x.strokeStyle=strokeFor(id);x.stroke();last=p});
-['pointerup','pointercancel'].forEach(ev=>c.addEventListener(ev,()=>drawing=false));
+const screenIds=['free','color','learn','trace','connect','puzzle','sticker','difference','shape','gallery','writing','dotcolor'];
+const colors=['#111111','#e53935','#ff7b22','#ffd42a','#35b96b','#20bce8','#2764d8','#8b4bd8','#f04caa','#8b5a2b','#ffffff','#9aa4b2'];
+let selectedColor='#e53935', currentShape='circle', colorPage=0, lessonIndex=0, traceIndex=0, connectIndex=0, dotIndex=0, selectedPuzzle=-1, puzzle=[1,2,3,4,5,6,7,0], stickerChoice='⭐', dotColors={};
+let diffFound=[], diffTargets=[];
+const canvases={};
+function showHome(){screenIds.forEach(id=>$(id).classList.remove('active'));$('home').style.display='block';window.scrollTo(0,0)}
+function showHelp(){alert('Choose any colorful activity card. Use your finger to draw, color, trace and create. Your saved artwork stays in this browser on this device.')}
+function openActivity(id){
+ const target=$(id); if(!target){alert('This activity could not be found.');return}
+ $('home').style.display='none';screenIds.forEach(x=>$(x).classList.toggle('active',x===id));window.scrollTo(0,0);
+ try{
+  if(id==='free'){setupCanvas('freeCanvas');makePalette('freePal')}
+  if(id==='color'){makePalette('colorPal');drawColorPage()}
+  if(id==='learn'){drawLesson()}
+  if(id==='trace'){makePalette('tracePal');drawTrace()}
+  if(id==='connect'){drawConnect()}
+  if(id==='puzzle'){newPuzzle()}
+  if(id==='sticker'){setupCanvas('stickerCanvas');makeStickerTray()}
+  if(id==='difference'){startDiff()}
+  if(id==='shape'){setupCanvas('shapeCanvas');makePalette('shapePal')}
+  if(id==='gallery'){refreshGallery()}
+  if(id==='writing'){loadWriting()}
+  if(id==='dotcolor'){makePalette('dotPal');drawDotPicture()}
+ }catch(e){console.error(e);alert('Activity load error: '+e.message)}
 }
-function strokeFor(id){return (id==='freeCanvas'&&mode==='eraser')||(id==='writingCanvas'&&writingMode==='eraser')?'#fff':selected}
-function widthFor(id){return id==='freeCanvas'?+$('brush').value:id==='writingCanvas'?+$('writeSize').value:7}
-function snapshot(id){let c=$(id),s=states[id];if(s){s.undo.push(c.toDataURL());if(s.undo.length>30)s.undo.shift();s.redo=[]}}
-function restore(c,url){let im=new Image();im.onload=()=>{let x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.drawImage(im,0,0)};im.src=url}
-function undo(id){let s=states[id],c=$(id);if(s&&s.undo.length){s.redo.push(c.toDataURL());restore(c,s.undo.pop())}}
-function redo(id){let s=states[id],c=$(id);if(s&&s.redo.length){s.undo.push(c.toDataURL());restore(c,s.redo.pop())}}
-function clearC(id){let c=$(id);snapshot(id);let x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}
-function activeTool(b){b.parentElement.querySelectorAll('.tool').forEach(t=>t.classList.remove('active'));b.classList.add('active')}
-function stamp(x,a,b){x.fillStyle=selected;x.strokeStyle=selected;x.lineWidth=8;x.beginPath();if(shapeType==='circle')x.arc(a,b,45,0,7);if(shapeType==='square')x.rect(a-42,b-42,84,84);if(shapeType==='triangle'){x.moveTo(a,b-50);x.lineTo(a-50,b+42);x.lineTo(a+50,b+42);x.closePath()}if(shapeType==='star'){for(let i=0;i<10;i++){let r=i%2?22:52,t=-Math.PI/2+i*Math.PI/5;i?x.lineTo(a+Math.cos(t)*r,b+Math.sin(t)*r):x.moveTo(a+Math.cos(t)*r,b+Math.sin(t)*r)}x.closePath()}if(shapeType==='heart'){x.moveTo(a,b+40);x.bezierCurveTo(a-90,b-15,a-35,b-70,a,b-28);x.bezierCurveTo(a+35,b-70,a+90,b-15,a,b+40)}if(shapeType==='line'){x.moveTo(a-55,b);x.lineTo(a+55,b)}x.fill();if(shapeType==='line')x.stroke()}
-function saveData(data,title){let a=JSON.parse(localStorage.getItem('slk_art')||'[]');a.unshift({data,title,date:new Date().toLocaleDateString()});a=a.slice(0,60);localStorage.setItem('slk_art',JSON.stringify(a));star();alert('Artwork saved! You earned 1 star ⭐')}
-function saveC(id,title){saveData($(id).toDataURL('image/png'),title)}
-function gallery(){let a=JSON.parse(localStorage.getItem('slk_art')||'[]');$('galleryList').innerHTML='';$('galleryEmpty').style.display=a.length?'none':'block';a.forEach((v,i)=>{let d=document.createElement('div');d.className='artitem';let im=document.createElement('img');im.src=v.data;let t=document.createElement('p');t.textContent=v.title+' • '+v.date;t.style.cssText='font-size:12px;font-weight:bold;padding:5px 0';let b=document.createElement('button');b.className='tool';b.textContent='Delete';b.onclick=()=>{a.splice(i,1);localStorage.setItem('slk_art',JSON.stringify(a));gallery();stats()};d.append(im,t,b);$('galleryList').append(d)})}
-const svgPictures={
-Cat:`<path d="M110 130 L145 35 L220 100 Q300 70 380 100 L455 35 L490 130 Q550 290 300 315 Q50 290 110 130Z"/><ellipse cx="220" cy="190" rx="18" ry="25"/><ellipse cx="380" cy="190" rx="18" ry="25"/><path d="M280 235 L300 250 L320 235 M300 250 L300 275"/>`,
-Car:`<path d="M45 220 L90 155 L175 135 L230 75 L370 75 L430 145 L520 180 L550 250 L45 250Z"/><path d="M200 140 L245 95 L355 95 L405 145Z"/><circle cx="155" cy="250" r="45"/><circle cx="440" cy="250" r="45"/>`,
-Flower:`<ellipse cx="300" cy="100" rx="45" ry="70"/><ellipse cx="220" cy="160" rx="45" ry="70" transform="rotate(-55 220 160)"/><ellipse cx="380" cy="160" rx="45" ry="70" transform="rotate(55 380 160)"/><ellipse cx="250" cy="235" rx="45" ry="70" transform="rotate(55 250 235)"/><ellipse cx="350" cy="235" rx="45" ry="70" transform="rotate(-55 350 235)"/><circle cx="300" cy="180" r="48"/><path d="M290 225 L310 225 L325 320 L275 320Z"/>`,
-Apple:`<path d="M300 105 Q170 25 110 150 Q65 300 205 315 Q265 325 300 290 Q335 325 395 315 Q535 300 490 150 Q430 25 300 105Z"/><path d="M300 105 Q290 45 330 25 Q365 20 380 40 Q340 75 300 65Z"/>`,
-Fish:`<path d="M100 190 Q230 45 430 190 Q230 335 100 190Z"/><path d="M420 190 L530 105 L530 275Z"/><circle cx="190" cy="170" r="13"/><path d="M270 100 L330 40 L350 125Z"/>`,
-House:`<path d="M65 180 L300 30 L535 180 L500 205 L300 85 L100 205Z"/><path d="M115 190 L485 190 L485 340 L115 340Z"/><rect x="255" y="235" width="90" height="105"/><rect x="150" y="220" width="70" height="65"/><rect x="380" y="220" width="70" height="65"/>`,
-Butterfly:`<path d="M290 180 Q100 5 80 150 Q70 260 290 220Z"/><path d="M310 180 Q500 5 520 150 Q530 260 310 220Z"/><path d="M290 205 Q100 280 150 345 Q230 370 300 225Z"/><path d="M310 205 Q500 280 450 345 Q370 370 300 225Z"/><ellipse cx="300" cy="205" rx="18" ry="100"/><path d="M292 110 Q250 40 230 60 M308 110 Q350 40 370 60"/>`,
-Rocket:`<path d="M300 25 Q190 130 245 290 L355 290 Q410 130 300 25Z"/><circle cx="300" cy="160" r="38"/><path d="M245 235 L160 330 L260 300Z M355 235 L440 330 L340 300Z M270 290 L300 375 L330 290Z"/>`
-};
-let chosenPicture='Cat',chosenSvg='';
-function initColorBook(){if(!$('colorChoices').children.length){Object.keys(svgPictures).forEach((n,i)=>{let b=document.createElement('button');b.className='choice';b.innerHTML='<span class="big">'+['🐱','🚗','🌼','🍎','🐟','🏠','🦋','🚀'][i]+'</span>'+n;b.onclick=()=>loadColor(n);$('colorChoices').append(b)})}palette('colorPal');if(!chosenSvg)loadColor('Cat')}
-function loadColor(n){chosenPicture=n;let inner=svgPictures[n];chosenSvg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 390"><g fill="#fff" stroke="#31394d" stroke-width="7" stroke-linejoin="round">${inner}</g></svg>`;$('colorSvg').innerHTML=chosenSvg;$('colorSvg').querySelectorAll('path,circle,ellipse,rect').forEach(el=>{el.style.cursor='pointer';el.addEventListener('click',()=>el.setAttribute('fill',selected))})}
-function resetColoring(){loadColor(chosenPicture)}
-function saveColoring(){saveSvgElement($('colorSvg').querySelector('svg'),'My '+chosenPicture+' Colouring')}
-function saveSvgElement(svg,title){let s=new XMLSerializer().serializeToString(svg),blob=new Blob([s],{type:'image/svg+xml'}),u=URL.createObjectURL(blob),im=new Image();im.onload=()=>{let c=document.createElement('canvas');c.width=600;c.height=390;c.getContext('2d').drawImage(im,0,0);saveData(c.toDataURL(),' '+title);URL.revokeObjectURL(u)};im.src=u}
-const lessonData={Cat:['Draw a big round head.','Add two pointed ears.','Draw two eyes, a nose and a smiling mouth.','Add whiskers, a body and a tail.','Colour your cat!'],Car:['Draw the long car body.','Add a roof and two windows.','Draw two round wheels.','Add lights and a door.','Colour your car!'],Flower:['Draw a small circle in the middle.','Add five petals around the centre.','Draw a long stem.','Add two leaves.','Colour the flower!'],House:['Draw a square wall.','Add a triangle roof.','Draw a door and two windows.','Add a path, sun and clouds.','Colour your house!'],Fish:['Draw an oval body.','Add a triangle tail.','Draw a fin and an eye.','Add scales and bubbles.','Colour your fish!'],Rocket:['Draw a long rocket body.','Add a round window.','Draw two side fins.','Add a flame at the bottom.','Colour your rocket!']};
-function initLessons(){if(!$('lessonChoices').children.length)Object.keys(lessonData).forEach((n,i)=>{let b=document.createElement('button');b.className='choice';b.innerHTML='<span class="big">'+['🐱','🚗','🌼','🏠','🐟','🚀'][i]+'</span>Draw a '+n;b.onclick=()=>showLesson(n);$('lessonChoices').append(b)});initCanvas('learnCanvas')}
-function showLesson(n){$('lessonInfo').innerHTML='<b>Let’s draw a '+n+'!</b><ol>'+lessonData[n].map(v=>'<li>'+v+'</li>').join('')+'</ol><b>Tip:</b> Draw slowly and enjoy. When finished, save your practice.'}
-function initTrace(){if(!$('traceBtns').children.length)['A','B','C','D','1','2','3','5','○','△','□','☆'].forEach(v=>{let b=document.createElement('button');b.className='tool';b.textContent=v;b.onclick=()=>drawGuide(v);$('traceBtns').append(b)});initCanvas('traceCanvas');drawGuide(currentGuide)}
-function drawGuide(v){currentGuide=v;let c=$('traceCanvas'),x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.strokeStyle='#c4cadd';x.lineWidth=8;x.setLineDash([9,12]);x.textAlign='center';x.textBaseline='middle';if(v==='○'||v==='△'||v==='□'||v==='☆'){x.beginPath();if(v==='○')x.arc(450,280,155,0,7);if(v==='□')x.rect(295,125,310,310);if(v==='△'){x.moveTo(450,90);x.lineTo(620,420);x.lineTo(280,420);x.closePath()}if(v==='☆'){for(let i=0;i<10;i++){let r=i%2?65:160,a=-Math.PI/2+i*Math.PI/5;i?x.lineTo(450+Math.cos(a)*r,280+Math.sin(a)*r):x.moveTo(450+Math.cos(a)*r,280+Math.sin(a)*r)}x.closePath()}x.stroke()}else{x.font='bold 330px Arial';x.strokeText(v,450,285)}x.setLineDash([])}
-const connectSets={Star:[[450,55],[530,205],[690,220],[565,325],[600,480],[450,385],[300,480],[335,325],[210,220],[370,205]],House:[[450,45],[650,205],[590,205],[590,470],[310,470],[310,205],[250,205],[450,45]],Fish:[[120,280],[220,160],[370,145],[480,280],[370,415],[220,400],[120,280]],Heart:[[450,430],[180,210],[170,125],[235,90],[310,145],[380,90],[460,125],[470,210],[450,430]]};
-function initConnect(){if(!$('connectBtns').children.length)Object.keys(connectSets).forEach(n=>{let b=document.createElement('button');b.className='tool';b.textContent=n;b.onclick=()=>startConnect(n);$('connectBtns').append(b)});startConnect('Star')}
-function startConnect(n){connectPoints=connectSets[n];connectIndex=0;drawConnect()}
-function drawConnect(){let c=$('connectCanvas'),x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.strokeStyle='#ff9b43';x.lineWidth=8;x.beginPath();connectPoints.slice(0,connectIndex).forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p));x.stroke();connectPoints.forEach((p,i)=>{x.beginPath();x.arc(p[0],p[1],14,0,7);x.fillStyle=i<connectIndex?'#59d49a':'#fff';x.fill();x.strokeStyle='#7138d9';x.lineWidth=4;x.stroke();x.fillStyle='#333';x.font='bold 20px Arial';x.textAlign='center';x.fillText(i+1,p[0],p[1]-22)});$('connectMsg').textContent=connectIndex>=connectPoints.length?'Picture complete! You earned a star ⭐':`Tap dot number ${connectIndex+1}.`}
-$('connectCanvas').addEventListener('click',e=>{if(!connectPoints.length)return;let r=e.currentTarget.getBoundingClientRect(),x=(e.clientX-r.left)*900/r.width,y=(e.clientY-r.top)*560/r.height,p=connectPoints[connectIndex];if(p&&Math.hypot(p[0]-x,p[1]-y)<38){connectIndex++;drawConnect();if(connectIndex===connectPoints.length)star()}});
-const puzzleSets=[['🚗','🌳','☀️','🏠'],['🐱','🐟','🦋','🌼'],['🚀','⭐','🌙','☁️'],['🍎','🍌','🍇','🍊']];
-function initPuzzleLevels(){if(!$('puzzleLevels').children.length)for(let i=0;i<4;i++){let b=document.createElement('button');b.className='tool';b.textContent='Level '+(i+1);b.onclick=()=>newPuzzle(i);$('puzzleLevels').append(b)}}
-function newPuzzle(level=0){initPuzzleLevels();puzzleLevel=level;puzzleSelected=null;let answer=puzzleSets[level],mix=[...answer].sort(()=>Math.random()-.5);$('puzzleBoard').innerHTML='';answer.forEach((v,i)=>{let s=document.createElement('button');s.className='slot';s.textContent='?';s.dataset.answer=v;s.onclick=()=>placePuzzle(s);$('puzzleBoard').append(s)});$('puzzlePieces').innerHTML='';mix.forEach(v=>{let b=document.createElement('button');b.className='piece';b.textContent=v;b.onclick=()=>{puzzleSelected=v;$('puzzleMsg').textContent='Selected '+v+'. Now tap its matching empty box.';$('puzzlePieces').querySelectorAll('.piece').forEach(z=>z.style.outline=z===b?'3px solid #7138d9':'none')};$('puzzlePieces').append(b)});$('puzzleMsg').textContent='Level '+(level+1)+': match all four pieces.'}
-function placePuzzle(s){if(!puzzleSelected){$('puzzleMsg').textContent='First choose a picture piece below.';return}if(s.dataset.answer===puzzleSelected&&!s.dataset.done){s.textContent=puzzleSelected;s.dataset.done='1';s.style.background='#e4fff0';[...$('puzzlePieces').children].forEach(b=>{if(b.textContent===puzzleSelected)b.remove()});puzzleSelected=null;if([...$('puzzleBoard').children].every(x=>x.dataset.done)){ $('puzzleMsg').textContent='Fantastic! Level completed ⭐';star()}else $('puzzleMsg').textContent='Correct! Find the next piece.'}else $('puzzleMsg').textContent='Try another box. You can do it!'}
-const stickerList=['🌞','☁️','🌳','🌸','🏠','🚗','🐱','🐶','🦋','🌈','⭐','⚽','🌙','🚀','🍎','🌴','🐟','🌻','🎈','🏰'];
-let stickerItems=[];
-function initSticker(){initCanvas('stickerCanvas');if(!$('stickerTray').children.length)stickerList.forEach(v=>{let b=document.createElement('button');b.className='sticker';b.textContent=v;b.onclick=()=>addSticker(v);$('stickerTray').append(b)})}
-function addSticker(v){let c=$('stickerCanvas'),x=c.getContext('2d');snapshot('stickerCanvas');x.font='75px Arial';x.fillText(v,70+Math.random()*650,100+Math.random()*350)}
-const diffData=[['🏡🌳☀️🪟','🏡🌲🌙🚪',3],['🚗🚦🌼☁️','🚌🚦🌻🌧️',3],['🐱🐟🌈⭐','🐶🐠🌙⭐',3],['🍎🍌🍇🍊','🍐🍌🍓🍋',3]];
-function startDiff(n){diffLevel=n%diffData.length;diffFound=0;$('diffA').textContent=diffData[diffLevel][0];$('diffB').textContent=diffData[diffLevel][1];$('diffMsg').textContent='Find 3 changed objects in Picture B. Tap the right picture.';if(!$('diffLevels').children.length)diffData.forEach((d,i)=>{let b=document.createElement('button');b.className='tool';b.textContent='Level '+(i+1);b.onclick=()=>startDiff(i);$('diffLevels').append(b)})}
-function tapDifference(){if(diffFound<3){diffFound++;$('diffMsg').textContent=`Good observation! ${diffFound} of 3 found.`;if(diffFound===3){$('diffMsg').textContent='All differences found! ⭐';star()}}}
-function initDotChoices(){if(!$('dotChoices').children.length){Object.entries({car:'🚗',apple:'🍎',orange:'🍊',house:'🏠',flower:'🌼',rocket:'🚀',bus:'🚌',fish:'🐟',butterfly:'🦋',tree:'🌳'}).forEach(([k,v])=>{let b=document.createElement('button');b.className='choice';b.innerHTML='<span class="big">'+v+'</span>'+k.toUpperCase();b.onclick=()=>loadDotPicture(k);$('dotChoices').append(b)})}}
-function initDotPalette(){if($('dotPal').children.length)return;colors.filter(c=>c!=='#ffffff').forEach(c=>{let b=document.createElement('button');b.className='paintdrag';b.innerHTML='<span class="swatch" style="background:'+c+'"></span>';b.draggable=true;b.onclick=()=>{dotSelected=c;$('dotMsg').textContent='Colour selected. Tap any dotted part.'};b.ondragstart=e=>{dotSelected=c;e.dataTransfer.setData('text/plain',c)};b.addEventListener('pointerdown',()=>{dotSelected=c});$('dotPal').append(b)});if(!document.body.dataset.dotTouchBound){document.body.dataset.dotTouchBound='1';document.addEventListener('pointerup',e=>{let target=document.elementFromPoint(e.clientX,e.clientY);if(target&&target.classList&&target.classList.contains('dotpart'))paintPart(target,dotSelected)})}}
-const dotGeometry={
-car:[['body','M55 220 L85 165 L165 145 L215 90 L375 90 L435 155 L515 185 L545 260 L55 260Z'],['window','M195 145 L235 105 L360 105 L405 150Z'],['hood','M435 165 L510 195 L520 240 L445 235Z'],['door1','M225 160 L300 160 L300 250 L220 250Z'],['door2','M310 160 L405 160 L425 250 L310 250Z'],['wheel1','C 155 260 48'],['wheel2','C 445 260 48'],['light','M75 190 L115 185 L115 220 L65 220Z'],['bumper','M55 245 L545 245 L545 275 L55 275Z'],['mirror','M185 135 L165 120 L195 120Z']],
-apple:[['fruit','M300 100 C180 30 90 130 120 250 C150 355 255 335 300 300 C345 335 450 355 480 250 C510 130 420 30 300 100Z'],['leaf','M305 85 Q355 20 430 55 Q390 120 305 85Z'],['stem','M290 100 L300 30 L325 30 L315 105Z'],['shine','M175 165 Q155 215 180 255 Q210 205 205 165Z']],
-orange:[['rind','C 300 210 145'],['leaf','M300 80 Q365 15 435 55 Q390 115 300 80Z'],['stem','M290 90 L300 35 L325 35 L315 95Z'],['slice1','C 300 210 85'],['slice2','C 300 210 48']],
-house:[['roof','M55 175 L300 35 L545 175 L510 200 L300 85 L90 200Z'],['wall','M100 185 L500 185 L500 345 L100 345Z'],['door','M260 240 L340 240 L340 345 L260 345Z'],['window1','M135 220 L220 220 L220 285 L135 285Z'],['window2','M380 220 L465 220 L465 285 L380 285Z'],['chimney','M390 70 L445 70 L445 145 L390 145Z'],['path','M270 345 L330 345 L370 390 L230 390Z']],
-flower:[['petal1','C 300 100 60'],['petal2','C 390 160 58'],['petal3','C 350 250 58'],['petal4','C 250 250 58'],['petal5','C 210 160 58'],['centre','C 300 175 42'],['stem','M285 210 L315 210 L330 375 L270 375Z'],['leaf1','M285 285 Q190 230 175 300 Q220 350 285 285Z'],['leaf2','M315 320 Q410 250 430 320 Q380 370 315 320Z']],
-rocket:[['body','M300 25 Q190 130 245 295 L355 295 Q410 130 300 25Z'],['nose','M300 25 Q240 95 235 145 L365 145 Q360 95 300 25Z'],['window','C 300 175 42'],['leftfin','M245 235 L155 345 L260 305Z'],['rightfin','M355 235 L445 345 L340 305Z'],['flame','M270 295 L300 385 L330 295Z'],['band','M245 225 L355 225 L360 250 L240 250Z']],
-bus:[['body','M65 105 Q65 65 110 65 L470 65 Q535 65 535 125 L535 285 L65 285Z'],['window1','M105 105 L205 105 L205 190 L105 190Z'],['window2','M220 105 L320 105 L320 190 L220 190Z'],['window3','M335 105 L485 105 L485 190 L335 190Z'],['door','M430 200 L495 200 L495 285 L430 285Z'],['wheel1','C 165 285 45'],['wheel2','C 440 285 45'],['bumper','M65 265 L535 265 L535 300 L65 300Z']],
-fish:[['body','M75 200 Q210 65 415 200 Q210 335 75 200Z'],['tail','M410 200 L535 110 L535 290Z'],['topfin','M230 120 L295 45 L350 140Z'],['bottomfin','M230 280 L295 355 L350 260Z'],['eye','C 160 175 17'],['gill','M230 150 Q200 200 230 250']],
-butterfly:[['leftTop','M295 185 Q105 15 70 145 Q55 260 295 220Z'],['rightTop','M305 185 Q495 15 530 145 Q545 260 305 220Z'],['leftBottom','M295 210 Q100 260 155 360 Q245 380 300 225Z'],['rightBottom','M305 210 Q500 260 445 360 Q355 380 300 225Z'],['body','M285 130 Q300 100 315 130 L320 300 L280 300Z'],['spot1','C 185 165 25'],['spot2','C 415 165 25']],
-tree:[['leaves1','C 220 140 90'],['leaves2','C 360 130 95'],['leaves3','C 300 80 90'],['trunk','M265 190 L335 190 L355 365 L245 365Z'],['branch1','M275 230 L190 175 L210 155 L295 220Z'],['branch2','M325 230 L410 165 L430 185 L335 250Z']]
-};
-function loadDotPicture(k){dotPicture=k;dotDone=0;let svg=$('dotSvg');svg.innerHTML='';(dotGeometry[k]||dotGeometry.car).forEach((p,i)=>{let el;if(p[1].startsWith('C ')){let a=p[1].split(' ');el=document.createElementNS('http://www.w3.org/2000/svg','circle');el.setAttribute('cx',a[1]);el.setAttribute('cy',a[2]);el.setAttribute('r',a[3])}else{el=document.createElementNS('http://www.w3.org/2000/svg','path');el.setAttribute('d',p[1])}el.setAttribute('class','dotpart');el.setAttribute('fill','#fff');el.dataset.done='0';el.addEventListener('click',()=>paintPart(el,dotSelected));el.addEventListener('dragover',e=>e.preventDefault());el.addEventListener('drop',e=>{e.preventDefault();paintPart(el,e.dataTransfer.getData('text/plain')||dotSelected)});svg.append(el)});$('dotMsg').textContent=`${k.toUpperCase()} is ready. Colour all ${svg.children.length} sections.`}
-function paintPart(el,c){if(el.dataset.done==='1')return;el.setAttribute('fill',c);el.dataset.done='1';dotDone++;$('dotMsg').textContent=`Great! ${dotDone} of ${$('dotSvg').children.length} sections coloured.`;if(dotDone===$('dotSvg').children.length){$('dotMsg').textContent='Amazing! Picture fully coloured. You earned a star ⭐';star()}}
-function resetDot(){loadDotPicture(dotPicture)}
-function saveDot(){saveSvgElement($('dotSvg'),'My '+dotPicture+' Dot Colouring')}
-stats();
+function setupCanvas(id){
+ const c=$(id);if(!c)return;canvases[id]=c;const ctx=c.getContext('2d');ctx.lineCap='round';ctx.lineJoin='round';
+ if(!c.dataset.ready){c.dataset.ready='1';c.addEventListener('pointerdown',e=>canvasDown(e,id));c.addEventListener('pointermove',e=>canvasMove(e,id));c.addEventListener('pointerup',()=>canvasUp(id));c.addEventListener('pointercancel',()=>canvasUp(id));}
+ if(!c.dataset.filled){ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);c.dataset.filled='1'}
+}
+let drawing=null;
+function pos(e,c){const r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}}
+function canvasDown(e,id){const c=$(id);if(!c)return;setupCanvas(id);const p=pos(e,c);drawing={id,last:p};c.setPointerCapture(e.pointerId);
+ if(id==='shapeCanvas'){stampShape(p.x,p.y);drawing=null;return}
+ if(id==='colorCanvas'){floodFill(c,Math.floor(p.x),Math.floor(p.y),selectedColor);drawing=null;return}
+ if(id==='stickerCanvas'){stampSticker(p.x,p.y);drawing=null;return}
+ const ctx=c.getContext('2d');ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+0.1,p.y+0.1);ctx.strokeStyle=selectedColor;ctx.lineWidth=id==='freeCanvas'?Number($('freeSize').value):8;ctx.stroke();
+}
+function canvasMove(e,id){if(!drawing||drawing.id!==id)return;const c=$(id),p=pos(e,c),ctx=c.getContext('2d');ctx.beginPath();ctx.moveTo(drawing.last.x,drawing.last.y);ctx.lineTo(p.x,p.y);ctx.strokeStyle=selectedColor;ctx.lineWidth=id==='freeCanvas'?Number($('freeSize').value):8;ctx.stroke();drawing.last=p}
+function canvasUp(id){if(drawing&&drawing.id===id)drawing=null}
+function clearCanvas(id){const c=$(id);if(!c)return;const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);if(id==='colorCanvas')drawColorPage();if(id==='traceCanvas')drawTrace();if(id==='learnCanvas')drawLesson();if(id==='connectCanvas')drawConnect();if(id==='diffCanvas')drawDifference()}
+
+function floodFill(canvas,startX,startY,hex){
+ const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+ const image=ctx.getImageData(0,0,w,h),data=image.data;
+ const start=(startY*w+startX)*4,target=[data[start],data[start+1],data[start+2],data[start+3]];
+ const rgb=hexToRgb(hex);if(!rgb)return;
+ if(target[0]===rgb[0]&&target[1]===rgb[1]&&target[2]===rgb[2])return;
+ const close=(i)=>Math.abs(data[i]-target[0])<28&&Math.abs(data[i+1]-target[1])<28&&Math.abs(data[i+2]-target[2])<28&&Math.abs(data[i+3]-target[3])<28;
+ const stack=[[startX,startY]],seen=new Uint8Array(w*h);let count=0;
+ while(stack.length&&count<250000){const [x,y]=stack.pop();if(x<0||y<0||x>=w||y>=h)continue;const pos=y*w+x;if(seen[pos])continue;seen[pos]=1;const i=pos*4;if(!close(i))continue;
+  data[i]=rgb[0];data[i+1]=rgb[1];data[i+2]=rgb[2];data[i+3]=255;count++;
+  stack.push([x+1,y],[x-1,y],[x,y+1],[x,y-1]);
+ }
+ ctx.putImageData(image,0,0);
+}
+function hexToRgb(hex){const m=/^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);return m?[parseInt(m[1],16),parseInt(m[2],16),parseInt(m[3],16)]:null}
+\nfunction makePalette(id){const el=$(id);if(!el)return;el.innerHTML='';colors.forEach(col=>{const b=document.createElement('button');b.className='swatch'+(col===selectedColor?' selected':'');b.style.background=col;b.title=col;b.onclick=()=>{selectedColor=col;makePalette(id)};el.appendChild(b)})}
+function saveCanvas(id){const c=$(id);if(!c)return;try{const data=c.toDataURL('image/png'),arr=getGallery();arr.unshift({data,title:$(id).closest('.screen').querySelector('h2').textContent,date:new Date().toLocaleString()});localStorage.setItem('slk_art_gallery',JSON.stringify(arr.slice(0,30)));alert('Your artwork has been saved in My Art Gallery!')}catch(e){alert('Could not save. Your device storage may be full.')}}
+function downloadCanvas(id){const c=$(id);if(!c)return;const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='super-learn-kids-art.png';a.click()}
+function getGallery(){try{return JSON.parse(localStorage.getItem('slk_art_gallery')||'[]')}catch(e){return[]}}
+function refreshGallery(){const g=getGallery(),el=$('galleryGrid');el.innerHTML='';$('galleryInfo').textContent=g.length?g.length+' saved artwork(s).':'Your saved pictures will appear here on this device.';g.forEach((item,i)=>{const d=document.createElement('div');d.className='gallery-item';const im=document.createElement('img');im.src=item.data;im.alt='Saved artwork';const title=document.createElement('b');title.textContent=item.title||'My Art';const date=document.createElement('small');date.textContent=item.date||'';const del=document.createElement('button');del.textContent='Delete';del.onclick=()=>{const a=getGallery();a.splice(i,1);localStorage.setItem('slk_art_gallery',JSON.stringify(a));refreshGallery()};d.append(im,title,document.createElement('br'),date,del);el.appendChild(d)})}
+function clearGallery(){if(confirm('Delete all saved artwork?')){localStorage.removeItem('slk_art_gallery');refreshGallery()}}
+const colorPages=[
+ {name:'Flower',draw(ctx){ctx.strokeStyle='#222';ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(450,390);ctx.lineTo(450,540);ctx.stroke();ctx.beginPath();ctx.ellipse(400,460,65,28,-.4,0,Math.PI*2);ctx.ellipse(500,490,65,28,.4,0,Math.PI*2);ctx.stroke();for(let i=0;i<6;i++){let a=i*Math.PI/3;ctx.beginPath();ctx.ellipse(450+Math.cos(a)*95,235+Math.sin(a)*95,48,75,a,0,Math.PI*2);ctx.stroke()}ctx.beginPath();ctx.arc(450,235,55,0,Math.PI*2);ctx.stroke()}},
+ {name:'House',draw(ctx){ctx.lineWidth=10;ctx.strokeStyle='#222';ctx.strokeRect(260,260,380,270);ctx.beginPath();ctx.moveTo(220,270);ctx.lineTo(450,80);ctx.lineTo(680,270);ctx.closePath();ctx.stroke();ctx.strokeRect(405,385,95,145);ctx.strokeRect(300,320,75,75);ctx.strokeRect(525,320,75,75)}},
+ {name:'Fish',draw(ctx){ctx.lineWidth=10;ctx.strokeStyle='#222';ctx.beginPath();ctx.ellipse(430,300,190,115,0,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(610,300);ctx.lineTo(760,200);ctx.lineTo(760,400);ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(350,270,15,0,Math.PI*2);ctx.stroke();for(let x=430;x<550;x+=45){ctx.beginPath();ctx.arc(x,300,22,0,Math.PI*2);ctx.stroke()}}},
+ {name:'Butterfly',draw(ctx){ctx.lineWidth=10;ctx.strokeStyle='#222';ctx.beginPath();ctx.ellipse(350,235,115,95,-.5,0,Math.PI*2);ctx.ellipse(550,235,115,95,.5,0,Math.PI*2);ctx.ellipse(360,390,80,65,.5,0,Math.PI*2);ctx.ellipse(540,390,80,65,-.5,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.ellipse(450,315,25,120,0,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(440,200);ctx.quadraticCurveTo(380,100,350,130);ctx.moveTo(460,200);ctx.quadraticCurveTo(520,100,550,130);ctx.stroke()}}
+];
+function drawColorPage(){const c=$('colorCanvas');if(!c)return;setupCanvas('colorCanvas');const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);colorPages[colorPage].draw(ctx);$('colorName').textContent=colorPages[colorPage].name}
+function changeColorPage(n){colorPage=(colorPage+n+colorPages.length)%colorPages.length;drawColorPage()}
+const lessons=[
+ {name:'Draw a Cat',emoji:'🐱',text:'1. Draw a big round face. 2. Add two triangle ears. 3. Draw eyes, nose and whiskers.',steps:['⭕ Face','🔺 Ears','👀 Eyes','〰️ Whiskers']},
+ {name:'Draw a Sun',emoji:'☀️',text:'1. Draw a circle. 2. Add rays around it. 3. Draw a happy face.',steps:['⭕ Circle','☀️ Rays','😊 Smile']},
+ {name:'Draw a House',emoji:'🏠',text:'1. Draw a square. 2. Add a triangle roof. 3. Add door and windows.',steps:['🟦 Walls','🔺 Roof','🚪 Door','🪟 Windows']},
+ {name:'Draw a Tree',emoji:'🌳',text:'1. Draw a long trunk. 2. Add a big leafy top. 3. Add fruit or flowers.',steps:['🟫 Trunk','🌿 Leaves','🍎 Fruit']}
+];
+function drawLesson(){const l=lessons[lessonIndex];$('lessonTitle').textContent=l.name;$('lessonEmoji').textContent=l.emoji;$('lessonText').textContent=l.text;$('lessonSteps').innerHTML=l.steps.map(s=>'<span>'+s+'</span>').join('');setupCanvas('learnCanvas')}
+function lessonChange(n){lessonIndex=(lessonIndex+n+lessons.length)%lessons.length;clearCanvas('learnCanvas');drawLesson()}
+function showLessonGuide(){alert(lessons[lessonIndex].text)}
+const traces=['A','B','C','1','2','3','○','△'];
+function drawTrace(){const c=$('traceCanvas');if(!c)return;setupCanvas('traceCanvas');const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.font='bold 300px Arial';x.textAlign='center';x.textBaseline='middle';x.setLineDash([5,14]);x.lineWidth=8;x.strokeStyle='#b9a5e9';if(traces[traceIndex]==='△'){x.beginPath();x.moveTo(450,90);x.lineTo(700,420);x.lineTo(200,420);x.closePath();x.stroke()}else if(traces[traceIndex]==='○'){x.beginPath();x.arc(450,260,160,0,Math.PI*2);x.stroke()}else{x.strokeText(traces[traceIndex],450,270)}x.setLineDash([]);$('traceTitle').textContent='Trace '+traces[traceIndex]}
+function traceChange(n){traceIndex=(traceIndex+n+traces.length)%traces.length;drawTrace()}
+const connectSets=[
+ {name:'Star',pts:[[450,65],[540,205],[700,205],[575,305],[620,455],[450,365],[280,455],[325,305],[200,205],[360,205]]},
+ {name:'House',pts:[[220,260],[450,90],[680,260],[650,500],[250,500],[250,260],[400,500],[400,360],[500,360],[500,500]]},
+ {name:'Heart',pts:[[450,470],[220,280],[220,190],[300,120],[390,130],[450,220],[510,130],[600,120],[680,190],[680,280]]}
+];
+let connectCount=0;
+function drawConnect(){const c=$('connectCanvas');if(!c)return;setupCanvas('connectCanvas');const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);const pts=connectSets[connectIndex].pts;x.strokeStyle='#31a8df';x.lineWidth=7;x.beginPath();for(let i=0;i<connectCount;i++){const p=pts[i];if(i===0)x.moveTo(...p);else x.lineTo(...p)}x.stroke();pts.forEach((p,i)=>{x.beginPath();x.arc(p[0],p[1],13,0,Math.PI*2);x.fillStyle=i<connectCount?'#42c98b':'#fff';x.fill();x.strokeStyle='#703acb';x.lineWidth=5;x.stroke();x.fillStyle='#44227e';x.font='bold 18px Arial';x.textAlign='center';x.fillText(i+1,p[0],p[1]+6)});$('connectTitle').textContent=connectSets[connectIndex].name;$('connectStatus').textContent=connectCount>=pts.length?'🎉 Great job! Picture completed!':'Tap dot number '+(connectCount+1)+' to continue.';const board=$('dotBoard');board.innerHTML='';pts.forEach((p,i)=>{const b=document.createElement('button');b.className='dot';b.textContent=i+1;b.onclick=()=>tapConnect(i);board.appendChild(b)})}
+function tapConnect(i){if(i===connectCount){connectCount++;drawConnect()}else if(i<connectCount){$('connectStatus').textContent='That dot is already joined. Find number '+(connectCount+1)+'.'}else{$('connectStatus').textContent='Try the next number: '+(connectCount+1)}}
+function connectChange(n){connectIndex=(connectIndex+n+connectSets.length)%connectSets.length;connectCount=0;drawConnect()}
+function resetConnect(){connectCount=0;drawConnect()}
+function newPuzzle(){const a=[1,2,3,4,5,6,7,0];for(let i=0;i<40;i++){const j=Math.floor(Math.random()*8),k=Math.floor(Math.random()*8);[a[j],a[k]]=[a[k],a[j]]}puzzle=a;selectedPuzzle=-1;renderPuzzle()}
+function renderPuzzle(){const b=$('puzzleBoard');b.innerHTML='';puzzle.forEach((v,i)=>{const btn=document.createElement('button');btn.className='mini';btn.style.minHeight='90px';btn.style.fontSize='26px';btn.style.background=v?'linear-gradient(135deg,#fff,#efe7ff)':'#f4f4f4';btn.textContent=v?['','🌞','🌈','🌸','🦋','🐟','🍎','🏠','⭐'][v]:'⬜';btn.onclick=()=>puzzleTap(i);if(selectedPuzzle===i)btn.style.borderColor='#7138d9';b.appendChild(btn)});$('puzzleStatus').textContent=puzzle.every((v,i)=>v===((i+1)%9))?'🎉 Puzzle completed!':'Tap two tiles to swap them.'}
+function puzzleTap(i){if(selectedPuzzle<0){selectedPuzzle=i}else{[puzzle[selectedPuzzle],puzzle[i]]=[puzzle[i],puzzle[selectedPuzzle]];selectedPuzzle=-1}renderPuzzle()}
+function showPuzzleHint(){alert('Arrange the tiles in this order: 🌞 🌈 🌸 🦋 🐟 🍎 🏠 ⭐. Tap any two tiles to swap them.')}
+const stickers=['⭐','❤️','🌈','☀️','🌸','🌼','🦋','🐱','🐶','🚀','🌳','🍎','🎈','⚽','☁️','🌙','🐟','🦄'];
+function makeStickerTray(){const t=$('stickerTray');t.innerHTML='';stickers.forEach(s=>{const b=document.createElement('button');b.className='sticker';b.textContent=s;b.onclick=()=>{stickerChoice=s;document.querySelectorAll('#stickerTray button').forEach(x=>x.style.outline='');b.style.outline='3px solid #7138d9'};t.appendChild(b)});setupCanvas('stickerCanvas')}
+function stampSticker(x,y){const c=$('stickerCanvas'),ctx=c.getContext('2d');ctx.font='72px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(stickerChoice,x,y)}
+function startDiff(){diffFound=[];diffTargets=[[190,160],[440,120],[700,190],[300,390],[620,390]];drawDifference();$('diffScore').textContent='Found 0 / 5';$('diffMessage').textContent='Can you find all five differences?'}
+function drawDifference(){const c=$('diffCanvas');if(!c)return;setupCanvas('diffCanvas');const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='#eaf7ff';x.fillRect(0,0,c.width,c.height);x.fillStyle='#75c9f1';x.fillRect(0,430,900,90);x.fillStyle='#ffd34e';x.beginPath();x.arc(450,110,55,0,Math.PI*2);x.fill();x.fillStyle='#5cc78b';x.fillRect(140,280,90,150);x.fillRect(670,270,90,160);x.fillStyle='#ff9fbd';x.beginPath();x.arc(450,300,95,0,Math.PI*2);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(420,280,17,0,Math.PI*2);x.arc(480,280,17,0,Math.PI*2);x.fill();x.fillStyle='#222';x.beginPath();x.arc(420,280,7,0,Math.PI*2);x.arc(480,280,7,0,Math.PI*2);x.fill();x.strokeStyle='#222';x.lineWidth=7;x.beginPath();x.arc(450,315,38,0,Math.PI);x.stroke();x.fillStyle='#f7a72e';x.beginPath();x.arc(190,160,40,0,Math.PI*2);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(700,190,30,0,Math.PI*2);x.fill();x.fillStyle='#9d75d9';x.fillRect(280,390,40,40);x.fillStyle='#e34c65';x.fillRect(600,390,40,40);diffFound.forEach(i=>{x.strokeStyle='#20a86c';x.lineWidth=8;x.beginPath();x.arc(...diffTargets[i],38,0,Math.PI*2);x.stroke()})}
+$('diffCanvas').addEventListener('pointerdown',e=>{if(!$('difference').classList.contains('active'))return;const p=pos(e,$('diffCanvas'));diffTargets.forEach((t,i)=>{if(Math.hypot(p.x-t[0],p.y-t[1])<55&&!diffFound.includes(i)){diffFound.push(i);drawDifference();$('diffScore').textContent='Found '+diffFound.length+' / 5';$('diffMessage').textContent=diffFound.length===5?'🏆 Excellent! You found them all!':'Good eyes! Find the remaining differences.'}})});
+function setShape(s){currentShape=s}
+function stampShape(x,y){const c=$('shapeCanvas'),ctx=c.getContext('2d'),size=Number($('shapeSize').value);ctx.save();ctx.translate(x,y);ctx.fillStyle=selectedColor;ctx.strokeStyle='#49316f';ctx.lineWidth=4;ctx.beginPath();if(currentShape==='circle')ctx.arc(0,0,size/2,0,Math.PI*2);if(currentShape==='rect')ctx.rect(-size/2,-size/2,size,size);if(currentShape==='triangle'){ctx.moveTo(0,-size/2);ctx.lineTo(size/2,size/2);ctx.lineTo(-size/2,size/2);ctx.closePath()}if(currentShape==='star'){for(let i=0;i<10;i++){let r=i%2?size*.22:size*.5,a=-Math.PI/2+i*Math.PI/5;let px=Math.cos(a)*r,py=Math.sin(a)*r;if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)}ctx.closePath()}if(currentShape==='heart'){ctx.moveTo(0,size*.35);ctx.bezierCurveTo(-size*.8,-size*.1,-size*.45,-size*.7,0,-size*.25);ctx.bezierCurveTo(size*.45,-size*.7,size*.8,-size*.1,0,size*.35)}ctx.fill();ctx.stroke();ctx.restore()}
+function loadWriting(){const saved=localStorage.getItem('slk_writing')||'';$('writingText').value=saved;$('writingText').style.color=$('writingColor').value}
+$('writingColor').addEventListener('input',e=>$('writingText').style.color=e.target.value);
+function clearWriting(){if(confirm('Clear your writing?'))$('writingText').value=''}
+function saveWriting(){localStorage.setItem('slk_writing',$('writingText').value);alert('Your writing has been saved!')}
+const dotSets=[
+ {name:'Dot Flower',pts:[[450,90],[510,150],[570,210],[510,270],[450,330],[390,270],[330,210],[390,150],[450,210],[450,430],[370,490],[530,490]]},
+ {name:'Dot Rocket',pts:[[450,70],[510,160],[510,300],[570,390],[450,350],[330,390],[390,300],[390,160],[450,220],[450,480]]},
+ {name:'Dot Butterfly',pts:[[450,250],[330,150],[240,190],[310,300],[370,390],[450,300],[570,150],[660,190],[590,300],[530,390],[450,300]]}
+];
+function drawDotPicture(){const c=$('dotCanvas');if(!c)return;setupCanvas('dotCanvas');const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);const pts=dotSets[dotIndex].pts;pts.forEach((p,i)=>{x.beginPath();x.arc(p[0],p[1],23,0,Math.PI*2);x.fillStyle=dotColors[dotIndex+'-'+i]||'#fff';x.fill();x.strokeStyle='#6636bd';x.lineWidth=5;x.stroke();x.fillStyle='#45227d';x.font='bold 17px Arial';x.textAlign='center';x.fillText(i+1,p[0],p[1]+6)});$('dotPictureName').textContent=dotSets[dotIndex].name}
+$('dotCanvas').addEventListener('pointerdown',e=>{if(!$('dotcolor').classList.contains('active'))return;const p=pos(e,$('dotCanvas'));dotSets[dotIndex].pts.forEach((t,i)=>{if(Math.hypot(p.x-t[0],p.y-t[1])<30){dotColors[dotIndex+'-'+i]=selectedColor;drawDotPicture()}})});
+function dotPictureChange(n){dotIndex=(dotIndex+n+dotSets.length)%dotSets.length;drawDotPicture()}
+function resetDotPicture(){dotSets[dotIndex].pts.forEach((p,i)=>delete dotColors[dotIndex+'-'+i]);drawDotPicture()}
+window.addEventListener('error',e=>console.error('App error:',e.message));
 </script>
 </body>
 </html>
