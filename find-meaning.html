@@ -944,406 +944,956 @@ const langs=[
  ["اردو","ur"],["中文","zh"],["日本語","ja"],["Deutsch","de"]
 ];
 
-let current=null;
-let mode="explore";
-let round=0;
-let score=Number(localStorage.getItem("slk_stars")||0);
-let selected=null;
-let memoryOpen=[];
-let memoryDone=[];
-let builderAnswer=[];
-let canvas,ctx,drawing=false;
-let colorValue="#ff4c85";
+// ========================================
+// SUPER LEARN KIDS - NEW GAME ENGINE
+// ========================================
 
-document.getElementById("stars").textContent=score;
+let current = null;
+let mode = "explore";
+let round = 0;
+let score = Number(localStorage.getItem("slk_stars") || 0);
 
-function shuffle(a){
- return [...a].sort(()=>Math.random()-.5);
+let activePool = [];
+let categoryMode = false;
+let categoryName = "";
+
+let memoryOpen = [];
+let memoryDone = [];
+let memoryCards = [];
+
+let builderAnswer = [];
+let builderUsed = [];
+
+let canvas = null;
+let ctx = null;
+let drawing = false;
+let colorValue = "#ff4c85";
+let creativeFinished = false;
+let questionLocked = false;
+let memoryTimer = null;
+
+// Remove duplicate words from database
+const uniqueWords = [];
+const wordNames = new Set();
+
+words.forEach(w => {
+  if (!w.word || wordNames.has(w.word.toLowerCase())) return;
+
+  wordNames.add(w.word.toLowerCase());
+
+  const item = {
+    ...w,
+    pic: w.pic || w.image || "🌟",
+    bn: w.bn || w.meanings?.bn || w.word,
+    hi: w.hi || w.meanings?.hi || "",
+    ar: w.ar || w.meanings?.ar || "",
+    es: w.es || w.meanings?.es || "",
+    fr: w.fr || w.meanings?.fr || "",
+    ur: w.ur || w.meanings?.ur || "",
+    zh: w.zh || w.meanings?.zh || "",
+    ja: w.ja || w.meanings?.ja || "",
+    de: w.de || w.meanings?.de || ""
+  };
+
+  uniqueWords.push(item);
+});
+
+function shuffle(array) {
+  const a = [...array];
+
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+
+  return a;
 }
 
+function updateStars() {
+  localStorage.setItem("slk_stars", score);
+  document.getElementById("stars").textContent = score;
+}
 
-// UNIQUE WORD SYSTEM
-let usedWords = [];
-let categoryUsedWords = {};
+updateStars();
 
-function randomWord(){
+function speak(text, lang = "word") {
+  if (!("speechSynthesis" in window)) {
+    showMessage("এই ডিভাইসে ভয়েস সুবিধা পাওয়া যাচ্ছে না।");
+    return;
+  }
 
-  let available = words.filter(
-    w => !usedWords.includes(w.word)
+  speechSynthesis.cancel();
+
+  const codes = {
+    bn: "bn-BD",
+    word: "en-US",
+    hi: "hi-IN",
+    ar: "ar-SA",
+    es: "es-ES",
+    fr: "fr-FR",
+    ur: "ur-PK",
+    zh: "zh-CN",
+    ja: "ja-JP",
+    de: "de-DE"
+  };
+
+  const utterance = new SpeechSynthesisUtterance(String(text || ""));
+  utterance.lang = codes[lang] || "en-US";
+  utterance.rate = 0.82;
+
+  speechSynthesis.speak(utterance);
+}
+
+// ========================================
+// WORD SELECTION
+// ========================================
+
+let wordQueue = [];
+let queueIndex = 0;
+
+function prepareQueue(pool) {
+  wordQueue = shuffle(pool);
+  queueIndex = 0;
+}
+
+function randomWord() {
+  if (!wordQueue.length || queueIndex >= wordQueue.length) {
+    prepareQueue(activePool.length ? activePool : uniqueWords);
+  }
+
+  return wordQueue[queueIndex++];
+}
+
+function getOptions(answer) {
+  const others = activePool.filter(
+    w => w.word !== answer.word
   );
 
-  if(available.length === 0){
-    usedWords = [];
-    available = [...words];
+  const selected = shuffle(others).slice(0, 3);
+
+  return shuffle([answer, ...selected]);
+}
+
+// ========================================
+// HOME AND NAVIGATION
+// ========================================
+
+function goHome() {
+  if (memoryTimer) clearTimeout(memoryTimer);
+
+  if ("speechSynthesis" in window) {
+    speechSynthesis.cancel();
   }
 
-  const chosen =
-    available[Math.floor(Math.random()*available.length)];
+  document.getElementById("home").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("meaningModal").classList.add("hidden");
 
-  usedWords.push(chosen.word);
-
-  return chosen;
+  categoryMode = false;
+  current = null;
 }
 
+function start(m) {
+  mode = m;
+  round = 0;
+  categoryMode = false;
+  categoryName = "";
+  activePool = uniqueWords;
 
-function speak(text,lang){
- if(!("speechSynthesis" in window)){
-  alert("এই ডিভাইসে ভয়েস সুবিধা পাওয়া যাচ্ছে না।");
-  return;
- }
- speechSynthesis.cancel();
- const u=new SpeechSynthesisUtterance(text);
- const codes={
- bn:"bn-BD",word:"en-US",hi:"hi-IN",ar:"ar-SA",
- es:"es-ES",fr:"fr-FR",ur:"ur-PK",zh:"zh-CN",
- ja:"ja-JP",de:"de-DE"
- };
- u.lang=codes[lang]||"en-US";
- u.rate=.82;
- speechSynthesis.speak(u);
+  prepareQueue(activePool);
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+
+  const names = {
+    explore: "🌍 Explore & Learn",
+    listen: "👂 Listen & Find",
+    match: "🔗 Picture Matching",
+    drag: "🧲 Drag & Drop",
+    builder: "🔠 Word Builder",
+    trace: "✏️ Draw & Trace",
+    color: "🎨 Color & Create",
+    memory: "🧠 Memory Challenge",
+    quiz: "🏆 Brain Quiz",
+    treasure: "💎 Treasure Adventure"
+  };
+
+  document.getElementById("modeTitle").textContent = names[m];
+
+  if (m === "memory") {
+    setupMemory();
+  } else {
+    nextQuestion();
+  }
 }
 
-function goHome(){
- document.getElementById("home").classList.remove("hidden");
- document.getElementById("game").classList.add("hidden");
- document.getElementById("meaningModal").classList.add("hidden");
- speechSynthesis?.cancel();
+function nextQuestion() {
+  questionLocked = false;
+
+  current = randomWord();
+
+  round++;
+
+  document.getElementById("progress").style.width =
+    Math.min((round % 10) * 10 || 10, 100) + "%";
+
+  if (mode === "explore") showExplore();
+  else if (mode === "listen") showListen();
+  else if (mode === "match") showMatch();
+  else if (mode === "drag") showDrag();
+  else if (mode === "builder") showBuilder();
+  else if (mode === "trace") showTrace();
+  else if (mode === "color") showColor();
+  else if (mode === "quiz") showQuiz();
+  else if (mode === "treasure") showTreasure();
 }
 
-function start(m){
- mode=m;round=0;
- document.getElementById("home").classList.add("hidden");
- document.getElementById("game").classList.remove("hidden");
- const names={
- explore:"🌍 Explore & Learn",
- listen:"👂 Listen & Find",
- match:"🔗 Picture Matching",
- drag:"🧲 Drag & Drop",
- builder:"🔠 Word Builder",
- trace:"✏️ Draw & Trace",
- color:"🎨 Color & Create",
- memory:"🧠 Memory Challenge",
- quiz:"🏆 Brain Quiz",
- treasure:"💎 Treasure Adventure"
- };
- document.getElementById("modeTitle").textContent=names[m];
- if(m==="memory") setupMemory();
- else if(m==="trace") showTrace();
- else if(m==="color") showColor();
- else nextQuestion();
+// ========================================
+// COMMON NEXT BUTTON
+// ========================================
+
+function nextButton() {
+  return `
+    <div style="text-align:center;margin:15px 0">
+      <button class="action secondary" onclick="nextQuestion()">
+        NEXT ➜
+      </button>
+    </div>
+  `;
 }
 
-// ===================================
-// 2. QUESTION SYSTEMS
-// ===================================
+// ========================================
+// 1. EXPLORE & LEARN
+// ========================================
 
-function nextQuestion(){
- current=randomWord();
- selected=null;
- document.getElementById("progress").style.width=
- Math.min(round*10,100)+"%";
+function showExplore() {
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">ছবিটি দেখো এবং শব্দটি শেখো</div>
 
- if(mode==="explore") showExplore();
- if(mode==="listen") showListen();
- if(mode==="match") showMatch();
- if(mode==="drag") showDrag();
- if(mode==="builder") showBuilder();
- if(mode==="quiz"||mode==="treasure") showQuiz();
+    <div class="picture"
+      onclick="speak(current.word,'word')">
+      ${current.pic}
+    </div>
+
+    <div class="word"
+      onclick="speak(current.word,'word')">
+      ${current.word}
+    </div>
+
+    <div class="answers">
+      <button class="answer"
+        onclick="speak(current.bn,'bn')">
+        🇧🇩 বাংলা: ${current.bn}
+      </button>
+
+      <button class="answer"
+        onclick="speak(current.hi,'hi')">
+        🇮🇳 Hindi: ${current.hi}
+      </button>
+    </div>
+
+    <div style="text-align:center">
+      <button class="action" onclick="showMeaning(current)">
+        🌐 ১০ ভাষায় অর্থ দেখুন
+      </button>
+    </div>
+
+    ${nextButton()}
+  `;
 }
 
-function showExplore(){
- document.getElementById("playArea").innerHTML=`
- <div class="question">ছবিটি দেখুন এবং শব্দটি শিখুন</div>
- <div class="picture" onclick="speak(current.word,'word')">${current.pic}</div>
- <div class="word" onclick="speak(current.word,'word')">${current.word}</div>
- <div class="small">শব্দে স্পর্শ করলে উচ্চারণ শুনতে পাবেন</div>
- <div class="answers">
- <button class="answer" onclick="speak(current.bn,'bn')">বাংলা: ${current.bn}</button>
- <button class="answer" onclick="speak(current.hi,'hi')">Hindi: ${current.hi}</button>
- </div>
- <div style="text-align:center">
- <button class="action" onclick="showMeaning(current)">🌐 ১০ ভাষায় অর্থ দেখুন</button>
- <button class="action secondary" onclick="nextQuestion()">NEXT WORD ➜</button>
- </div>`;
+// ========================================
+// 2. LISTEN & FIND
+// ========================================
+
+function showListen() {
+  const options = getOptions(current);
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      🔊 শব্দটি শুনে সঠিক ছবি নির্বাচন করো
+    </div>
+
+    <div style="text-align:center">
+      <button class="action"
+        onclick="speak(current.word,'word')">
+        ▶ PLAY WORD
+      </button>
+    </div>
+
+    <div class="answers">
+      ${options.map(w => `
+        <button class="answer"
+          onclick="checkAnswer('${w.word}')">
+          <span style="font-size:40px">${w.pic}</span>
+          <br>${w.bn}
+        </button>
+      `).join("")}
+    </div>
+
+    <div id="feedback"></div>
+
+    ${nextButton()}
+  `;
 }
 
-function showListen(){
- const options=shuffle([current,...shuffle(words.filter(w=>w!==current)).slice(0,3)]);
- document.getElementById("playArea").innerHTML=`
- <div class="question">শব্দটি শুনুন। সঠিক ছবি খুঁজুন!</div>
- <div style="text-align:center">
- <button class="action" onclick="speak(current.word,'word')">🔊 PLAY WORD</button>
- </div>
- <div class="answers">
- ${options.map(w=>`<button class="answer" onclick="check(w.word)"><span style="font-size:37px">${w.pic}</span><br>${w.bn}</button>`).join("")}
- </div>`;
+// ========================================
+// 3. PICTURE MATCHING
+// ========================================
+
+function showMatch() {
+  const options = getOptions(current);
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      ছবির সঙ্গে সঠিক ইংরেজি শব্দটি মেলাও
+    </div>
+
+    <div class="picture">${current.pic}</div>
+
+    <div class="answers">
+      ${options.map(w => `
+        <button class="answer"
+          onclick="checkAnswer('${w.word}')">
+          ${w.word}
+        </button>
+      `).join("")}
+    </div>
+
+    <div id="feedback"></div>
+
+    ${nextButton()}
+  `;
 }
 
-function showMatch(){
- const options=shuffle([current,...shuffle(words.filter(w=>w!==current)).slice(0,3)]);
- document.getElementById("playArea").innerHTML=`
- <div class="question">ছবির সঙ্গে সঠিক শব্দ মেলান</div>
- <div class="picture">${current.pic}</div>
- <div class="answers">
- ${options.map(w=>`<button class="answer" onclick="check(w.word)">${w.word}</button>`).join("")}
- </div>`;
+// ========================================
+// 4. DRAG & DROP
+// ========================================
+
+function showDrag() {
+  const options = getOptions(current);
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      🧲 সঠিক অর্থটি ছবির ঘরে রাখো
+    </div>
+
+    <div class="picture"
+      id="dropZone"
+      ondragover="event.preventDefault()"
+      ondrop="dropAnswer(event)"
+      style="border:3px dashed #8a69dc">
+      ${current.pic}
+      <br>
+      <small>এখানে উত্তর ছাড়ো</small>
+    </div>
+
+    <div class="answers">
+      ${options.map(w => `
+        <button class="answer"
+          draggable="true"
+          ondragstart="dragAnswer(event,'${w.word}')"
+          onclick="checkAnswer('${w.word}')">
+          ${w.bn}
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="small">
+      চারটি অপশন থেকে সঠিক উত্তরটি নির্বাচন করো।
+      মোবাইলে সরাসরি টাচ করেও উত্তর দিতে পারবে।
+    </div>
+
+    <div id="feedback"></div>
+
+    ${nextButton()}
+  `;
 }
 
-function showDrag(){
- const options=shuffle([current,...shuffle(words.filter(w=>w!==current)).slice(0,3)]);
- document.getElementById("playArea").innerHTML=`
- <div class="question">সঠিক অর্থটি টেনে ছবির ঘরে রাখুন</div>
- <div class="picture" id="dropZone" ondragover="event.preventDefault()" ondrop="dropAnswer(event)">${current.pic}<br><small>এখানে ছাড়ুন</small></div>
- ${options.map(w=>`<div class="drag-option" draggable="true" ondragstart="dragAnswer(event,'${w.word}')">${w.bn}</div>`).join("")}
- <p class="small">মোবাইলে টাচ করে উত্তর বাছাই করতে নিচের বাটনও ব্যবহার করতে পারবেন।</p>
- <div class="answers">
- ${options.map(w=>`<button class="answer" onclick="check('${w.word}')">${w.bn}</button>`).join("")}
- </div>`;
+function dragAnswer(e, word) {
+  e.dataTransfer.setData("answer", word);
 }
 
-function dragAnswer(e,w){
- e.dataTransfer.setData("answer",w);
-}
-function dropAnswer(e){
- e.preventDefault();
- check(e.dataTransfer.getData("answer"));
+function dropAnswer(e) {
+  e.preventDefault();
+  checkAnswer(e.dataTransfer.getData("answer"));
 }
 
-function showBuilder(){
- const letters=shuffle(current.word.toUpperCase().split(""));
- builderAnswer=[];
- document.getElementById("playArea").innerHTML=`
- <div class="question">অক্ষর সাজিয়ে শব্দ তৈরি করুন</div>
- <div class="picture">${current.pic}</div>
- <div class="word" id="builtWord">_ _ _ _</div>
- <div class="answers">
- ${letters.map((l,i)=>`<button class="answer" onclick="addLetter('${l}',${i})">${l}</button>`).join("")}
- </div>
- <div style="text-align:center">
- <button class="action" onclick="checkBuilder()">CHECK WORD</button>
- <button class="action secondary" onclick="nextQuestion()">SKIP</button>
- </div>`;
+// ========================================
+// COMMON ANSWER CHECK
+// ========================================
+
+function checkAnswer(answer) {
+  if (questionLocked) return;
+
+  if (answer === current.word) {
+    questionLocked = true;
+    correct();
+  } else {
+    showMessage("❌ আবার চেষ্টা করো! তুমি পারবে! 😊");
+  }
 }
 
-function addLetter(l,i){
- builderAnswer.push(l);
- document.getElementById("builtWord").textContent=builderAnswer.join("");
-}
-function checkBuilder(){
- if(builderAnswer.join("")===current.word.toUpperCase()) correct();
- else alert("আবার চেষ্টা করো! 😊");
+function showMessage(message) {
+  const area = document.getElementById("playArea");
+  let feedback = document.getElementById("feedback");
+
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.id = "feedback";
+    feedback.className = "small";
+    area.appendChild(feedback);
+  }
+
+  feedback.textContent = message;
+  feedback.style.color = "#e34b55";
+  feedback.style.fontWeight = "bold";
 }
 
-function showQuiz(){
- const options=shuffle([current,...shuffle(words.filter(w=>w!==current)).slice(0,3)]);
- const title=mode==="treasure"?"💎 Treasure Question":"🧠 সঠিক অর্থটি নির্বাচন করুন";
- document.getElementById("playArea").innerHTML=`
- <div class="question">${title}</div>
- <div class="picture">${current.pic}</div>
- <div class="word">${current.word}</div>
- <div class="answers">
- ${options.map(w=>`<button class="answer" onclick="check('${w.word}')">${w.bn}</button>`).join("")}
- </div>`;
+// ========================================
+// 5. WORD BUILDER
+// ========================================
+
+function showBuilder() {
+  builderAnswer = [];
+  builderUsed = [];
+
+  const letters = shuffle(
+    current.word.toUpperCase().split("")
+  );
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      🔠 অক্ষর সাজিয়ে সঠিক শব্দ তৈরি করো
+    </div>
+
+    <div class="picture">${current.pic}</div>
+
+    <div class="word" id="builtWord">
+      ${"_ ".repeat(letters.length)}
+    </div>
+
+    <div class="answers">
+      ${letters.map((l, i) => `
+        <button class="answer"
+          id="letter${i}"
+          onclick="addLetter('${l}',${i})">
+          ${l}
+        </button>
+      `).join("")}
+    </div>
+
+    <div style="text-align:center">
+      <button class="action" onclick="checkBuilder()">
+        CHECK WORD
+      </button>
+
+      <button class="action secondary" onclick="undoLetter()">
+        ⌫ DELETE
+      </button>
+
+      <button class="action secondary" onclick="nextQuestion()">
+        SKIP
+      </button>
+    </div>
+
+    <div id="feedback"></div>
+  `;
+
+  window.builderLetters = letters;
 }
 
-function check(answer){
- if(answer===current.word) correct();
- else{
-  showMessage("আবার চেষ্টা করো! 🌟");
- }
+function addLetter(letter, index) {
+  if (builderUsed.includes(index)) return;
+
+  builderUsed.push(index);
+  builderAnswer.push({ letter, index });
+
+  document.getElementById("letter" + index).disabled = true;
+
+  document.getElementById("builtWord").textContent =
+    builderAnswer.map(x => x.letter).join("");
 }
 
-function showMessage(msg){
- const old=document.getElementById("feedback");
- if(old)old.remove();
- const d=document.createElement("div");
- d.id="feedback";d.className="small";
- d.style.color="#e34b55";d.style.fontWeight="bold";
- d.textContent=msg;
- document.getElementById("playArea").appendChild(d);
+function undoLetter() {
+  const last = builderAnswer.pop();
+
+  if (!last) return;
+
+  builderUsed = builderUsed.filter(i => i !== last.index);
+
+  document.getElementById("letter" + last.index).disabled = false;
+
+  document.getElementById("builtWord").textContent =
+    builderAnswer.map(x => x.letter).join("") +
+    "_".repeat(window.builderLetters.length - builderAnswer.length);
 }
 
-// ===================================
-// 3. TEN LANGUAGE FLOATING DISPLAY
-// ===================================
+function checkBuilder() {
+  const answer = builderAnswer.map(x => x.letter).join("");
 
-function correct(){
- score+=5;
- localStorage.setItem("slk_stars",score);
- document.getElementById("stars").textContent=score;
- round++;
- showMeaning(current);
+  if (answer === current.word.toUpperCase()) {
+    questionLocked = true;
+    correct();
+  } else {
+    showMessage("আবার চেষ্টা করো! অক্ষরগুলো সাজাও। 😊");
+  }
 }
 
-function showMeaning(w){
- document.getElementById("modalWord").textContent=w.pic+" "+w.word;
- document.getElementById("meaningList").innerHTML=langs.map(([name,key])=>{
-  const value=w[key];
-  return `<button class="language-item" onclick="speak('${escapeText(value)}','${key}')">
-   <b>${name} 🔊</b><span>${value}</span>
-  </button>`;
- }).join("");
- document.getElementById("meaningModal").classList.remove("hidden");
+// ========================================
+// 6. DRAW & TRACE
+// ========================================
+
+function showTrace() {
+  creativeFinished = false;
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      ✏️ শব্দটি দেখে আঁকো এবং লেখার অনুশীলন করো
+    </div>
+
+    <div class="picture">${current.pic}</div>
+
+    <div class="word">${current.word}</div>
+
+    <canvas id="drawCanvas" class="canvas"></canvas>
+
+    <div style="text-align:center">
+      <button class="action secondary" onclick="clearCanvas()">
+        CLEAR
+      </button>
+
+      <button class="action" onclick="finishCreative()">
+        DONE ⭐
+      </button>
+    </div>
+  `;
+
+  setupCanvas();
 }
 
-function escapeText(s){
- return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+function setupCanvas() {
+  canvas = document.getElementById("drawCanvas");
+  ctx = canvas.getContext("2d");
+
+  const rect = canvas.getBoundingClientRect();
+  const ratio = window.devicePixelRatio || 1;
+
+  canvas.width = rect.width * ratio;
+  canvas.height = rect.height * ratio;
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.lineWidth = 5;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#7138d9";
+
+  canvas.onpointerdown = e => {
+    drawing = true;
+    const r = canvas.getBoundingClientRect();
+
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - r.left, e.clientY - r.top);
+  };
+
+  canvas.onpointermove = e => {
+    if (!drawing) return;
+
+    const r = canvas.getBoundingClientRect();
+
+    ctx.lineTo(e.clientX - r.left, e.clientY - r.top);
+    ctx.stroke();
+  };
+
+  canvas.onpointerup = () => drawing = false;
+  canvas.onpointercancel = () => drawing = false;
+  canvas.onpointerleave = () => drawing = false;
 }
 
-function closeMeaning(){
- document.getElementById("meaningModal").classList.add("hidden");
- if(mode==="memory") setupMemory();
- else if(mode==="trace"||mode==="color") goHome();
- else nextQuestion();
+function clearCanvas() {
+  if (!canvas || !ctx) return;
+
+  const ratio = window.devicePixelRatio || 1;
+
+  ctx.clearRect(
+    0, 0,
+    canvas.width / ratio,
+    canvas.height / ratio
+  );
 }
 
-// ===================================
-// 4. DRAW & TRACE
-// ===================================
+function finishCreative() {
+  if (creativeFinished) return;
 
-function showTrace(){
- current=randomWord();
- document.getElementById("playArea").innerHTML=`
- <div class="question">✏️ শব্দটি দেখে লিখে অনুশীলন করো</div>
- <div class="picture">${current.pic}</div>
- <div class="word">${current.word}</div>
- <canvas id="drawCanvas" class="canvas"></canvas>
- <div style="text-align:center">
- <button class="action secondary" onclick="clearCanvas()">CLEAR</button>
- <button class="action" onclick="finishCreative()">DONE ⭐</button>
- </div>`;
- setupCanvas();
+  creativeFinished = true;
+  score += 2;
+  updateStars();
+
+  showMeaning(current);
 }
 
-function setupCanvas(){
- canvas=document.getElementById("drawCanvas");
- ctx=canvas.getContext("2d");
- const r=canvas.getBoundingClientRect();
- canvas.width=r.width*devicePixelRatio;
- canvas.height=r.height*devicePixelRatio;
- ctx.scale(devicePixelRatio,devicePixelRatio);
- ctx.lineWidth=5;ctx.lineCap="round";ctx.strokeStyle="#7138d9";
- canvas.onpointerdown=e=>{
-  drawing=true;const r=canvas.getBoundingClientRect();
-  ctx.beginPath();ctx.moveTo(e.clientX-r.left,e.clientY-r.top);
- };
- canvas.onpointermove=e=>{
-  if(!drawing)return;
-  const r=canvas.getBoundingClientRect();
-  ctx.lineTo(e.clientX-r.left,e.clientY-r.top);ctx.stroke();
- };
- canvas.onpointerup=()=>drawing=false;
- canvas.onpointerleave=()=>drawing=false;
-}
-function clearCanvas(){
- if(ctx)ctx.clearRect(0,0,canvas.width,canvas.height);
-}
-function finishCreative(){
- score+=2;localStorage.setItem("slk_stars",score);
- document.getElementById("stars").textContent=score;
- showMeaning(current);
+// ========================================
+// 7. COLOR & CREATE
+// ========================================
+
+function showColor() {
+  creativeFinished = false;
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      🎨 নিজের পছন্দমতো রং করো!
+    </div>
+
+    <div class="picture" id="colorPicture">
+      ${current.pic}
+    </div>
+
+    <div class="word">${current.word}</div>
+
+    <div class="colors">
+      ${[
+        "#ff4c85",
+        "#ffb52e",
+        "#36c9ff",
+        "#42ce78",
+        "#9a62ec",
+        "#222222",
+        "#ff7043",
+        "#ffffff"
+      ].map(c => `
+        <button class="color"
+          style="background:${c}"
+          onclick="setColor('${c}')">
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="small">
+      রং নির্বাচন করে ছবির ওপর স্পর্শ করো।
+    </div>
+
+    <div style="text-align:center">
+      <button class="action" onclick="finishCreative()">
+        FINISH ⭐
+      </button>
+    </div>
+  `;
+
+  document.getElementById("colorPicture").onclick = function() {
+    this.style.background = colorValue;
+  };
 }
 
-// ===================================
-// 5. COLOR & CREATE
-// ===================================
-
-function showColor(){
- current=randomWord();
- document.getElementById("playArea").innerHTML=`
- <div class="question">🎨 নিজের মতো রং করো!</div>
- <div class="picture" id="colorPicture">${current.pic}</div>
- <div class="word">${current.word}</div>
- <div class="colors">
- ${["#ff4c85","#ffb52e","#36c9ff","#42ce78","#9a62ec","#222222"].map(c=>`<button class="color" style="background:${c}" onclick="setColor('${c}')"></button>`).join("")}
- </div>
- <div class="small">রং নির্বাচন করে ছবির ওপর স্পর্শ করো।</div>
- <div style="text-align:center">
- <button class="action" onclick="finishCreative()">FINISH ⭐</button>
- </div>`;
-}
-function setColor(c){
- colorValue=c;
- document.getElementById("colorPicture").style.background=c;
+function setColor(c) {
+  colorValue = c;
 }
 
-// ===================================
-// 6. MEMORY CHALLENGE
-// ===================================
+// ========================================
+// 8. MEMORY CHALLENGE
+// ========================================
 
-function setupMemory(){
- const selectedWords=shuffle(words).slice(0,4);
- const cards=shuffle(selectedWords.flatMap((w,i)=>[
-  {id:i,value:w.pic,word:w.word},
-  {id:i,value:w.bn,word:w.word}
- ]));
- memoryOpen=[];memoryDone=[];
- document.getElementById("playArea").innerHTML=`
- <div class="question">একই ছবি ও অর্থের জোড়া খুঁজে বের করো</div>
- <div class="memory-grid" id="memoryGrid">
- ${cards.map((c,i)=>`<button class="memory-card" id="mem${i}" onclick="flipMemory(${i},${c.id},'${c.word}')">❓</button>`).join("")}
- </div>
- <div class="small">সবগুলো জোড়া মিলিয়ে ১০ ভাষার অর্থ শিখবে।</div>`;
- window.memoryCards=cards;
+function setupMemory() {
+  if (memoryTimer) clearTimeout(memoryTimer);
+
+  const selectedWords = shuffle(uniqueWords).slice(0, 4);
+
+  memoryCards = shuffle(
+    selectedWords.flatMap((w, i) => [
+      { id: i, value: w.pic, word: w.word },
+      { id: i, value: w.bn, word: w.word }
+    ])
+  );
+
+  memoryOpen = [];
+  memoryDone = [];
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      🧠 একই ছবি ও অর্থের জোড়া খুঁজে বের করো
+    </div>
+
+    <div class="memory-grid">
+      ${memoryCards.map((c, i) => `
+        <button class="memory-card"
+          id="mem${i}"
+          onclick="flipMemory(${i})">
+          ❓
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="small" id="memoryInfo">
+      ৪টি জোড়া খুঁজে বের করো!
+    </div>
+  `;
 }
-function flipMemory(index,id,word){
- if(memoryDone.includes(id)||memoryOpen.some(x=>x.index===index)||memoryOpen.length>=2)return;
- document.getElementById("mem"+index).textContent=window.memoryCards[index].value;
- document.getElementById("mem"+index).classList.add("open");
- memoryOpen.push({index,id,word});
- if(memoryOpen.length===2){
-  if(memoryOpen[0].id===memoryOpen[1].id){
-   const found=memoryOpen[0].word;
-   memoryDone.push(id);memoryOpen=[];
-   setTimeout(()=>{
-    const w=words.find(x=>x.word===found);
-    score+=5;localStorage.setItem("slk_stars",score);
-    document.getElementById("stars").textContent=score;
-    if(memoryDone.length===4){
-     current=w;showMeaning(w);
+
+function flipMemory(index) {
+  if (memoryDone.includes(memoryCards[index].id)) return;
+
+  if (memoryOpen.some(x => x.index === index)) return;
+
+  if (memoryOpen.length >= 2) return;
+
+  const card = memoryCards[index];
+
+  const button = document.getElementById("mem" + index);
+
+  button.textContent = card.value;
+  button.classList.add("open");
+
+  memoryOpen.push({
+    index,
+    id: card.id,
+    word: card.word
+  });
+
+  if (memoryOpen.length === 2) {
+    if (memoryOpen[0].id === memoryOpen[1].id) {
+      const matchedId = memoryOpen[0].id;
+      const matchedWord = memoryOpen[0].word;
+
+      memoryDone.push(matchedId);
+      memoryOpen = [];
+
+      score += 5;
+      updateStars();
+
+      document.getElementById("memoryInfo").textContent =
+        "🎉 সঠিক জোড়া!";
+
+      if (memoryDone.length === 4) {
+        memoryTimer = setTimeout(() => {
+          current = uniqueWords.find(w => w.word === matchedWord);
+          showMeaning(current, true);
+        }, 400);
+      }
+    } else {
+      memoryTimer = setTimeout(() => {
+        memoryOpen.forEach(x => {
+          const b = document.getElementById("mem" + x.index);
+
+          if (b) {
+            b.textContent = "❓";
+            b.classList.remove("open");
+          }
+        });
+
+        memoryOpen = [];
+
+        document.getElementById("memoryInfo").textContent =
+          "আবার চেষ্টা করো!";
+      }, 850);
     }
-   },300);
-  }else{
-   setTimeout(()=>{
-    memoryOpen.forEach(x=>{
-     document.getElementById("mem"+x.index).textContent="❓";
-     document.getElementById("mem"+x.index).classList.remove("open");
-    });
-    memoryOpen=[];
-   },850);
   }
- }
 }
 
-// ===================================
-// 7. CATEGORY SYSTEM
-// ===================================
+// ========================================
+// 9. BRAIN QUIZ
+// ========================================
 
-const categoryList=[
- ["🐾 Animals","Animals"],["🍎 Fruits","Fruits"],
- ["🐦 Birds","Birds"],["🌿 Nature","Nature"],
- ["🚗 Vehicles","Vehicles"],["🏠 Home","Home"],
- ["📚 School","School"],["🧸 Toys","Toys"]
+function showQuiz() {
+  const options = getOptions(current);
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      🏆 সঠিক বাংলা অর্থটি নির্বাচন করো
+    </div>
+
+    <div class="picture">${current.pic}</div>
+
+    <div class="word">${current.word}</div>
+
+    <div class="answers">
+      ${options.map(w => `
+        <button class="answer"
+          onclick="checkAnswer('${w.word}')">
+          ${w.bn}
+        </button>
+      `).join("")}
+    </div>
+
+    <div id="feedback"></div>
+
+    ${nextButton()}
+  `;
+}
+
+// ========================================
+// 10. TREASURE ADVENTURE
+// ========================================
+
+function showTreasure() {
+  const options = getOptions(current);
+
+  document.getElementById("playArea").innerHTML = `
+    <div class="question">
+      💎 TREASURE ADVENTURE
+    </div>
+
+    <div class="picture">💎 ${current.pic}</div>
+
+    <div class="word">${current.word}</div>
+
+    <div class="small">
+      সঠিক উত্তর দিয়ে ট্রেজার সংগ্রহ করো!
+    </div>
+
+    <div class="answers">
+      ${options.map(w => `
+        <button class="answer"
+          onclick="checkAnswer('${w.word}')">
+          ${w.bn}
+        </button>
+      `).join("")}
+    </div>
+
+    <div id="feedback"></div>
+
+    ${nextButton()}
+  `;
+}
+
+// ========================================
+// CORRECT ANSWER
+// ========================================
+
+function correct() {
+  if (!questionLocked) questionLocked = true;
+
+  score += 5;
+  updateStars();
+
+  showMeaning(current);
+}
+
+// ========================================
+// TEN LANGUAGE DISPLAY
+// ========================================
+
+function showMeaning(w, memoryComplete = false) {
+  if (!w) return;
+
+  document.getElementById("modalWord").textContent =
+    w.pic + " " + w.word;
+
+  const meaningList = document.getElementById("meaningList");
+
+  meaningList.innerHTML = langs.map(([name, key]) => {
+    const value = key === "word" ? w.word : w[key];
+
+    return `
+      <button class="language-item"
+        onclick="speakMeaning('${key}')">
+        <b>${name} 🔊</b>
+        <span>${value || "—"}</span>
+      </button>
+    `;
+  }).join("");
+
+  window.meaningWord = w;
+
+  document.getElementById("meaningModal").classList.remove("hidden");
+
+  const next = document.querySelector("#meaningModal .modalbox .action");
+
+  next.textContent = "NEXT ➜";
+
+  next.onclick = function() {
+    closeMeaning(memoryComplete);
+  };
+}
+
+function speakMeaning(key) {
+  if (!window.meaningWord) return;
+
+  const value = key === "word"
+    ? window.meaningWord.word
+    : window.meaningWord[key];
+
+  if (value) speak(value, key);
+}
+
+function closeMeaning(memoryComplete = false) {
+  document.getElementById("meaningModal").classList.add("hidden");
+
+  if (memoryComplete) {
+    setupMemory();
+  } else if (mode === "trace" || mode === "color") {
+    nextQuestion();
+  } else {
+    nextQuestion();
+  }
+}
+
+// ========================================
+// CATEGORY SYSTEM
+// ========================================
+
+const categoryList = [
+  ["🐾 Animals", "Animals"],
+  ["🍎 Fruits", "Fruits"],
+  ["🐦 Birds", "Birds"],
+  ["🌿 Nature", "Nature"],
+  ["🚗 Vehicles", "Vehicles"],
+  ["🍞 Food", "Food"],
+  ["🏠 Home", "Home"],
+  ["📚 School", "School"],
+  ["🧸 Toys", "Toys"],
+  ["✋ Body Parts", "Body Parts"]
 ];
 
-document.getElementById("categories").innerHTML=categoryList.map(c=>
- `<button class="mode m${Math.ceil(Math.random()*10)}" style="min-height:75px" onclick="openCategory('${c[1]}')"><strong>${c[0]}</strong></button>`
-).join("");
+const categoryColors = [
+  "m1", "m2", "m3", "m4", "m5",
+  "m6", "m7", "m8", "m9", "m10"
+];
 
-function openCategory(cat){
- const found=words.filter(w=>w.category===cat);
- if(!found.length){alert("এই ক্যাটাগরির শব্দ পরবর্তী ডেটা আপডেটে যোগ হবে।");return;}
- current=found[0];
- mode="explore";
- document.getElementById("home").classList.add("hidden");
- document.getElementById("game").classList.remove("hidden");
- document.getElementById("modeTitle").textContent="📚 "+cat;
- showExplore();
+document.getElementById("categories").innerHTML =
+  categoryList.map((c, i) => `
+    <button class="mode ${categoryColors[i]}"
+      style="min-height:75px"
+      onclick="openCategory('${c[1]}')">
+      <strong>${c[0]}</strong>
+    </button>
+  `).join("");
+
+function openCategory(cat) {
+  const found = uniqueWords.filter(w => w.category === cat);
+
+  if (!found.length) {
+    alert("এই ক্যাটাগরিতে এখনো কোনো শব্দ নেই।");
+    return;
+  }
+
+  categoryMode = true;
+  categoryName = cat;
+  activePool = found;
+  mode = "explore";
+
+  prepareQueue(activePool);
+
+  round = 0;
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+
+  document.getElementById("modeTitle").textContent =
+    "📚 " + cat + " Category";
+
+  nextQuestion();
 }
 
-// ===================================
-// 8. HOME INITIALIZATION
-// ===================================
+// ========================================
+// INITIALIZATION
+// ========================================
+
+document.getElementById("home").classList.remove("hidden");
+document.getElementById("game").classList.add("hidden");
+
+updateStars();
+
+
+
 
 </script>
 </body>
