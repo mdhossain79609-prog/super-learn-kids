@@ -3,955 +3,743 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#08b9f1">
 <title>SUPER LEARN KIDS</title>
 
 <style>
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
 }
 
-html,body {
-  width:100%;
-  height:100%;
-  height:100dvh;
-  overflow:hidden;
-  overscroll-behavior:none;
-  font-family:Arial,Trebuchet MS,sans-serif;
+html,body{
+ width:100%;
+ height:100%;
+ height:100dvh;
+ overflow:hidden;
+ font-family:Arial,"Trebuchet MS",sans-serif;
 }
 
-body {
-  background:linear-gradient(180deg,#05bafa,#c5f5ff);
-  color:#084b91;
+body{
+ background:linear-gradient(180deg,#05bafa,#c5f5ff);
+ color:#084b91;
 }
 
-button {
-  border:0;
-  cursor:pointer;
-  font-family:inherit;
+button{
+ border:0;
+ cursor:pointer;
+ font-family:inherit;
 }
 
-.screen {
-  width:100%;
-  height:100%;
-  height:100dvh;
-  overflow:hidden;
-  display:none;
-  flex-direction:column;
-  padding:9px 11px;
+.screen{
+ width:100%;
+ height:100%;
+ height:100dvh;
+ display:none;
+ flex-direction:column;
+ overflow:hidden;
+ padding:9px 11px;
 }
 
-.screen.active {
-  display:flex;
+.screen.active{
+ display:flex;
 }
 
 /* TOP BAR */
 
-.topbar {
-  height:43px;
-  flex-shrink:0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:5px;
+.topbar{
+ height:43px;
+ flex-shrink:0;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
 }
 
-.topgroup {
-  display:flex;
-  align-items:center;
-  gap:7px;
+.topgroup{
+ display:flex;
+ align-items:center;
+ gap:7px;
 }
 
-.settings {
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:white;
-  font-size:19px;
-  box-shadow:0 3px 0 #70a8d7;
+.settings{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ background:white;
+ font-size:19px;
+ box-shadow:0 3px 0 #70a8d7;
 }
 
-.language {
-  background:#0861bd;
-  color:white;
-  padding:9px 10px;
-  border-radius:25px;
-  font-weight:bold;
-  font-size:12px;
+.language,.score{
+ background:#0861bd;
+ color:white;
+ padding:9px 10px;
+ border-radius:25px;
+ font-weight:bold;
+ font-size:12px;
 }
 
-.score {
-  color:white;
-  background:#0861bd;
-  border-radius:25px;
-  padding:9px 11px;
-  font-weight:bold;
-  font-size:12px;
+.trophy{
+ font-size:23px;
 }
 
-.trophy {
-  font-size:23px;
+/* HOME */
+
+#homeScreen{
+ justify-content:space-between;
 }
 
-/* HOME SCREEN */
-
-#homeScreen {
-  justify-content:space-between;
+.hero{
+ text-align:center;
+ flex-shrink:1;
+ min-height:0;
 }
 
-.hero {
-  text-align:center;
-  flex-shrink:1;
-  min-height:0;
+.logo{
+ font-size:clamp(34px,9vw,51px);
+ font-weight:1000;
+ line-height:.88;
+ letter-spacing:-2px;
+ color:white;
+ text-shadow:3px 4px 0 #07529c;
 }
 
-.logo {
-  font-size:clamp(34px,9vw,51px);
-  font-weight:1000;
-  line-height:.88;
-  letter-spacing:-2px;
-  color:white;
-  text-shadow:3px 4px 0 #07529c;
+.logo span{
+ display:block;
+ color:#ffdc20;
 }
 
-.logo span {
-  display:block;
-  color:#ffdc20;
+.tagline{
+ display:inline-block;
+ margin-top:9px;
+ background:#8134dc;
+ color:white;
+ padding:8px 17px;
+ border-radius:30px;
+ font-size:13px;
+ font-weight:bold;
+ box-shadow:0 4px 0 #501ca2;
 }
 
-.tagline {
-  display:inline-block;
-  margin-top:9px;
-  background:#8134dc;
-  color:white;
-  padding:8px 17px;
-  border-radius:30px;
-  font-size:13px;
-  font-weight:bold;
-  box-shadow:0 4px 0 #501ca2;
+.book-area{
+ height:clamp(110px,22vh,175px);
+ margin:9px 0;
+ border:4px solid white;
+ border-radius:45px;
+ background:linear-gradient(145deg,#67e5ff,#b7f5ff);
+ box-shadow:0 0 16px white,0 5px 0 #6ab4e6;
+ display:flex;
+ justify-content:center;
+ align-items:center;
 }
 
-/* BOOK LOGO */
-
-.book-area {
-  height:clamp(110px,22vh,175px);
-  margin:9px 0;
-  border:4px solid white;
-  border-radius:45px;
-  background:linear-gradient(145deg,#67e5ff,#b7f5ff);
-  box-shadow:0 0 16px #ffffff,0 5px 0 #6ab4e6;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-shrink:1;
-  min-height:85px;
+.book{
+ font-size:clamp(75px,19vw,125px);
+ filter:drop-shadow(0 7px 4px #07529c55);
+ animation:float 3s ease-in-out infinite;
 }
 
-.book {
-  position:relative;
-  font-size:clamp(75px,19vw,125px);
-  filter:drop-shadow(0 7px 4px #07529c55);
-  animation:bookFloat 3s ease-in-out infinite;
+@keyframes float{
+ 50%{transform:translateY(-7px)}
 }
 
-@keyframes bookFloat {
-  0%,100% {transform:translateY(0)}
-  50% {transform:translateY(-7px)}
+.welcome{
+ font-size:clamp(16px,4vw,21px);
+ font-weight:bold;
+ margin:7px 0 11px;
 }
 
-.welcome {
-  font-size:clamp(16px,4vw,21px);
-  font-weight:bold;
-  margin:7px 0 11px;
+.start{
+ width:94%;
+ padding:13px 5px;
+ border:4px solid white;
+ border-radius:45px;
+ background:linear-gradient(#fff000,#ffad00);
+ color:#08418d;
+ font-size:clamp(19px,5vw,25px);
+ font-weight:1000;
+ box-shadow:0 5px 0 #d87900;
 }
 
-.start {
-  width:94%;
-  padding:13px 5px;
-  border:4px solid white;
-  border-radius:45px;
-  background:linear-gradient(#fff000,#ffad00);
-  color:#08418d;
-  font-size:clamp(19px,5vw,25px);
-  font-weight:1000;
-  box-shadow:0 5px 0 #d87900;
+.start:active{
+ transform:translateY(4px);
 }
 
-.start:active {
-  transform:translateY(4px);
-  box-shadow:0 1px 0 #d87900;
+/* BOTTOM MENU */
+
+.bottom-menu{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ background:#ffffffed;
+ border-radius:19px;
+ padding:9px 2px;
+ flex-shrink:0;
 }
 
-/* HOME BOTTOM */
-
-.bottom-menu {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  background:#ffffffed;
-  border-radius:19px;
-  padding:9px 2px;
-  flex-shrink:0;
+.bottom-menu button{
+ background:transparent;
+ color:#123c80;
+ font-size:10px;
+ font-weight:bold;
+ border-right:1px solid #bdd5ef;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:3px;
 }
 
-.bottom-menu button {
-  background:transparent;
-  color:#123c80;
-  font-size:10px;
-  font-weight:bold;
-  border-right:1px solid #bdd5ef;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
+.bottom-menu button:last-child{
+ border:0;
 }
 
-.bottom-menu button:last-child {
-  border:0;
-}
-
-.bottom-menu span {
-  font-size:21px;
+.bottom-menu span{
+ font-size:21px;
 }
 
 /* CATEGORY SCREEN */
 
-#categoryScreen {
-  gap:10px;
+#categoryScreen{
+ gap:8px;
 }
 
-.page-heading {
-  text-align:center;
-  font-size:clamp(19px,5vw,25px);
-  font-weight:1000;
-  color:#07509b;
-  margin:8px 0;
-  flex-shrink:0;
+.back{
+ background:white;
+ color:#07509b;
+ padding:9px 15px;
+ border-radius:25px;
+ font-weight:bold;
+ flex-shrink:0;
+ align-self:flex-start;
 }
 
-.back {
-  background:white;
-  color:#07509b;
-  padding:9px 15px;
-  border-radius:25px;
-  font-weight:bold;
-  flex-shrink:0;
-  align-self:flex-start;
+.page-heading{
+ text-align:center;
+ font-size:clamp(19px,5vw,25px);
+ font-weight:1000;
+ color:#07509b;
+ margin:4px 0;
+ flex-shrink:0;
 }
 
-.category-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
-  flex:1;
-  min-height:0;
-  align-content:center;
+/* 46 BUTTON GRID */
+
+.category-grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:9px;
+ flex:1;
+ min-height:0;
+ overflow-y:auto;
+ overscroll-behavior:contain;
+ align-content:start;
+ padding:5px 4px 14px;
+ scrollbar-width:thin;
 }
 
-.category {
-  border-radius:20px;
-  border:3px solid white;
-  color:white;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  min-height:90px;
-  box-shadow:0 4px 0 #124d8b55;
+.learn-btn{
+ min-width:0;
+ min-height:92px;
+ border:3px solid white;
+ border-radius:19px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ gap:6px;
+ color:white;
+ box-shadow:0 5px 0 #124d8b55;
+ text-shadow:0 2px 3px #0005;
+ transition:transform .15s;
+ padding:7px 3px;
 }
 
-.category:active {
-  transform:scale(.96);
+.learn-btn:active{
+ transform:scale(.94);
 }
 
-.category span {
-  font-size:clamp(32px,9vw,47px);
+.learn-icon{
+ font-size:clamp(27px,7vw,39px);
+ font-weight:1000;
+ line-height:1.1;
 }
 
-.category strong {
-  font-size:clamp(10px,3vw,14px);
-  text-align:center;
+.learn-btn strong{
+ font-size:clamp(9px,2.8vw,12px);
+ text-align:center;
+ line-height:1.2;
 }
 
-.c1 {background:linear-gradient(145deg,#28d9ff,#0874e9)}
-.c2 {background:linear-gradient(145deg,#a2f72c,#21b900)}
-.c3 {background:linear-gradient(145deg,#d65bff,#8014d5)}
-.c4 {background:linear-gradient(145deg,#ffb329,#f05b00)}
-.c5 {background:linear-gradient(145deg,#27efc0,#00a990)}
+/* 3D COLOR THEMES */
 
-.category-footer {
-  flex-shrink:0;
-  text-align:center;
-  font-size:11px;
-  font-weight:bold;
-  padding:8px;
+.learn-btn:nth-child(10n+1){background:linear-gradient(145deg,#ffbd45,#ed7515)}
+.learn-btn:nth-child(10n+2){background:linear-gradient(145deg,#40caff,#1763df)}
+.learn-btn:nth-child(10n+3){background:linear-gradient(145deg,#a77aff,#7040c9)}
+.learn-btn:nth-child(10n+4){background:linear-gradient(145deg,#ff7eaa,#df347c)}
+.learn-btn:nth-child(10n+5){background:linear-gradient(145deg,#54d99a,#15965e)}
+.learn-btn:nth-child(10n+6){background:linear-gradient(145deg,#ff9b56,#e34c35)}
+.learn-btn:nth-child(10n+7){background:linear-gradient(145deg,#61c9e9,#247bbd)}
+.learn-btn:nth-child(10n+8){background:linear-gradient(145deg,#b4d94c,#5b9e28)}
+.learn-btn:nth-child(10n+9){background:linear-gradient(145deg,#e88be9,#a13cae)}
+.learn-btn:nth-child(10n+10){background:linear-gradient(145deg,#f2c85b,#c58b17)}
+
+.category-footer{
+ flex-shrink:0;
+ text-align:center;
+ font-size:11px;
+ font-weight:bold;
+ padding:6px;
 }
 
-/* SHORT PHONE */
-
-@media(max-height:650px) {
-  .book-area {
-    height:100px;
-    min-height:75px;
-    margin:5px 0;
-  }
-
-  .book {
-    font-size:75px;
-  }
-
-  .tagline {
-    margin-top:5px;
-  }
-
-  .welcome {
-    margin:4px 0 7px;
-  }
-
-  .start {
-    padding:10px;
-  }
-
-  .bottom-menu {
-    padding:6px 2px;
-  }
-
-  .category-grid {
-    gap:6px;
-  }
-
-  .category {
-    min-height:70px;
-  }
-}
-  
-/* FIRST THREE LEARNING ICONS */
-
-.basic-icon {
-  min-height: 90px;
-  border-radius: 20px;
-  border: 3px solid white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  color: white;
-  box-shadow: 0 4px 0 #124d8b55;
-  text-shadow: 0 3px 3px #0004;
-  transition: .2s;
+#message{
+ display:none;
+ position:fixed;
+ bottom:20px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#08418d;
+ color:white;
+ padding:12px 18px;
+ border-radius:25px;
+ z-index:50;
+ text-align:center;
+ max-width:90%;
+ font-size:13px;
 }
 
-.basic-icon:active {
-  transform: scale(.95);
-}
-
-.basic-icon .letters {
-  font-size: clamp(27px,8vw,43px);
-  font-weight: 1000;
-  letter-spacing: -2px;
-  line-height: 1;
-}
-
-.basic-icon strong {
-  font-size: clamp(10px,3vw,14px);
-  text-align: center;
-}
-
-.alphabet-icon {
-  background: linear-gradient(145deg,#36caff,#0757e9);
-}
-
-.bangla-icon {
-  background: linear-gradient(145deg,#ffbd42,#e66b08);
-}
-
-.number-icon {
-  background: linear-gradient(145deg,#69ed50,#079b40);
-}
-/* 40 Learning Buttons */
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  flex: 1;
-  min-height: 0;
-  align-content: start;
-  overflow-y: auto;
-  padding: 6px 4px 14px;
-}
-
-.learn-btn {
-  min-width: 0;
-  min-height: 92px;
-  border: 3px solid white;
-  border-radius: 19px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  color: white;
-  box-shadow: 0 4px 0 #124d8b55;
-  text-shadow: 0 2px 3px #0005;
-  cursor: pointer;
-  transition: transform .2s;
-  padding: 7px 3px;
-}
-
-.learn-btn:active {
-  transform: scale(.94);
-}
-
-.learn-btn .learn-icon {
-  font-size: clamp(27px, 7vw, 39px);
-  font-weight: 1000;
-  line-height: 1.1;
-}
-
-.learn-btn strong {
-  font-size: clamp(9px, 2.8vw, 12px);
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* Different colorful backgrounds */
-.learn-btn:nth-child(10n+1) { background: linear-gradient(145deg,#ffbd45,#ed7515); }
-.learn-btn:nth-child(10n+2) { background: linear-gradient(145deg,#40caff,#1763df); }
-.learn-btn:nth-child(10n+3) { background: linear-gradient(145deg,#a77aff,#7040c9); }
-.learn-btn:nth-child(10n+4) { background: linear-gradient(145deg,#ff7eaa,#df347c); }
-.learn-btn:nth-child(10n+5) { background: linear-gradient(145deg,#54d99a,#15965e); }
-.learn-btn:nth-child(10n+6) { background: linear-gradient(145deg,#ff9b56,#e34c35); }
-.learn-btn:nth-child(10n+7) { background: linear-gradient(145deg,#61c9e9,#247bbd); }
-.learn-btn:nth-child(10n+8) { background: linear-gradient(145deg,#b4d94c,#5b9e28); }
-.learn-btn:nth-child(10n+9) { background: linear-gradient(145deg,#e88be9,#a13cae); }
-.learn-btn:nth-child(10n+10) { background: linear-gradient(145deg,#f2c85b,#c58b17); }
-
-.learn-btn.game-btn {
-  border: 3px solid #fff6a8;
-  box-shadow: 0 4px 0 #8b5b1c66, 0 0 8px #ffdb59aa;
+@media(max-height:650px){
+ .book-area{
+  height:100px;
+  min-height:75px;
+  margin:5px 0;
+ }
+ .book{font-size:75px}
+ .tagline{margin-top:5px}
+ .welcome{margin:4px 0 7px}
+ .start{padding:10px}
+ .bottom-menu{padding:6px 2px}
+ .category-grid{gap:6px}
+ .learn-btn{min-height:76px}
+ .learn-icon{font-size:27px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- SCREEN 1: HOME -->
+<!-- HOME SCREEN -->
 
 <section id="homeScreen" class="screen active">
 
-  <header class="topbar">
+ <header class="topbar">
+  <div class="topgroup">
+   <button class="settings" onclick="showMessage('Settings coming soon!')">⚙️</button>
 
-    <div class="topgroup">
-      <button class="settings"
-        onclick="showMessage('Settings coming soon!')">⚙️</button>
+   <select class="language" id="globalLanguage" onchange="saveGlobalLanguage(this.value)">
+    <option value="en">🌐 English</option>
+    <option value="bn">🌐 বাংলা</option>
+    <option value="hi">🌐 Hindi</option>
+    <option value="es">🌐 Spanish</option>
+    <option value="ar">🌐 Arabic</option>
+   </select>
+  </div>
 
-      <select class="language" id="globalLanguage"
-onchange="saveGlobalLanguage(this.value)">
-  <option value="en">🌐 English</option>
-  <option value="bn">🌐 বাংলা</option>
-  <option value="hi">🌐 Hindi</option>
-  <option value="es">🌐 Spanish</option>
-  <option value="ar">🌐 Arabic</option>
-</select>
-    </div>
+  <div class="topgroup">
+   <div class="score">⭐ <span id="globalStars">0</span></div>
+   <div class="trophy">🏆</div>
+  </div>
+ </header>
 
-    <div class="topgroup">
-      <div class="score">
-  ⭐ <span id="globalStars">0</span>
-</div>
-      <div class="trophy">🏆</div>
-    </div>
+ <main class="hero">
+  <div class="logo">
+   SUPER
+   <span>LEARN</span>
+   <span>KIDS</span>
+  </div>
 
-  </header>
+  <div class="tagline">LEARN • EXPLORE • GROW</div>
 
-  <main class="hero">
+  <div class="book-area">
+   <div class="book">📖</div>
+  </div>
 
-    <div class="logo">
-      SUPER
-      <span>LEARN</span>
-      <span>KIDS</span>
-    </div>
+  <div class="welcome">Your Future Starts Here! ✨</div>
 
-    <div class="tagline">
-      LEARN • EXPLORE • GROW
-    </div>
+  <button class="start" onclick="openCategories()">
+   ▶ START LEARNING
+  </button>
+ </main>
 
-    <!-- BOOK LOGO AREA -->
-
-    <div class="book-area">
-      <div class="book">📖</div>
-    </div>
-
-    <div class="welcome">
-      Your Future Starts Here! ✨
-    </div>
-
-    <button class="start" onclick="openCategories()">
-      ▶ START LEARNING
-    </button>
-
-  </main>
-
-  <nav class="bottom-menu">
-
-    <button onclick="showMessage('My Progress coming soon!')">
-      <span>📊</span>My Progress
-    </button>
-
-    <button onclick="showMessage('Help Center coming soon!')">
-      <span>❓</span>Help Center
-    </button>
-
-    <button onclick="showMessage('Rewards coming soon!')">
-      <span>🎁</span>Rewards
-    </button>
-
-    <button onclick="showMessage('About SUPER LEARN KIDS')">
-      <span>💗</span>About Us
-    </button>
-
-  </nav>
+ <nav class="bottom-menu">
+  <button onclick="showMessage('My Progress coming soon!')">
+   <span>📊</span>My Progress
+  </button>
+  <button onclick="showMessage('Help Center coming soon!')">
+   <span>❓</span>Help Center
+  </button>
+  <button onclick="showMessage('Rewards coming soon!')">
+   <span>🎁</span>Rewards
+  </button>
+  <button onclick="showMessage('About SUPER LEARN KIDS')">
+   <span>💗</span>About Us
+  </button>
+ </nav>
 
 </section>
 
-<!-- SCREEN 2: LEARNING CATEGORIES -->
+<!-- CATEGORY SCREEN -->
 
 <section id="categoryScreen" class="screen">
 
-  <header class="topbar">
+ <header class="topbar">
+  <button class="settings" onclick="goHome()">🏠</button>
+  <div class="score">⭐ <span id="categoryStars">0</span></div>
+  <div class="trophy">🏆</div>
+ </header>
 
-    <button class="settings"
-      onclick="goHome()">🏠</button>
+ <button class="back" onclick="goHome()">← BACK TO HOME</button>
 
-    <div class="score">⭐ 0</div>
+ <h1 class="page-heading">🌟 EXPLORE YOUR WORLD 🌟</h1>
 
-    <div class="trophy">🏆</div>
+ <div class="category-grid">
 
-  </header>
+  <!-- 1-8 LANGUAGE -->
 
-  <button class="back" onclick="goHome()">
-    ← BACK TO HOME
+  <button class="learn-btn" onclick="openSubject('Arabic Alphabet')">
+   <span class="learn-icon">أ ب ت</span><strong>Arabic Alphabet</strong>
   </button>
 
-  <h1 class="page-heading">
-    🌟 EXPLORE YOUR WORLD 🌟
-  </h1>
+  <button class="learn-btn" onclick="openSubject('ABC Alphabet')">
+   <span class="learn-icon">ABC</span><strong>ABC Alphabet</strong>
+  </button>
 
-  <div class="category-grid">
-    
-<!-- 1-30 LEARNING BUTTONS -->
+  <button class="learn-btn" onclick="openSubject('ABC Mix')">
+   <span class="learn-icon">🔠</span><strong>ABC Mix</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Arabic Alphabet')">
-  <span class="learn-icon">أ ب ت</span>
-  <strong>Arabic Alphabet</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('Typing')">
+   <span class="learn-icon">⌨️</span><strong>Typing</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('ABC Mix')">
-  <span class="learn-icon">A B C</span>
-  <strong>ABC Mix</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('অ আ ই')">
+   <span class="learn-icon">অ আ ই</span><strong>অ আ ই</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Picture Vocabulary')">
-  <span class="learn-icon">🖼️</span>
-  <strong>Picture Vocabulary</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('ক খ গ')">
+   <span class="learn-icon">ক খ গ</span><strong>ক খ গ</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Find the Meaning')">
-  <span class="learn-icon">🔎</span>
-  <strong>Find the Meaning</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('বাংলা স্বরচিহ্ন')">
+   <span class="learn-icon">া ি ৈ</span><strong>বাংলা স্বরচিহ্ন</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Drawing & Coloring')">
-  <span class="learn-icon">🎨</span>
-  <strong>Drawing & Coloring</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('বানান শিক্ষা')">
+   <span class="learn-icon">📝</span><strong>বানান শিক্ষা</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Name & Picture Match')">
-  <span class="learn-icon">🔗</span>
-  <strong>Name & Picture Match</strong>
-</button>
+  <!-- 9-13 MATH -->
 
-<button class="learn-btn" onclick="openSubject('Numbers')">
-  <span class="learn-icon">🔢</span>
-  <strong>Numbers</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('বাংলা সংখ্যা')">
+   <span class="learn-icon">১ ২ ৩</span><strong>বাংলা সংখ্যা</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Counting')">
-  <span class="learn-icon">🧮</span>
-  <strong>Counting</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('English Numbers')">
+   <span class="learn-icon">1 2 3</span><strong>English Numbers</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('12 Months')">
-  <span class="learn-icon">📅</span>
-  <strong>12 Months</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('নামতা')">
+   <span class="learn-icon">✖️</span><strong>নামতা</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('7 Days')">
-  <span class="learn-icon">📆</span>
-  <strong>7 Days</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('যোগ বিয়োগ')">
+   <span class="learn-icon">➕➖</span><strong>যোগ-বিয়োগ</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Rhymes')">
-  <span class="learn-icon">🎵</span>
-  <strong>Rhymes</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('Calculator')">
+   <span class="learn-icon">🧮</span><strong>Calculator</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Seasons')">
-  <span class="learn-icon">🌦️</span>
-  <strong>Seasons</strong>
-</button>
+  <!-- 14-18 TIME -->
 
-<button class="learn-btn" onclick="openSubject('Animals')">
-  <span class="learn-icon">🐘</span>
-  <strong>Animals</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('৭ দিনের নাম')">
+   <span class="learn-icon">📅</span><strong>৭ দিনের নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Birds')">
-  <span class="learn-icon">🐦</span>
-  <strong>Birds</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('ঋতুর নাম')">
+   <span class="learn-icon">🌦️</span><strong>ঋতুর নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Fruits')">
-  <span class="learn-icon">🍎</span>
-  <strong>Fruits</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('বাংলা ১২ মাস')">
+   <span class="learn-icon">🗓️</span><strong>১২ মাস – বাংলা</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Vegetables & Greens')">
-  <span class="learn-icon">🥦</span>
-  <strong>Vegetables & Greens</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('English 12 Months')">
+   <span class="learn-icon">📆</span><strong>১২ মাস – English</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Trees')">
-  <span class="learn-icon">🌳</span>
-  <strong>Trees</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('Arabic 12 Months')">
+   <span class="learn-icon">🌙</span><strong>১২ মাস – Arabic</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Flowers')">
-  <span class="learn-icon">🌺</span>
-  <strong>Flowers</strong>
-</button>
+  <!-- 19-21 PEOPLE -->
 
-<button class="learn-btn" onclick="openSubject('Medicinal Plants')">
-  <span class="learn-icon">🌿</span>
-  <strong>Medicinal Plants</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('মানব দেহ')">
+   <span class="learn-icon">🧍</span><strong>মানব দেহের নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Crops')">
-  <span class="learn-icon">🌾</span>
-  <strong>Crops</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('সম্পর্কের নাম')">
+   <span class="learn-icon">👨‍👩‍👧</span><strong>সম্পর্কের নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Vehicles')">
-  <span class="learn-icon">🚗</span>
-  <strong>Vehicles</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('পেশার নাম')">
+   <span class="learn-icon">👩‍⚕️</span><strong>পেশার নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Body Parts')">
-  <span class="learn-icon">🧍</span>
-  <strong>Body Parts</strong>
-</button>
+  <!-- 22-28 ANIMALS & PLANTS -->
 
-<button class="learn-btn" onclick="openSubject('Colors & Shapes')">
-  <span class="learn-icon">🎨</span>
-  <strong>Colors & Shapes</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('ফলের নাম')">
+   <span class="learn-icon">🍎</span><strong>ফলের নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Time Learning')">
-  <span class="learn-icon">⏰</span>
-  <strong>Time Learning</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('ফুলের নাম')">
+   <span class="learn-icon">🌺</span><strong>ফুলের নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('World Around Us')">
-  <span class="learn-icon">🌍</span>
-  <strong>World Around Us</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('শাকসবজির নাম')">
+   <span class="learn-icon">🥦</span><strong>শাকসবজির নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Insects')">
-  <span class="learn-icon">🦋</span>
-  <strong>Insects</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('পশুর নাম')">
+   <span class="learn-icon">🐘</span><strong>পশুর নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Sea Animals')">
-  <span class="learn-icon">🐬</span>
-  <strong>Sea Animals</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('পাখির নাম')">
+   <span class="learn-icon">🐦</span><strong>পাখির নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Weather')">
-  <span class="learn-icon">☀️</span>
-  <strong>Weather</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('হিংস্র প্রাণী')">
+   <span class="learn-icon">🦁</span><strong>হিংস্র প্রাণীর নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Food & Drinks')">
-  <span class="learn-icon">🥛</span>
-  <strong>Food & Drinks</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('মাছের নাম')">
+   <span class="learn-icon">🐟</span><strong>মাছের নাম</strong>
+  </button>
 
-<button class="learn-btn" onclick="openSubject('Family & People')">
-  <span class="learn-icon">👨‍👩‍👧</span>
-  <strong>Family & People</strong>
-</button>
+  <!-- 29-34 DAILY LIFE -->
 
+  <button class="learn-btn" onclick="openSubject('যানবাহনের নাম')">
+   <span class="learn-icon">🚗</span><strong>যানবাহনের নাম</strong>
+  </button>
 
-<!-- 31-40 PLAY & LEARN GAMES -->
+  <button class="learn-btn" onclick="openSubject('রঙের নাম')">
+   <span class="learn-icon">🌈</span><strong>রঙের নাম</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Alphabet Race')">
-  <span class="learn-icon">🏁</span>
-  <strong>Alphabet Race</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('রং করি')">
+   <span class="learn-icon">🎨</span><strong>রং করি</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Number Hunt')">
-  <span class="learn-icon">🔢</span>
-  <strong>Number Hunt</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('ছবি আঁকি')">
+   <span class="learn-icon">🖌️</span><strong>ছবি আঁকি</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Memory Cards')">
-  <span class="learn-icon">🧠</span>
-  <strong>Memory Cards</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('আকার আকৃতি')">
+   <span class="learn-icon">🔺</span><strong>আকার-আকৃতি</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Picture Puzzle')">
-  <span class="learn-icon">🧩</span>
-  <strong>Picture Puzzle</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('আসবাবপত্র')">
+   <span class="learn-icon">🪑</span><strong>আসবাবপত্রের নাম</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Shadow Matching')">
-  <span class="learn-icon">🌑</span>
-  <strong>Shadow Matching</strong>
-</button>
+  <!-- 35-41 WORLD -->
 
-<button class="learn-btn game-btn" onclick="openSubject('Word Builder Challenge')">
-  <span class="learn-icon">🔠</span>
-  <strong>Word Builder Challenge</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('প্রাকৃতিক স্থান')">
+   <span class="learn-icon">🏞️</span><strong>প্রাকৃতিক স্থানের নাম</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Odd One Out')">
-  <span class="learn-icon">🧐</span>
-  <strong>Odd One Out</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('দিকনির্দেশনা')">
+   <span class="learn-icon">🧭</span><strong>দিকনির্দেশনা</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Listen & Choose')">
-  <span class="learn-icon">🎧</span>
-  <strong>Listen & Choose</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('জাতীয় বিষয়')">
+   <span class="learn-icon">🇧🇩</span><strong>জাতীয় বিষয়</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Quick Quiz')">
-  <span class="learn-icon">🏆</span>
-  <strong>Quick Quiz</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('মহাসাগর')">
+   <span class="learn-icon">🌊</span><strong>মহাসাগর</strong>
+  </button>
 
-<button class="learn-btn game-btn" onclick="openSubject('Sorting Game')">
-  <span class="learn-icon">🗂️</span>
-  <strong>Sorting Game</strong>
-</button>
+  <button class="learn-btn" onclick="openSubject('মহাদেশ')">
+   <span class="learn-icon">🌍</span><strong>মহাদেশ</strong>
+  </button>
 
-<!-- 1. ALPHABET LEARNING -->
+  <button class="learn-btn" onclick="openSubject('দেশের নাম')">
+   <span class="learn-icon">🌐</span><strong>দেশের নাম</strong>
+  </button>
 
-<button class="basic-icon alphabet-icon"
-onclick="openSubject('Alphabet Learning')">
+  <button class="learn-btn" onclick="openSubject('বিশ্বের টুকিটাকি')">
+   <span class="learn-icon">🌏</span><strong>বিশ্বের টুকিটাকি</strong>
+  </button>
 
-  <span class="letters">ABC</span>
-  <strong>Alphabet</strong>
+  <!-- 42-46 KNOWLEDGE & FUN -->
 
-</button>
+  <button class="learn-btn" onclick="openSubject('শিক্ষণীয় প্রশ্ন')">
+   <span class="learn-icon">❓</span><strong>শিক্ষণীয় প্রশ্ন</strong>
+  </button>
 
+  <button class="learn-btn" onclick="openSubject('শিক্ষণীয় গল্প')">
+   <span class="learn-icon">📚</span><strong>শিক্ষণীয় গল্প</strong>
+  </button>
 
-<!-- 2. BANGLA ALPHABET -->
+  <button class="learn-btn" onclick="openSubject('বাংলা ছড়া')">
+   <span class="learn-icon">🎵</span><strong>মজার ছড়া বাংলা</strong>
+  </button>
 
-<button class="basic-icon bangla-icon"
-onclick="openSubject('বাংলা বর্ণমালা')">
+  <button class="learn-btn" onclick="openSubject('English Rhymes')">
+   <span class="learn-icon">🎶</span><strong>মজার ছড়া ইংরেজি</strong>
+  </button>
 
-  <span class="letters">অ আ ক</span>
-  <strong>বাংলা বর্ণমালা</strong>
+  <button class="learn-btn" onclick="openSubject('Computer Technology')">
+   <span class="learn-icon">💻</span><strong>কম্পিউটার টেকনোলজি</strong>
+  </button>
 
-</button>
+ </div>
 
-<!-- 3. NUMBERS -->
-
-<button class="basic-icon number-icon"
-onclick="openSubject('Numbers')">
-
-  <span class="letters">123</span>
-  <strong>Numbers</strong>
-
-</button>
-
-    <button class="category c1"
-      onclick="openSubject('Science')">
-      <span>🧪</span>
-      <strong>Science</strong>
-    </button>
-
-    <button class="category c2"
-      onclick="openSubject('Technology')">
-      <span>💻</span>
-      <strong>Technology</strong>
-    </button>
-
-    <button class="category c3"
-      onclick="openSubject('Mathematics')">
-      <span>➕</span>
-      <strong>Mathematics</strong>
-    </button>
-
-    <button class="category c4"
-      onclick="openSubject('English')">
-      <span>📖</span>
-      <strong>English</strong>
-    </button>
-
-    <button class="category c5"
-      onclick="openSubject('Fun Games')">
-      <span>🎮</span>
-      <strong>Fun Games</strong>
-    </button>
-
-  </div>
-
-  <div class="category-footer">
-    LEARN • EXPLORE • DISCOVER • CREATE
-  </div>
+ <div class="category-footer">
+  LEARN • EXPLORE • DISCOVER • CREATE
+ </div>
 
 </section>
 
-<div id="message"
-style="display:none;position:fixed;bottom:20px;left:50%;
-transform:translateX(-50%);background:#08418d;color:white;
-padding:12px 18px;border-radius:25px;z-index:50;
-text-align:center;max-width:90%;font-size:13px;">
-</div>
+<div id="message"></div>
 
 <script>
 
-function openCategories() {
-  document.getElementById("homeScreen").classList.remove("active");
-  document.getElementById("categoryScreen").classList.add("active");
+/* SCREEN CONTROL */
+
+function openCategories(){
+ document.getElementById("homeScreen").classList.remove("active");
+ document.getElementById("categoryScreen").classList.add("active");
 }
 
-function goHome() {
-  document.getElementById("categoryScreen").classList.remove("active");
-  document.getElementById("homeScreen").classList.add("active");
+function goHome(){
+ document.getElementById("categoryScreen").classList.remove("active");
+ document.getElementById("homeScreen").classList.add("active");
 }
 
-function showMessage(text) {
-  const box = document.getElementById("message");
-  box.textContent = text;
-  box.style.display = "block";
+/* MESSAGE */
 
-  clearTimeout(window.messageTimer);
+let messageTimer;
 
-  window.messageTimer = setTimeout(() => {
-    box.style.display = "none";
-  },2200);
+function showMessage(text){
+ const box=document.getElementById("message");
+ box.textContent=text;
+ box.style.display="block";
+
+ clearTimeout(messageTimer);
+
+ messageTimer=setTimeout(()=>{
+  box.style.display="none";
+ },2500);
 }
 
+/* CATEGORY FILE CONNECTION */
 
-function openSubject(name) {
+function openSubject(name){
 
-  const pages = {
+ const pages={
 
-    // 1-10: Basic Learning
-    "Arabic Alphabet": "arabic.html",
-    "ABC Mix": "alphabet.html",
-    "Alphabet Learning": "alphabet.html",
-    "বাংলা বর্ণমালা": "bangla-alphabet.html",
-    "Numbers": "numbers.html",
-    "Picture Vocabulary": "picture-vocabulary.html",
-    "Find the Meaning": "find-meaning.html",
-    "Drawing & Coloring": "drawing-coloring.html",
-    "12 Months": "12-months.html",
-    "7 Days": "7-days.html",
+  "Arabic Alphabet":"arabic.html",
+  "ABC Alphabet":"alphabet.html",
+  "ABC Mix":"alphabet-abc.html",
+  "Typing":"typing.html",
 
-    // 11-20: Learning Categories
-    "Name & Picture Match": "name-picture-match.html",
-    "Rhymes": "rhymes.html",
-    "Seasons": "seasons.html",
-    "Animals": "animals.html",
-    "Birds": "birds.html",
-    "Fruits": "fruits.html",
-    "Vegetables & Greens": "vegetables.html",
-    "Trees": "trees.html",
-    "Flowers": "flowers.html",
-    "Counting": "counting.html",
+  "অ আ ই":"bangla-swarabarna.html",
+  "ক খ গ":"bangla-byangjanbarna.html",
+  "বাংলা স্বরচিহ্ন":"bangla-kar.html",
+  "বানান শিক্ষা":"spelling.html",
 
-    // 21-30: More Learning
-    "Vehicles": "vehicles.html",
-    "Body Parts": "body-parts.html",
-    "Colors & Shapes": "colors-shapes.html",
-    "Time Learning": "time-learning.html",
-    "World Around Us": "world-around-us.html",
-    "Insects": "insects.html",
-    "Sea Animals": "sea-animals.html",
-    "Weather": "weather.html",
-    "Food & Drinks": "food-drinks.html",
-    "Family & People": "family-people.html",
+  "বাংলা সংখ্যা":"bangla-numbers.html",
+  "English Numbers":"english-numbers.html",
+  "নামতা":"namta.html",
+  "যোগ বিয়োগ":"addition-subtraction.html",
+  "Calculator":"calculator.html",
 
-    // 31-40: Play & Learn Games
-    "Alphabet Race": "alphabet-race.html",
-    "Number Hunt": "number-hunt.html",
-    "Memory Cards": "memory-cards.html",
-    "Picture Puzzle": "picture-puzzle.html",
-    "Shadow Matching": "shadow-matching.html",
-    "Word Builder Challenge": "word-builder.html",
-    "Odd One Out": "odd-one-out.html",
-    "Listen & Choose": "listen-choose.html",
-    "Quick Quiz": "quick-quiz.html",
-    "Sorting Game": "sorting-game.html",
+  "৭ দিনের নাম":"7-days.html",
+  "ঋতুর নাম":"seasons.html",
+  "বাংলা ১২ মাস":"bangla-12-months.html",
+  "English 12 Months":"english-12-months.html",
+  "Arabic 12 Months":"arabic-12-months.html",
 
-    // 41-48: Additional Learning
-    "Medicinal Plants": "medicinal-plants.html",
-    "Crops": "crops.html",
-    "Science": "science.html",
-    "Technology": "technology.html",
-    "Mathematics": "mathematics.html",
-    "English": "english.html",
-    "Fun Games": "fun-games.html"
+  "মানব দেহ":"human-body.html",
+  "সম্পর্কের নাম":"relationships.html",
+  "পেশার নাম":"professions.html",
 
-  };
-if (name === "Find the Meaning") {
-  window.location.href = "find-meaning.html";
-  return;
-}
-  if (name === "Drawing & Picture") {
-  window.location.href = "drawing-coloring.html";
-  return;
-}
-  const page = pages[name];
+  "ফলের নাম":"fruits.html",
+  "ফুলের নাম":"flowers.html",
+  "শাকসবজির নাম":"vegetables.html",
+  "পশুর নাম":"animals.html",
+  "পাখির নাম":"birds.html",
+  "হিংস্র প্রাণী":"wild-animals.html",
+  "মাছের নাম":"fish.html",
 
-  if (page) {
-    window.location.href = page;
-  } else {
-    showMessage(name + " section coming soon!");
-  }
+  "যানবাহনের নাম":"vehicles.html",
+  "রঙের নাম":"colors.html",
+  "রং করি":"drawing-coloring.html",
+  "ছবি আঁকি":"free-drawing.html",
+  "আকার আকৃতি":"shapes.html",
+  "আসবাবপত্র":"furniture.html",
 
+  "প্রাকৃতিক স্থান":"natural-places.html",
+  "দিকনির্দেশনা":"directions.html",
+  "জাতীয় বিষয়":"national-topics.html",
+  "মহাসাগর":"oceans.html",
+  "মহাদেশ":"continents.html",
+  "দেশের নাম":"countries.html",
+  "বিশ্বের টুকিটাকি":"world-facts.html",
+
+  "শিক্ষণীয় প্রশ্ন":"educational-quiz.html",
+  "শিক্ষণীয় গল্প":"stories.html",
+  "বাংলা ছড়া":"bangla-rhymes.html",
+  "English Rhymes":"english-rhymes.html",
+  "Computer Technology":"computer-technology.html"
+
+ };
+
+ const page=pages[name];
+
+ if(page){
+  window.location.href=page;
+ }else{
+  showMessage(name+" – Coming Soon!");
+ }
 }
 
-// SHARED APP SYSTEM
+/* LANGUAGE */
 
-function saveGlobalLanguage(language) {
-  localStorage.setItem("slk_language", language);
+function saveGlobalLanguage(language){
+ try{
+  localStorage.setItem("slk_language",language);
+ }catch(e){}
 }
 
-function loadGlobalData() {
+/* LOAD SAVED DATA */
 
-  const savedStars =
-    localStorage.getItem("slk_stars") || "0";
+function loadGlobalData(){
 
-  document.querySelectorAll("#globalStars").forEach(el => {
-    el.textContent = savedStars;
-  });
+ let stars="0";
+ let language="en";
 
-  const language =
-    localStorage.getItem("slk_language") || "en";
+ try{
+  stars=localStorage.getItem("slk_stars")||"0";
+  language=localStorage.getItem("slk_language")||"en";
+ }catch(e){}
 
-  const selector = document.getElementById("globalLanguage");
+ document.getElementById("globalStars").textContent=stars;
+ document.getElementById("categoryStars").textContent=stars;
 
-  if (selector) {
-    selector.value = language;
-  }
+ document.getElementById("globalLanguage").value=language;
 }
 
 loadGlobalData();
