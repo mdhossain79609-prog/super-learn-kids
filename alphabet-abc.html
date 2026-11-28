@@ -1,1 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#071b46">
+<title>SUPER LEARN KIDS - Alphabet</title>
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+ width:100%;height:100%;overflow:hidden;
+ font-family:Arial,"Noto Sans Bengali",sans-serif;
+ background:#071b46;color:#fff;
+}
+body{
+ height:100vh;height:100dvh;
+ background:
+ radial-gradient(circle at 15% 15%,#2455a5 0,transparent 32%),
+ radial-gradient(circle at 90% 85%,#522b99 0,transparent 34%),
+ linear-gradient(145deg,#06132f,#102c62 55%,#170e45);
+}
+.app{
+ width:100%;height:100%;
+ display:flex;flex-direction:column;
+ padding:5px 9px 8px;gap:7px;
+ overflow:hidden;
+}
+.brand{
+ flex:0 0 25px;
+ display:flex;align-items:center;justify-content:center;
+ font-weight:1000;font-size:clamp(13px,3.8vw,19px);
+ letter-spacing:2px;color:#fff;
+ text-shadow:0 2px 0 #243d85,0 4px 8px #000;
+}
+.brand span{color:#ffd84c;margin:0 4px}
+.monitor{
+ flex:0 0 35%;
+ min-height:130px;max-height:270px;
+ width:100%;position:relative;overflow:hidden;
+ border:7px solid #a9b5c9;border-radius:18px;
+ background:linear-gradient(145deg,#101827,#020713);
+ box-shadow:
+ inset 0 0 0 3px #4d5e7b,
+ inset 0 0 25px #000,
+ 0 7px 0 #52647f,0 12px 18px #0009;
+ display:flex;align-items:center;justify-content:center;
+}
+.screen{
+ width:100%;height:100%;padding:7px;
+ display:flex;align-items:center;justify-content:center;
+ gap:10px;position:relative;
+ background:
+ radial-gradient(circle at 50% 40%,#263b60 0,#111e39 55%,#070d1b 100%);
+}
+.big-letter{
+ flex:1;min-width:0;
+ display:flex;align-items:center;justify-content:center;
+ font-size:clamp(90px,25vw,190px);
+ line-height:1;font-weight:1000;
+ color:#ffe34e;
+ text-shadow:
+ 0 3px 0 #bd7d00,0 6px 0 #936000,
+ 0 10px 0 #583900,0 14px 15px #000;
+ overflow:hidden;
+}
+.picture-panel{
+ flex:1;min-width:0;height:100%;
+ display:none;flex-direction:column;
+ align-items:center;justify-content:center;
+ text-align:center;gap:4px;
+ border-left:2px solid #647a9c;
+ padding:3px;
+}
+.picture-panel.show{display:flex}
+.picture{
+ font-size:clamp(42px,13vw,90px);
+ filter:drop-shadow(0 5px 3px #0008);
+ line-height:1.1;
+}
+.word{
+ font-size:clamp(12px,3.5vw,20px);
+ font-weight:900;color:#fff;
+ overflow-wrap:anywhere;
+}
+.line{
+ font-size:clamp(10px,2.7vw,14px);
+ color:#cdeaff;line-height:1.25;
+ overflow-wrap:anywhere;
+}
+.controls{
+ flex:0 0 auto;
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+ gap:6px;
+}
+.control{
+ min-width:0;height:clamp(43px,10vw,57px);
+ border:0;border-radius:12px;
+ color:#fff;font-weight:1000;
+ font-size:clamp(10px,2.8vw,14px);
+ text-shadow:0 2px 2px #0008;
+ box-shadow:inset 0 3px 1px #ffffff70,
+ inset 0 -4px 1px #0003,
+ 0 5px 0 #0005,0 7px 8px #0007;
+ cursor:pointer;
+}
+.control:active{transform:translateY(4px);box-shadow:inset 0 2px 4px #0005}
+.back{background:linear-gradient(#ff9d35,#e64b14)}
+.case{background:linear-gradient(#26d7ff,#0874c8)}
+.sound{background:linear-gradient(#44e58a,#078d54)}
+.sound.off{background:linear-gradient(#7e8b9e,#3e4a5d)}
+.picture-btn{background:linear-gradient(#ff71d1,#b52a9b)}
+.picture-btn.active{background:linear-gradient(#ffdf55,#ed8b00);color:#351b00}
+.language{background:linear-gradient(#a88bff,#5931c5)}
+.grid-wrap{
+ flex:1 1 auto;min-height:0;
+ width:100%;overflow:hidden;
+ border:3px solid #8f78ff;border-radius:15px;
+ background:linear-gradient(145deg,#47258e,#20135d);
+ box-shadow:inset 0 4px 12px #0006,0 5px 12px #0007;
+ padding:7px;
+}
+.letters{
+ width:100%;height:100%;
+ overflow-y:auto;overscroll-behavior:contain;
+ display:grid;
+ grid-template-columns:repeat(6,minmax(0,1fr));
+ grid-auto-rows:minmax(43px,auto);
+ align-content:start;gap:7px;
+ padding:2px 3px 12px;
+ scrollbar-width:thin;
+ scrollbar-color:#ffd34f #38216e;
+}
+.letter{
+ min-width:0;min-height:43px;
+ border:2px solid #9bdcff;border-radius:11px;
+ background:linear-gradient(145deg,#50caff,#0872d4);
+ color:#fff;font-size:clamp(19px,5.5vw,29px);
+ font-weight:1000;
+ text-shadow:0 2px 2px #00406e;
+ box-shadow:inset 0 3px 1px #ffffff8a,
+ inset 0 -3px 2px #003b8b66,
+ 0 4px 0 #06448b,0 6px 7px #0007;
+ cursor:pointer;
+ display:flex;align-items:center;justify-content:center;
+}
+.letter.selected{
+ background:linear-gradient(145deg,#fff27a,#ff9e18);
+ color:#7a2800;border-color:#fff;
+ text-shadow:0 1px #fff;
+ box-shadow:inset 0 3px 2px #fff,
+ 0 4px 0 #9d4300,0 0 12px #ffe85b;
+ transform:translateY(-2px);
+}
+.letters.rtl{direction:rtl}
+.popup{
+ position:fixed;inset:0;z-index:20;
+ background:#0009;display:none;
+ align-items:center;justify-content:center;padding:20px;
+}
+.popup.open{display:flex}
+.language-box{
+ width:min(420px,100%);
+ max-height:75%;
+ overflow:auto;
+ background:linear-gradient(145deg,#243e83,#17134f);
+ border:3px solid #9e8aff;border-radius:18px;
+ padding:14px;box-shadow:0 12px 35px #000b;
+}
+.language-title{
+ text-align:center;font-weight:1000;font-size:18px;
+ margin-bottom:12px;color:#ffe36b;
+}
+.language-list{
+ display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.lang-option{
+ padding:12px 7px;border:2px solid #8abfff;
+ border-radius:11px;background:linear-gradient(#4c9bff,#2054b8);
+ color:#fff;font-weight:900;font-size:14px;
+}
+.lang-option.current{background:linear-gradient(#ffe56c,#f18a14);color:#482100}
+.close{
+ width:100%;margin-top:12px;padding:11px;
+ border:0;border-radius:10px;
+ background:#e84b5c;color:#fff;font-weight:900;
+}
+@media(min-width:700px){
+ .app{max-width:900px;margin:auto;padding:8px 18px 12px;gap:10px}
+ .brand{flex-basis:32px}
+ .monitor{flex-basis:38%;max-height:340px}
+ .controls{gap:10px}
+ .control{height:58px;font-size:16px}
+ .letters{grid-template-columns:repeat(9,minmax(0,1fr));gap:10px}
+ .letter{min-height:55px;font-size:32px}
+}
+@media(max-height:600px){
+ .app{gap:5px;padding-top:3px;padding-bottom:4px}
+ .brand{flex-basis:20px;font-size:13px}
+ .monitor{flex-basis:31%;min-height:105px}
+ .control{height:39px}
+ .grid-wrap{padding:5px}
+ .letters{gap:5px;grid-auto-rows:minmax(36px,auto)}
+ .letter{min-height:36px}
+}
+  
+/* ===== NEW FULL COMPUTER DESIGN ===== */
+
+html,body{
+ width:100%;
+ height:100%;
+ overflow:hidden;
+}
+
+body{
+ background:
+ radial-gradient(circle at 15% 10%,#3267bd,transparent 35%),
+ linear-gradient(145deg,#06132e,#111d4d,#25104e);
+}
+
+.app{
+ width:100%;
+ height:100%;
+ height:100dvh;
+ max-width:none;
+ margin:0;
+ padding:5px 7px 7px;
+ gap:7px;
+ background:linear-gradient(145deg,#172c56,#08162f);
+ border:3px solid #607ba8;
+ border-radius:15px;
+ box-shadow:inset 0 0 15px #0009;
+}
+
+/* Computer monitor */
+.monitor{
+ flex:0 0 43%;
+ min-height:150px;
+ max-height:none;
+ border:9px solid #c1ccdc;
+ border-radius:22px;
+ background:linear-gradient(145deg,#d8e3f3,#687b9a);
+ box-shadow:
+ inset 0 0 0 3px #657c9e,
+ 0 6px 0 #485b79,
+ 0 10px 15px #0009;
+}
+
+.screen{
+ padding:8px;
+ gap:8px;
+ border-radius:10px;
+ background:
+ radial-gradient(circle at 50% 25%,#385b96,#13244c 65%,#081226);
+}
+
+/* Big 3D alphabet */
+.big-letter{
+ flex:0 0 36%;
+ font-size:clamp(95px,27vw,210px);
+ color:#ffe44d;
+ text-shadow:
+ 0 3px 0 #c58a00,
+ 0 7px 0 #946000,
+ 0 11px 0 #614000,
+ 0 16px 18px #000;
+}
+
+/* Bigger picture area */
+.picture-panel{
+ flex:1 1 64%;
+ min-width:0;
+ border-left:2px solid #829bc2;
+ gap:5px;
+ padding:5px;
+}
+
+.picture{
+ width:100%;
+ flex:1 1 auto;
+ min-height:0;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:clamp(75px,22vw,160px);
+ line-height:1;
+}
+
+.picture img{
+ width:100%;
+ height:100%;
+ max-width:230px;
+ max-height:190px;
+ object-fit:contain;
+ filter:drop-shadow(0 8px 8px #0009);
+}
+
+.word{
+ font-size:clamp(14px,4vw,23px);
+ font-weight:1000;
+ color:#ffe66d;
+ text-shadow:0 2px 4px #000;
+}
+
+.line{
+ font-size:clamp(11px,3vw,16px);
+ color:#fff;
+ font-weight:700;
+ line-height:1.3;
+}
+
+/* Five computer control buttons */
+.controls{
+ gap:5px;
+}
+
+.control{
+ height:clamp(43px,10vw,58px);
+ border-radius:13px;
+ font-size:clamp(9px,2.7vw,14px);
+ border:1px solid #ffffff80;
+}
+
+/* Alphabet keyboard */
+.grid-wrap{
+ flex:1 1 0;
+ min-height:0;
+ border:4px solid #a5b5dc;
+ border-radius:17px;
+ background:linear-gradient(145deg,#253f79,#161b50);
+ box-shadow:
+ inset 0 4px 12px #0008,
+ 0 5px 0 #0a1028,
+ 0 8px 12px #0008;
+ padding:7px;
+}
+
+.letters{
+ grid-template-columns:repeat(6,minmax(0,1fr));
+ grid-auto-rows:minmax(43px,1fr);
+ gap:7px;
+ padding:3px 3px 12px;
+}
+
+.letter{
+ min-height:43px;
+ border:2px solid #a9e7ff;
+ border-radius:12px;
+ background:linear-gradient(145deg,#65d7ff,#0870d5);
+ font-size:clamp(20px,5.5vw,31px);
+ box-shadow:
+ inset 0 3px 2px #ffffffa0,
+ inset 0 -4px 2px #00458d,
+ 0 4px 0 #06427f,
+ 0 6px 7px #0008;
+}
+
+.letter.selected{
+ background:linear-gradient(145deg,#fff58b,#ff9b16);
+ color:#642600;
+ border:2px solid #fff;
+ box-shadow:
+ inset 0 3px 2px #fff,
+ 0 4px 0 #a64d00,
+ 0 0 14px #ffe66b;
+}
+
+/* Language window */
+.language-box{
+ background:linear-gradient(145deg,#273e82,#15113e);
+ border:3px solid #b7a5ff;
+ box-shadow:0 12px 35px #000c;
+}
+
+/* Tablet and computer screens */
+@media(min-width:700px){
+ .app{
+  max-width:none;
+  padding:10px;
+  gap:10px;
+ }
+ .monitor{
+  flex-basis:48%;
+ }
+ .letters{
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  grid-auto-rows:minmax(48px,1fr);
+ }
+ .letter{font-size:34px}
+}
+
+@media(max-height:600px){
+ .app{gap:4px;padding:3px}
+ .brand{flex-basis:20px}
+ .monitor{flex-basis:37%;min-height:100px}
+ .control{height:38px}
+ .letters{
+  grid-auto-rows:minmax(34px,1fr);
+  gap:4px;
+ }
+ .letter{min-height:34px}
+}
+
+</style>
+</head>
+
+<body>
+<div class="app">
+ <header class="brand">SUPER <span>LEARN</span> KIDS</header>
+
+ <section class="monitor">
+  <div class="screen">
+   <div class="big-letter" id="bigLetter">A</div>
+   <div class="picture-panel" id="picturePanel">
+    <div class="picture" id="picture">🍎</div>
+    <div class="word" id="word">A for Apple</div>
+    <div class="line" id="line">Apples are tasty and sweet.</div>
+   </div>
+  </div>
+ </section>
+
+ <nav class="controls">
+  <button class="control back" id="backBtn">◀ Back</button>
+  <button class="control case" id="caseBtn">A / a</button>
+  <button class="control sound" id="soundBtn">🔊 Sound</button>
+  <button class="control picture-btn" id="pictureBtn">🖼 Picture</button>
+  <button class="control language" id="languageBtn">🌐 Language 10</button>
+ </nav>
+
+ <section class="grid-wrap">
+  <div class="letters" id="letters"></div>
+ </section>
+</div>
+
+<div class="popup" id="languagePopup">
+ <div class="language-box">
+  <div class="language-title">🌍 SELECT LANGUAGE</div>
+  <div class="language-list" id="languageList"></div>
+  <button class="close" id="closePopup">CLOSE</button>
+ </div>
+</div>
+
+<script>
+const languages = {
+ bn:{
+  name:"বাংলা",locale:"bn-BD",dir:"ltr",
+  letters:"অ আ ই ঈ উ ঊ ঋ এ ঐ ও ঔ ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ ত থ দ ধ ন প ফ ব ভ ম য র ল শ ষ স হ ড় ঢ় য়".split(" "),
+  examples:{
+   "অ":["🐟","অজগর","অজগর একটি বড় সাপ।"],
+   "আ":["🥭","আম","আম একটি মিষ্টি ফল।"],
+   "ই":["🦅","ঈগল","ঈগল আকাশে উড়ে।"],
+   "ক":["🍌","কলা","কলা একটি সুস্বাদু ফল।"],
+   "খ":["🐰","খরগোশ","খরগোশ লাফিয়ে চলে।"],
+   "গ":["🐄","গরু","গরু আমাদের দুধ দেয়।"],
+   "চ":["🌙","চাঁদ","চাঁদ রাতে আকাশে ওঠে।"],
+   "জ":["💧","জল","জল আমাদের জীবন।"],
+   "ট":["🦜","টিয়া","টিয়া একটি সুন্দর পাখি।"],
+   "ত":["🍉","তরমুজ","তরমুজে অনেক পানি।"],
+   "দ":["🐦","দোয়েল","দোয়েল আমাদের জাতীয় পাখি।"],
+   "ন":["👃","নাক","নাক দিয়ে আমরা শ্বাস নিই।"],
+   "প":["🍞","পাউরুটি","পাউরুটি একটি খাবার।"],
+   "ফ":["🌸","ফুল","ফুল দেখতে সুন্দর।"],
+   "ব":["🐅","বাঘ","বাঘ বনের প্রাণী।"],
+   "ম":["🐟","মাছ","মাছ পানিতে থাকে।"],
+   "র":["🚂","রেলগাড়ি","রেলগাড়ি লাইনে চলে।"],
+   "ল":["🍋","লেবু","লেবু টক স্বাদের।"],
+   "স":["☀️","সূর্য","সূর্য আমাদের আলো দেয়।"],
+   "হ":["🦆","হাঁস","হাঁস পানিতে সাঁতার কাটে।"]
+  }
+ },
+ en:{
+  name:"English",locale:"en-US",dir:"ltr",
+  letters:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+  examples:{
+   A:["🍎","A for Apple","Apples are tasty and sweet."],
+   B:["⚽","B for Ball","We can play with a ball."],
+   C:["🐱","C for Cat","A cat says meow."],
+   D:["🐶","D for Dog","A dog is a friendly animal."],
+   E:["🐘","E for Elephant","An elephant is big and strong."],
+   F:["🐟","F for Fish","Fish can swim in water."],
+   G:["🍇","G for Grapes","Grapes grow in bunches."],
+   H:["🏠","H for House","A house is where we live."],
+   I:["🍦","I for Ice cream","Ice cream is cold and sweet."],
+   J:["🧃","J for Juice","Juice is a tasty drink."],
+   K:["🪁","K for Kite","A kite flies in the sky."],
+   L:["🦁","L for Lion","A lion is a wild animal."],
+   M:["🥭","M for Mango","Mango is a delicious fruit."],
+   N:["🥜","N for Nut","A nut can be crunchy."],
+   O:["🍊","O for Orange","An orange is a juicy fruit."],
+   P:["🐼","P for Panda","A panda is black and white."],
+   Q:["👸","Q for Queen","A queen wears a crown."],
+   R:["🌈","R for Rainbow","A rainbow has many colours."],
+   S:["☀️","S for Sun","The sun gives us light."],
+   T:["🐯","T for Tiger","A tiger has stripes."],
+   U:["☂️","U for Umbrella","An umbrella keeps us dry."],
+   V:["🚐","V for Van","A van carries people."],
+   W:["🍉","W for Watermelon","Watermelon is juicy."],
+   X:["🩻","X for X-ray","An X-ray helps doctors."],
+   Y:["🪀","Y for Yo-yo","A yo-yo moves up and down."],
+   Z:["🦓","Z for Zebra","A zebra has stripes."]
+  }
+ },
+ hi:{
+  name:"हिन्दी",locale:"hi-IN",dir:"ltr",
+  letters:"अ आ इ ई उ ऊ ऋ ए ऐ ओ औ अं अः क ख ग घ ङ च छ ज झ ञ ट ठ ड ढ ण त थ द ध न प फ ब भ म य र ल व श ष स ह".split(" "),
+  examples:{
+   "अ":["अनार","अनार","अनार लाल फल है।"],
+   "आ":["🥭","आम","आम मीठा फल है।"],
+   "इ":["🧱","इमली","इमली खट्टी होती है।"],
+   "क":["कमल","कमल","कमल सुंदर फूल है।"],
+   "ख":["🐇","खरगोश","खरगोश तेज दौड़ता है।"],
+   "ग":["🐄","गाय","गाय दूध देती है।"],
+   "च":["🌙","चाँद","चाँद रात में चमकता है।"],
+   "ज":["💧","जल","जल जीवन है।"],
+   "ट":["🍅","टमाटर","टमाटर लाल होता है।"],
+   "त":["🍉","तरबूज","तरबूज मीठा होता है।"],
+   "न":["👃","नाक","नाक से हम साँस लेते हैं।"],
+   "प":["🦜","पपीहा","पक्षी आकाश में उड़ते हैं।"],
+   "फ":["🌸","फूल","फूल सुंदर होता है।"],
+   "ब":["🐐","बकरी","बकरी घास खाती है।"],
+   "म":["🐟","मछली","मछली पानी में रहती है।"]
+  }
+ },
+ ar:{
+  name:"العربية",locale:"ar-SA",dir:"rtl",
+  letters:"ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي".split(" "),
+  examples:{
+   "ا":["🐰","أرنب","الأرنب حيوان لطيف."],
+   "ب":["🦆","بطة","البطة تسبح في الماء."],
+   "ت":["🍎","تفاحة","التفاحة فاكهة لذيذة."],
+   "ث":["🦊","ثعلب","الثعلب حيوان ذكي."],
+   "ج":["🐪","جمل","الجمل يعيش في الصحراء."],
+   "ح":["🐎","حصان","الحصان يجري بسرعة."],
+   "خ":["🐑","خروف","الخروف حيوان أليف."],
+   "د":["🐻","دب","الدب حيوان قوي."],
+   "ر":["🌸","رمان","الرمان فاكهة جميلة."],
+   "س":["🐟","سمكة","السمكة تعيش في الماء."],
+   "ش":["☀️","شمس","الشمس تعطينا الضوء."],
+   "ع":["🍇","عنب","العنب فاكهة حلوة."],
+   "ف":["🐘","فيل","الفيل حيوان كبير."],
+   "ق":["🌙","قمر","القمر يظهر في الليل."],
+   "ك":["🐕","كلب","الكلب صديق الإنسان."],
+   "م":["🍌","موز","الموز فاكهة لذيذة."]
+  }
+ },
+ es:{
+  name:"Español",locale:"es-ES",dir:"ltr",
+  letters:"ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split(""),
+  examples:{
+   A:["🐝","A de Abeja","La abeja hace miel."],
+   B:["🚤","B de Barco","El barco navega en el agua."],
+   C:["🏠","C de Casa","La casa es nuestro hogar."],
+   D:["🦷","D de Diente","Los dientes nos ayudan a comer."],
+   E:["🐘","E de Elefante","El elefante es grande."],
+   F:["🌸","F de Flor","La flor es bonita."],
+   G:["🐱","G de Gato","El gato dice miau."],
+   H:["🍦","H de Helado","El helado es frío."],
+   I:["⛪","I de Iglesia","La iglesia es un edificio."],
+   J:["🦒","J de Jirafa","La jirafa tiene cuello largo."],
+   L:["🦁","L de León","El león es fuerte."],
+   M:["🍎","M de Manzana","La manzana es una fruta."],
+   N:["☁️","N de Nube","La nube está en el cielo."],
+   Ñ:["🧸","Ñ de Ñandú","El ñandú es un ave."],
+   O:["🐻","O de Oso","El oso es un animal."],
+   P:["🐟","P de Pez","El pez vive en el agua."],
+   S:["☀️","S de Sol","El sol nos da luz."],
+   T:["🐢","T de Tortuga","La tortuga camina despacio."]
+  }
+ },
+ fr:{
+  name:"Français",locale:"fr-FR",dir:"ltr",
+  letters:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+  examples:{
+   A:["🍍","A comme Ananas","L'ananas est un fruit."],
+   B:["⚽","B comme Ballon","Le ballon roule."],
+   C:["🐱","C comme Chat","Le chat aime jouer."],
+   D:["🐬","D comme Dauphin","Le dauphin nage."],
+   E:["🐘","E comme Éléphant","L'éléphant est grand."],
+   F:["🌸","F comme Fleur","La fleur est jolie."],
+   G:["🍰","G comme Gâteau","Le gâteau est délicieux."],
+   H:["🏠","H comme Maison","La maison est notre chez-nous."],
+   L:["🌙","L comme Lune","La lune brille la nuit."],
+   M:["🍎","M comme Pomme","La pomme est un fruit."],
+   O:["🐻","O comme Ours","L'ours est un animal."],
+   P:["🐟","P comme Poisson","Le poisson nage."],
+   R:["🌹","R comme Rose","La rose est une fleur."],
+   S:["☀️","S comme Soleil","Le soleil brille."],
+   T:["🐢","T comme Tortue","La tortue avance lentement."]
+  }
+ },
+ ur:{
+  name:"اردو",locale:"ur-PK",dir:"rtl",
+  letters:"ا ب پ ت ٹ ث ج چ ح خ د ڈ ذ ر ڑ ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ں و ہ ھ ء ی ے".split(" "),
+  examples:{
+   "ا":["🥭","آم","آم ایک میٹھا پھل ہے۔"],
+   "ب":["🦆","بطخ","بطخ پانی میں تیرتی ہے۔"],
+   "پ":["🪁","پتنگ","پتنگ آسمان میں اڑتی ہے۔"],
+   "ت":["🍎","تربوز","تربوز ایک پھل ہے۔"],
+   "ج":["🛩️","جہاز","جہاز آسمان میں اڑتا ہے۔"],
+   "چ":["🌙","چاند","چاند رات کو چمکتا ہے۔"],
+   "خ":["🐰","خرگوش","خرگوش اچھلتا ہے۔"],
+   "د":["🌳","درخت","درخت ہمیں سایہ دیتا ہے۔"],
+   "ر":["🌹","گلاب","گلاب ایک خوبصورت پھول ہے۔"],
+   "س":["🍎","سیب","سیب ایک مزیدار پھل ہے۔"],
+   "ش":["🦁","شیر","شیر جنگل کا جانور ہے۔"],
+   "ف":["🌸","پھول","پھول خوبصورت ہوتا ہے۔"],
+   "م":["🐟","مچھلی","مچھلی پانی میں رہتی ہے۔"]
+  }
+ },
+ zh:{
+  name:"中文",locale:"zh-CN",dir:"ltr",
+  letters:"b p m f d t n l g k h j q x zh ch sh r z c s y w".split(" "),
+  examples:{
+   b:["🍌","b — 香蕉","香蕉是一种水果。"],
+   p:["🐼","p — 熊猫","熊猫很可爱。"],
+   m:["🐱","m — 猫","猫会喵喵叫。"],
+   f:["✈️","f — 飞机","飞机在天空飞。"],
+   d:["🐘","d — 大象","大象很大。"],
+   n:["🐦","n — 鸟","鸟会飞。"],
+   l:["🌙","l — 月亮","月亮在夜空中。"],
+   g:["🐶","g — 狗","狗是人类的朋友。"],
+   h:["🌸","h — 花","花很漂亮。"],
+   sh:["⛰️","sh — 山","山很高。"],
+   r:["☀️","r — 日","太阳给我们光。"],
+   y:["🐟","y — 鱼","鱼在水里游。"]
+  }
+ },
+ ja:{
+  name:"日本語",locale:"ja-JP",dir:"ltr",
+  letters:"あ い う え お か き く け こ さ し す せ そ た ち つ て と な に ぬ ね の は ひ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん".split(" "),
+  examples:{
+   "あ":["🍎","あ — りんご","りんごはおいしい果物です。"],
+   "い":["🐶","い — いぬ","いぬは元気な動物です。"],
+   "う":["🐰","う — うさぎ","うさぎはぴょんぴょん跳ねます。"],
+   "か":["🐸","か — かえる","かえるは水辺にいます。"],
+   "く":["🐻","く — くま","くまは大きな動物です。"],
+   "さ":["🐟","さ — さかな","さかなは水の中を泳ぎます。"],
+   "す":["🍉","す — すいか","すいかは夏の果物です。"],
+   "た":["🐙","た — たこ","たこは海にいます。"],
+   "ね":["🐱","ね — ねこ","ねこはかわいいです。"],
+   "は":["🌸","は — はな","はなはきれいです。"],
+   "や":["🏔️","や — やま","やまは高いです。"],
+   "り":["🍎","り — りんご","りんごは赤いです。"]
+  }
+ },
+ de:{
+  name:"Deutsch",locale:"de-DE",dir:"ltr",
+  letters:"ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜẞ".split(""),
+  examples:{
+   A:["🍎","A wie Apfel","Der Apfel ist lecker."],
+   B:["🐻","B wie Bär","Der Bär ist groß."],
+   C:["🤡","C wie Clown","Der Clown macht Spaß."],
+   D:["🐬","D wie Delfin","Der Delfin schwimmt."],
+   E:["🐘","E wie Elefant","Der Elefant ist stark."],
+   F:["🐟","F wie Fisch","Der Fisch lebt im Wasser."],
+   G:["🦒","G wie Giraffe","Die Giraffe hat einen langen Hals."],
+   H:["🐕","H wie Hund","Der Hund ist ein Freund."],
+   K:["🐱","K wie Katze","Die Katze miaut."],
+   M:["🥛","M wie Milch","Milch ist ein Getränk."],
+   O:["🍊","O wie Orange","Die Orange ist eine Frucht."],
+   P:["🐧","P wie Pinguin","Der Pinguin kann schwimmen."],
+   S:["☀️","S wie Sonne","Die Sonne scheint."],
+   T:["🐯","T wie Tiger","Der Tiger hat Streifen."],
+   W:["🌳","W wie Wald","Im Wald wachsen Bäume."],
+   Ä:["🍎","Ä wie Äpfel","Ä ist ein besonderer Buchstabe."],
+   Ö:["🛢️","Ö — Öl","Ö ist ein besonderer Buchstabe."],
+   Ü:["🧙","Ü — Übung","Ü ist ein besonderer Buchstabe."],
+   ẞ:["📖","ẞ — Eszett","ẞ ist ein deutscher Buchstabe."]
+  }
+ }
+};
+
+const languageKeys=Object.keys(languages);
+let currentLanguage="en";
+let currentIndex=0;
+let pictureOn=false;
+let soundOn=true;
+let lowerCase=false;
+
+const bigLetter=document.getElementById("bigLetter");
+const lettersBox=document.getElementById("letters");
+const picturePanel=document.getElementById("picturePanel");
+const pictureEl=document.getElementById("picture");
+const wordEl=document.getElementById("word");
+const lineEl=document.getElementById("line");
+const soundBtn=document.getElementById("soundBtn");
+const pictureBtn=document.getElementById("pictureBtn");
+const popup=document.getElementById("languagePopup");
+
+function getData(){return languages[currentLanguage]}
+function currentChar(){return getData().letters[currentIndex]}
+
+function getExample(ch){
+ const data=getData();
+ const key=ch.toUpperCase();
+ const example=data.examples[key]||data.examples[ch]||null;
+ if(example)return example;
+ return ["🌟",ch, ch];
+}
+
+function render(){
+ const data=getData();
+ const ch=currentChar();
+ const shown=(lowerCase && /^[A-Z]$/.test(ch))?ch.toLowerCase():ch;
+
+ bigLetter.textContent=shown;
+ document.documentElement.lang=currentLanguage;
+ lettersBox.classList.toggle("rtl",data.dir==="rtl");
+
+ const ex=getExample(ch);
+ const emojiCode=Array.from(ex[0])
+ .map(ch=>ch.codePointAt(0).toString(16))
+ .filter(code=>code!=="fe0f")
+ .join("-");
+
+pictureEl.innerHTML=
+ `<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/${emojiCode}.svg"
+ alt="${ex[1]}"
+ onerror="this.style.display='none';this.parentElement.textContent='${ex[0]}'">`;
+
+wordEl.textContent=ex[1];
+ lineEl.textContent=ex[2];
+
+ picturePanel.classList.toggle("show",pictureOn);
+ pictureBtn.classList.toggle("active",pictureOn);
+ soundBtn.classList.toggle("off",!soundOn);
+ soundBtn.textContent=soundOn?"🔊 Sound ON":"🔇 Sound OFF";
+
+ lettersBox.innerHTML="";
+ data.letters.forEach((letter,index)=>{
+  const button=document.createElement("button");
+  button.className="letter"+(index===currentIndex?" selected":"");
+  button.type="button";
+  button.textContent=(lowerCase && /^[A-Z]$/.test(letter))?letter.toLowerCase():letter;
+  button.addEventListener("click",()=>{
+   currentIndex=index;
+   render();
+   if(soundOn)speakCurrent();
+  });
+  lettersBox.appendChild(button);
+ });
+ const selected=lettersBox.children[currentIndex];
+ if(selected)selected.scrollIntoView({block:"nearest",inline:"nearest"});
+}
+
+
+function speak(text){
+ if(!("speechSynthesis" in window)){
+  alert("এই ব্রাউজারে Text to Speech সুবিধা পাওয়া যাচ্ছে না।");
+  return;
+ }
+
+ const synth=window.speechSynthesis;
+ synth.cancel();
+
+ const utterance=new SpeechSynthesisUtterance(text);
+ utterance.lang=getData().locale;
+ utterance.rate=0.82;
+ utterance.pitch=1.08;
+ utterance.volume=1;
+
+ const voices=synth.getVoices();
+ const languageCode=getData().locale.toLowerCase();
+
+ const matchingVoice=voices.find(v=>
+  v.lang.toLowerCase()===languageCode
+ );
+
+ const similarVoice=voices.find(v=>
+  v.lang.toLowerCase().startsWith(languageCode.split("-")[0])
+ );
+
+ if(matchingVoice){
+  utterance.voice=matchingVoice;
+ }else if(similarVoice){
+  utterance.voice=similarVoice;
+ }
+
+ synth.resume();
+ synth.speak(utterance);
+}
+
+function speakCurrent(){
+ const ch=currentChar();
+ const ex=getExample(ch);
+
+ if(pictureOn){
+  speak(ch+". "+ex[1]+". "+ex[2]);
+ }else{
+  speak(ch);
+ }
+}
+
+
+document.getElementById("backBtn").addEventListener("click",()=>{
+ currentIndex=(currentIndex-1+getData().letters.length)%getData().letters.length;
+ render();
+ if(soundOn)speakCurrent();
+});
+
+document.getElementById("caseBtn").addEventListener("click",()=>{
+ lowerCase=!lowerCase;
+ render();
+});
+
+soundBtn.addEventListener("click",()=>{
+ soundOn=true;
+ render();
+ speakCurrent();
+});
+
+pictureBtn.addEventListener("click",()=>{
+ pictureOn=!pictureOn;
+ render();
+ if(soundOn && pictureOn)speakCurrent();
+});
+
+document.getElementById("languageBtn").addEventListener("click",()=>{
+ popup.classList.add("open");
+});
+
+document.getElementById("closePopup").addEventListener("click",()=>{
+ popup.classList.remove("open");
+});
+
+popup.addEventListener("click",event=>{
+ if(event.target===popup)popup.classList.remove("open");
+});
+
+function buildLanguageButtons(){
+ const list=document.getElementById("languageList");
+ list.innerHTML="";
+ languageKeys.forEach(key=>{
+  const button=document.createElement("button");
+  button.className="lang-option"+(key===currentLanguage?" current":"");
+  button.textContent=languages[key].name;
+  button.addEventListener("click",()=>{
+   currentLanguage=key;
+   currentIndex=0;
+   lowerCase=false;
+   popup.classList.remove("open");
+   render();
+   if(soundOn)speakCurrent();
+  });
+  list.appendChild(button);
+ });
+}
+
+buildLanguageButtons();
+render();
+</script>
+</body>
+</html>
